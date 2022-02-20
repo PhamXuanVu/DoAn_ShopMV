@@ -135,12 +135,6 @@ public class NguoiDung implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	public String toString() {
-		return "NguoiDung [id=" + id + ", hoTenDem=" + hoTenDem + ", ten=" + ten + ", soDienThoai=" + soDienThoai
-				+ ", diaChi=" + diaChi + ", user=" + user + ", hoaDons=" + hoaDons + ", cuaHang=" + cuaHang + "]";
-	}
 	
 	
 

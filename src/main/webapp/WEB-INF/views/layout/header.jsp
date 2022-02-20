@@ -27,8 +27,7 @@ body {
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="nav justify-content-center">
 						<li class="nav-item"><a class="nav-link active"
-							aria-current="page" href="#">Đăng nhập</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Kẹo</a></li>
+							aria-current="page" href="${login}">Đăng nhập</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 							role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -68,6 +67,7 @@ body {
 									<li><a class="dropdown-item" href="${admin }">Trang
 											Admin</a></li>
 								</sec:authorize>
+								<li><a class="dropdown-item" href="">Cửa hàng của bạn </a></li>
 								<li><a class="dropdown-item"
 									href="${pageContext.request.contextPath}/perform_logout">Đăng
 										xuất</a></li>
@@ -78,8 +78,9 @@ body {
 							role="button" data-bs-toggle="dropdown" aria-expanded="false">
 								Danh mục sản phẩm </a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="${keo}">Kẹo</a></li>
-								<li><a class="dropdown-item" href="${socola }">Socola</a></li>
+								<c:forEach items="${danhMuc}" var="sp">
+									<li><a class="dropdown-item" href="">${sp.tenDanhMuc}</a></li>
+								</c:forEach>
 							</ul></li>
 
 						<li class="nav-item"><a class="nav-link" href="#">Giỏ
