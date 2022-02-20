@@ -17,6 +17,7 @@ body {
 <body>
 	<c:url var="homePageUrl" value="/" />
 	<c:url var="login" value="/user/login" />
+	<c:url var="admin" value="/admin/" />
 	<div>
 		<h1 style="text-align: center; color: red;">MTV-Shop</h1>
 	</div>
@@ -34,7 +35,8 @@ body {
 								Danh mục sản phẩm </a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<c:forEach items="${danhMuc}" var="sp">
-									<li><a class="dropdown-item" href="">${sp.tenDanhMuc}</a></li>
+									<li><a class="dropdown-item"
+										href="${pageContext.request.contextPath }/danhmuc/${sp.danhMucId}">${sp.tenDanhMuc}</a></li>
 								</c:forEach>
 							</ul></li>
 
@@ -68,7 +70,7 @@ body {
 											Admin</a></li>
 								</sec:authorize>
 								<sec:authorize
-									access="hasRole('ROLE_MEMBER') and isAuthenticated()">
+									access="hasRole('ROLE_MEMBER') and !hasRole('ROLE_ADMIN')">
 									<li><a class="dropdown-item" href="">Cửa hàng của bạn
 									</a></li>
 								</sec:authorize>
@@ -83,7 +85,8 @@ body {
 								Danh mục sản phẩm </a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<c:forEach items="${danhMuc}" var="sp">
-									<li><a class="dropdown-item" href="">${sp.tenDanhMuc}</a></li>
+									<li><a class="dropdown-item"
+										href="${pageContext.request.contextPath }/danhmuc/${sp.danhMucId}">${sp.tenDanhMuc}</a></li>
 								</c:forEach>
 							</ul></li>
 

@@ -23,14 +23,10 @@ public class MainController {
 	@Autowired
 	private SanPhamRepository sanPhamRepository;
 	
-	@Autowired
-	private DanhMucRepository danhMucRepository;
 	
 	@GetMapping("/")
 	public String hi(Model model) {
 		model.addAttribute("sanPham", sanPhamRepository.findAll());
-		model.addAttribute("danhMuc",danhMucRepository.findAll());
-		
 	    return "index";
 	}
 	

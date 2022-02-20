@@ -22,6 +22,9 @@ public class AdviceController {
 
     @Autowired
     private NguoiDungRepository nguoiDungRepository;
+    
+    @Autowired
+    private DanhMucRepository danhMucRepository;
 
     @ModelAttribute("nguoiDung")
     public NguoiDung getNguoiDungLogin() {
@@ -34,5 +37,9 @@ public class AdviceController {
         return nguoiDung;
     }
     
-
+    @ModelAttribute("danhMuc")
+    public List<DanhMuc> getDanhMucs() {
+    	List<DanhMuc> danhMucs = (List<DanhMuc>) danhMucRepository.findAll();
+    	return danhMucs;
+    }
 }

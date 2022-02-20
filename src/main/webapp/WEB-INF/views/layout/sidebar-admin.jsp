@@ -31,11 +31,11 @@
 					<div id="collapseOne" class="accordion-collapse collapse show"
 						aria-labelledby="headingOne" data-bs-parent="#accordionExample">
 						<div class="accordion-body">
-							<a
-								class="list-group-item list-group-item-action list-group-item-light p-3"
-								href="${keo}">Kẹo</a> <a
-								class="list-group-item list-group-item-action list-group-item-light p-3"
-								href="${socola}">Socola</a>
+							<c:forEach items="${danhMuc}" var="sp">
+								<a
+									class="list-group-item list-group-item-action list-group-item-light p-3"
+									href="${pageContext.request.contextPath }/danhmuc/san-pham-admin/${sp.danhMucId}">${sp.tenDanhMuc}</a>
+							</c:forEach>
 						</div>
 					</div>
 				</div>
