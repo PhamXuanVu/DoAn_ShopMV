@@ -1,9 +1,14 @@
 package com.www.entity;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -22,6 +27,9 @@ public class CuaHang {
 	
 	@OneToOne(mappedBy = "cuaHang")
     private NguoiDung nguoiDung;
+	
+	@OneToMany(mappedBy = "cuaHang", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<SanPham> sanPhams;
 
 	public int getCuaHangId() {
 		return cuaHangId;
@@ -47,26 +55,30 @@ public class CuaHang {
 		this.nguoiDung = nguoiDung;
 	}
 
-	public CuaHang(int cuaHangId, String tenCuaHang, NguoiDung nguoiDung) {
+	public Set<SanPham> getSanPhams() {
+		return sanPhams;
+	}
+
+	public void setSanPhams(Set<SanPham> sanPhams) {
+		this.sanPhams = sanPhams;
+	}
+
+	public CuaHang(int cuaHangId, String tenCuaHang, NguoiDung nguoiDung, Set<SanPham> sanPhams) {
 		super();
 		this.cuaHangId = cuaHangId;
 		this.tenCuaHang = tenCuaHang;
 		this.nguoiDung = nguoiDung;
+		this.sanPhams = sanPhams;
 	}
 
 	public CuaHang() {
 		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public String toString() {
-		return "CuaHang [cuaHangId=" + cuaHangId + ", tenCuaHang=" + tenCuaHang + ", nguoiDung=" + nguoiDung + "]";
 	}
 
 	public CuaHang(String tenCuaHang) {
 		this.tenCuaHang = tenCuaHang;
 	}
+	
 	
 	
 }

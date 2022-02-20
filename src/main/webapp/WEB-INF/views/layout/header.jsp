@@ -67,7 +67,11 @@ body {
 									<li><a class="dropdown-item" href="${admin }">Trang
 											Admin</a></li>
 								</sec:authorize>
-								<li><a class="dropdown-item" href="">Cửa hàng của bạn </a></li>
+								<sec:authorize
+									access="hasRole('ROLE_MEMBER') and isAuthenticated()">
+									<li><a class="dropdown-item" href="">Cửa hàng của bạn
+									</a></li>
+								</sec:authorize>
 								<li><a class="dropdown-item"
 									href="${pageContext.request.contextPath}/perform_logout">Đăng
 										xuất</a></li>
