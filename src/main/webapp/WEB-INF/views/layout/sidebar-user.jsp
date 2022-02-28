@@ -10,10 +10,15 @@
 </head>
 <body>
 	<c:url var="danhMucAd" value="/danhmuc/" />
+	<c:if test="${nguoiDung.cuaHang.tenCuaHang == null}">
+		Bạn chưa có cửa hàng
+		<a class="navbar-brand" href="${pageContext.request.contextPath }/user/form-tao-cua-hang/${nguoiDung.getId()}">Tạo cửa hàng ngay</a>
+	</c:if>
+	<c:if test="${nguoiDung.cuaHang.tenCuaHang != null}">
 		<div class="d-flex" id="wrapper">
 			<!-- Sidebar-->
 			<div class="border-end bg-white" id="sidebar-wrapper">
-				<div class="sidebar-heading border-bottom bg-light">Admin</div>
+				<div class="sidebar-heading border-bottom bg-light">${nguoiDung.cuaHang.tenCuaHang}</div>
 				<div class="list-group list-group-flush">
 					<a
 						class="list-group-item list-group-item-action list-group-item-light p-3"
@@ -49,6 +54,8 @@
 
 			</div>
 		</div>
+	</c:if>
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

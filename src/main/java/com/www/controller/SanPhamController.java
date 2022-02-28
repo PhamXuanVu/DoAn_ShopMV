@@ -43,8 +43,14 @@ public class SanPhamController {
 		return "/admin/danh-muc-san-pham";
 	}
 	
+	@GetMapping("/{id}")
+	public String getSanPhamsByDanhMuc(@PathVariable int id,Model model) {
+		model.addAttribute("danhMucSP",sanPhamRepository.getSanPhamByDanhMucId(id));
+		return "/danh-muc-san-pham";
+	}
+	
 	@RequestMapping(value="/san-pham-admin/{id}")
-	public String getSanPhamByDanhMuc(@PathVariable int id,Model model) {
+	public String getSanPhamBysDanhMucAdmin(@PathVariable int id,Model model) {
 		model.addAttribute("danhMucSPAdmin", sanPhamRepository.getSanPhamByDanhMucId(id));
 		model.addAttribute("danhMucId",id);
 		return "/admin/danh-sach-san-pham";

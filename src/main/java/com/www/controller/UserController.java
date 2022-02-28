@@ -14,12 +14,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.www.dto.NguoiDungDTO;
+import com.www.entity.CuaHang;
 import com.www.entity.NguoiDung;
 import com.www.entity.Role;
 import com.www.entity.User;
@@ -88,4 +90,23 @@ public class UserController {
         }
 
     }
+	@GetMapping("/cuahang/{id}")
+	public String getCuaHang(@PathVariable int id,Model model) {
+		model.addAttribute("userId",id);
+	    return "/user/cua-hang";
+	}
+	
+	@GetMapping("/form-tao-cua-hang/{id}")
+	public String createCuaHang(@PathVariable int id) {	
+	    return "/user/form-tao-cua-hang";
+	}
+	@PostMapping(value = "/form-tao-cua-hang/{id}", consumes = "application/x-www-form-urlencoded")
+    public RedirectView postCreateCuaHang(@PathVariable int id,@ModelAttribute("cuaHang") CuaHang cuaHang, BindingResult bindingResult, Model model, HttpServletRequest request) {
+        	NguoiDung nguoiDung = nguoiDungRepository.findById(id);
+        	CuaHang cuaHang2 = new CuaHang(cuaHang.getTenCuaHang());
+        	nguoiDung.setCuaHang(cuaHang2);
+        	nguoiDungRepository.save(nguoiDung);
+        	
+            return new RedirectView(request.getContextPath() + "/user/cuahang/" + id);
+        }
 }

@@ -15,6 +15,7 @@ body {
 </style>
 </head>
 <body>
+	<c:url var="cuaHang" value="/user/cuahang" />
 	<c:url var="homePageUrl" value="/" />
 	<c:url var="login" value="/user/login" />
 	<c:url var="admin" value="/admin/" />
@@ -71,14 +72,13 @@ body {
 								</sec:authorize>
 								<sec:authorize
 									access="hasRole('ROLE_MEMBER') and !hasRole('ROLE_ADMIN')">
-									<li><a class="dropdown-item" href="">Cửa hàng của bạn
+									<li><a class="dropdown-item" href="${pageContext.request.contextPath}/user/cuahang/${nguoiDung.getId()}">Cửa hàng của bạn
 									</a></li>
 								</sec:authorize>
 								<li><a class="dropdown-item"
 									href="${pageContext.request.contextPath}/perform_logout">Đăng
 										xuất</a></li>
 							</ul></li>
-						<li class="nav-item"><a class="nav-link" href="">Kẹo</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 							role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -90,8 +90,8 @@ body {
 								</c:forEach>
 							</ul></li>
 
-						<li class="nav-item"><a class="nav-link" href="#">Giỏ
-								hàng</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="${pageContext.request.contextPath}/gioHang">Giỏ hàng</a></li>
 					</ul>
 				</div>
 			</div>
