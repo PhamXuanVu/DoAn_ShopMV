@@ -46,16 +46,19 @@ public class SanPhamController {
 	@RequestMapping(value="/san-pham-admin/{id}")
 	public String getSanPhamByDanhMuc(@PathVariable int id,Model model) {
 		model.addAttribute("danhMucSPAdmin", sanPhamRepository.getSanPhamByDanhMucId(id));
+		model.addAttribute("danhMucId",id);
 		return "/admin/danh-sach-san-pham";
 	}
 	
-	@RequestMapping("/form-add-san-pham")
-	public String getFormAddSanPham() {
+	@RequestMapping("/form-add-san-pham/{id}")
+	public String getFormAddSanPham(@PathVariable int id,Model model) {
+		model.addAttribute("danhMucId",id);
+		model.addAttribute("getTenDanhMuc",danhMucRepository.findById(id).get());
 		return "/admin/form-add-san-pham";
 	}
 
-	@PostMapping(value = "/form-add-san-pham", consumes = "application/x-www-form-urlencoded")
-	public RedirectView postAddKeo(SanPhamDTO sanPhamDTO, Model model, HttpServletRequest request) {
+	@PostMapping(value = "/form-add-san-pham/{id}", consumes = "application/x-www-form-urlencoded")
+	public RedirectView postAddKeo(@PathVariable int id,SanPhamDTO sanPhamDTO, Model model, HttpServletRequest request) {
 
 		SanPham sanPham = new SanPham();
 		sanPham.setTenSanPham(sanPhamDTO.getTenSanPham());
@@ -65,11 +68,11 @@ public class SanPhamController {
 		sanPham.setSoLuong(sanPhamDTO.getSoLuong());
 		CuaHang cuaHang = cuaHangRepository.findById(1).get();
 		sanPham.setCuaHang(cuaHang);
-		DanhMuc danhMuc = danhMucRepository.findByTenDanhMuc(sanPhamDTO.getDanhMuc());
+		DanhMuc danhMuc = danhMucRepository.findById(id).get();
 		sanPham.setDanhMuc(danhMuc);
 		sanPhamRepository.save(sanPham);
 
-		return new RedirectView(request.getContextPath() + "/admin");
+		return new RedirectView(request.getContextPath() + "/danhmuc/san-pham-admin/" + id);
 
 	}
 }

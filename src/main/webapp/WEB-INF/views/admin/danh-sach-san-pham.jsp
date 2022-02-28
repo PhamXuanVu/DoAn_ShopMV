@@ -20,7 +20,7 @@
 			</div>
 			<div class="col-8">
 				<button type="button" class="btn btn-primary">
-					<a style="text-decoration: none" class="link-light" href="${pageContext.request.contextPath }/danhmuc/form-add-san-pham">Thêm sản phẩm</a>
+					<a style="text-decoration: none" class="link-light" href="${pageContext.request.contextPath }/danhmuc/form-add-san-pham/${danhMucId}">Thêm sản phẩm</a>
 				</button>
 				<table class="table" style="text-align: center;">
 					<thead>
@@ -32,6 +32,7 @@
 							<th scope="col">Số lượng</th>
 							<th scope="col">Mô tả</th>
 							<th scope="col"></th>
+							<th scope="col">${danhMucId} <br/></th>
 						</tr>
 					</thead>
 					<tbody>

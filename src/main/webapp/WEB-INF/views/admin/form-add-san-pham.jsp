@@ -25,19 +25,17 @@
 					</header>
 					<article class="card-body">
 						<form class="m-auto"
-							action="${pageContext.request.contextPath}/danhmuc/form-add-san-pham"
+							action="${pageContext.request.contextPath}/danhmuc/form-add-san-pham/${danhMucId}"
 							method="POST" enctype="application/x-www-form-urlencoded">
 
 							<div class="form-row">
+							<div class="col form-group">
+									
+									<label>Danh mục </label> <input name="tenSanPham"
+										type="text" disabled="disabled" class="form-control" placeholder="" value="${getTenDanhMuc.tenDanhMuc}">
+								</div>
 								<div class="col form-group">
-									<div class="input-group mb-3">
-										<select class="custom-select" id="danhMuc">
-											<option selected>Danh mục sản phẩm</option>
-											<c:forEach items="${danhMuc}" var="sp">
-												<option value="danhMuc">${sp.tenDanhMuc}</option>
-											</c:forEach>
-										</select>
-									</div>
+									
 									<label>Tên sản phẩm </label> <input name="tenSanPham"
 										type="text" class="form-control" placeholder="">
 								</div>
