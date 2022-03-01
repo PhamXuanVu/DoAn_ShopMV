@@ -22,33 +22,12 @@
 				<div class="list-group list-group-flush">
 					<a
 						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="${danhMucAd}">Danh mục sản phẩm</a>
-					<div class="accordion-item">
-						<h2 class="accordion-header" id="headingOne">
-							<button class="accordion-button" type="button"
-								data-bs-toggle="collapse" data-bs-target="#collapseOne"
-								aria-expanded="true" aria-controls="collapseOne">Sản
-								phẩm</button>
-						</h2>
-						<div id="collapseOne" class="accordion-collapse collapse show"
-							aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<c:forEach items="${danhMuc}" var="sp">
-									<a
-										class="list-group-item list-group-item-action list-group-item-light p-3"
-										href="${pageContext.request.contextPath }/danhmuc/san-pham-admin/${sp.danhMucId}">${sp.tenDanhMuc}</a>
-								</c:forEach>
-							</div>
-						</div>
-					</div>
-
+						href="${pageContext.request.contextPath }/user/sanphamcuahang/${nguoiDung.cuaHang.cuaHangId}">Sản phẩm</a>
 					<a
 						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="#!">Shortcuts</a> <a
+						href="#!">Hóa đơn</a> <a
 						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="${addKeo }">Overview</a> <a
-						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="#!">Events</a>
+						href="#!">Thống kê</a>
 
 				</div>
 

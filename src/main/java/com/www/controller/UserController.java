@@ -25,8 +25,10 @@ import com.www.entity.CuaHang;
 import com.www.entity.NguoiDung;
 import com.www.entity.Role;
 import com.www.entity.User;
+import com.www.repository.CuaHangRepository;
 import com.www.repository.NguoiDungRepository;
 import com.www.repository.RoleRepository;
+import com.www.repository.SanPhamRepository;
 import com.www.repository.UserRepository;
 
 @Controller
@@ -45,6 +47,12 @@ public class UserController {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private SanPhamRepository sanPhamRepository;
+	
+	@Autowired
+	private CuaHangRepository cuaHangRepository;
 	
 	@GetMapping("/login")
 	public String login() {	
@@ -109,4 +117,11 @@ public class UserController {
         	
             return new RedirectView(request.getContextPath() + "/user/cuahang/" + id);
         }
+	
+	@GetMapping("/sanphamcuahang/{id}")
+	public String getSanPhamsByCuaHang(@PathVariable int id,Model model) {
+		model.addAttribute("cuaHangId",id);
+		model.addAttribute("sanPhamCuaHang",sanPhamRepository.getSanPhamByCuaHangId(id));
+		return "/user/danh-sach-san-pham";
+	}
 }

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Admin</title>
+<title>Cửa hàng của tôi</title>
 </head>
 <body>
 	<c:url var="addSP" value="/danhmuc/form-add-san-pham" />
@@ -16,11 +16,11 @@
 		</div>
 		<div class="row">
 			<div class="col-4">
-				<jsp:include page="../layout/sidebar-admin.jsp" />
+				<jsp:include page="../layout/sidebar-user.jsp" />
 			</div>
 			<div class="col-8">
 				<button type="button" class="btn btn-primary">
-					<a style="text-decoration: none" class="link-light" href="${pageContext.request.contextPath }/danhmuc/form-add-san-pham/${danhMucId}">Thêm sản phẩm</a>
+					<a style="text-decoration: none" class="link-light" href="<%-- ${pageContext.request.contextPath }/danhmuc/form-add-san-pham/${danhMucId} --%>">Đăng sản phẩm</a>
 				</button>
 				<table class="table" style="text-align: center;">
 					<thead>
@@ -35,7 +35,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${danhMucSPAdmin}" var="sp">
+						<c:forEach items="${sanPhamCuaHang}" var="sp">
 							<tr>
 								<th>${sp.getSanPhamId()}</th>
 								<c:url var="image" value="${sp.hinhAnh}" />

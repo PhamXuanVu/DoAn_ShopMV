@@ -39,11 +39,11 @@
 
 					<a
 						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="#!">Shortcuts</a> <a
+						href="#!">Người dùng</a> <a
 						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="${addKeo }">Overview</a> <a
+						href="">Hóa đơn</a> <a
 						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="#!">Events</a>
+						href="#!">Thống kê</a>
 
 				</div>
 

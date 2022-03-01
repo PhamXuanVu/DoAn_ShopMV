@@ -81,4 +81,5 @@ public class SanPhamController {
 		return new RedirectView(request.getContextPath() + "/danhmuc/san-pham-admin/" + id);
 
 	}
+	
 }
