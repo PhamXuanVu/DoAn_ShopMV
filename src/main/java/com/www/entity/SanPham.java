@@ -147,13 +147,11 @@ public class SanPham {
         return utilClass.formatVND(this.getDonGia());
     }
 
-
-
 	@Override
 	public String toString() {
 		return "SanPham [sanPhamId=" + sanPhamId + ", tenSanPham=" + tenSanPham + ", donGia=" + donGia + ", soLuong="
 				+ soLuong + ", hinhAnh=" + hinhAnh + ", moTa=" + moTa + ", hoaDons=" + hoaDons + ", danhMuc=" + danhMuc
-				+ "]";
+				+ ", cuaHang=" + cuaHang + "]";
 	}
 	
 	

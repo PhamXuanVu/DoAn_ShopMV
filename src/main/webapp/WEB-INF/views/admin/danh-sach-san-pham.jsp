@@ -49,7 +49,7 @@
 									<div class="col">
 										<button type="button" class="btn btn-outline-warning">
 											<a style="text-decoration: none" class="link-warning"
-												href="<%-- ${pageContext.request.contextPath }/danhmuc/update/${sp.id } --%>">Sửa</a>
+												href="${pageContext.request.contextPath }/danhmuc/update/${sp.getSanPhamId() }">Sửa</a>
 										</button>
 									</div>
 									<div class="col">

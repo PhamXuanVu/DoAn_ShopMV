@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -45,6 +47,7 @@ public class SanPhamController {
 	
 	@GetMapping("/{id}")
 	public String getSanPhamsByDanhMuc(@PathVariable int id,Model model) {
+		model.addAttribute("danhMucId",id);
 		model.addAttribute("danhMucSP",sanPhamRepository.getSanPhamByDanhMucId(id));
 		return "/danh-muc-san-pham";
 	}
@@ -64,7 +67,7 @@ public class SanPhamController {
 	}
 
 	@PostMapping(value = "/form-add-san-pham/{id}", consumes = "application/x-www-form-urlencoded")
-	public RedirectView postAddKeo(@PathVariable int id,SanPhamDTO sanPhamDTO, Model model, HttpServletRequest request) {
+	public RedirectView postAddSanPham(@PathVariable int id,SanPhamDTO sanPhamDTO, Model model, HttpServletRequest request) {
 
 		SanPham sanPham = new SanPham();
 		sanPham.setTenSanPham(sanPhamDTO.getTenSanPham());
@@ -81,5 +84,29 @@ public class SanPhamController {
 		return new RedirectView(request.getContextPath() + "/danhmuc/san-pham-admin/" + id);
 
 	}
+	
+	@RequestMapping(value="/update/{id}")   
+	public String getUpdateSanPham(@PathVariable int id, Model model) {
+		SanPham sanPham = sanPhamRepository.findById(id).get();   
+		model.addAttribute("sanPhamId",id);
+		model.addAttribute("sanPham",sanPham);
+		return "admin/form-update-sanpham";
+	}
+	
+	@RequestMapping(value="/saveUpdate/{id}",method = RequestMethod.POST)    
+	public String saveUpdateSanPham(@PathVariable int id,@ModelAttribute("sanPham") SanPham sanPham){
+		SanPham sanPham1 = sanPhamRepository.findById(id).get();
+		sanPham1.setTenSanPham(sanPham.getTenSanPham());
+		sanPham1.setDonGia(sanPham.getDonGia());
+		sanPham1.setMoTa(sanPham.getMoTa());
+		sanPham1.setSoLuong(sanPham.getSoLuong());
+		sanPham1.setHinhAnh("/images/"+sanPham.getHinhAnh());
+		CuaHang cuaHang = cuaHangRepository.findById(1).get();
+		sanPham1.setCuaHang(cuaHang);
+		sanPhamRepository.save(sanPham1);
+		
+		return "redirect:/admin" ;
+	} 
+	
 	
 }
