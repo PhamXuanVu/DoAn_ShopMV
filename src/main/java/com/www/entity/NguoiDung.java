@@ -44,8 +44,8 @@ public class NguoiDung implements Serializable {
 	private String diaChi;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
+	@JoinColumn(name = "tai_khoan_id", nullable = false)
+	private TaiKhoan taiKhoan;
 
 	@OneToMany(mappedBy = "nguoiDung", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<HoaDon> hoaDons;
@@ -53,72 +53,10 @@ public class NguoiDung implements Serializable {
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cuaHangId", referencedColumnName = "cuaHangId")
 	private CuaHang cuaHang;
+	
+	
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getHoTenDem() {
-		return hoTenDem;
-	}
-
-	public void setHoTenDem(String hoTenDem) {
-		this.hoTenDem = hoTenDem;
-	}
-
-	public String getTen() {
-		return ten;
-	}
-
-	public void setTen(String ten) {
-		this.ten = ten;
-	}
-
-	public String getSoDienThoai() {
-		return soDienThoai;
-	}
-
-	public void setSoDienThoai(String soDienThoai) {
-		this.soDienThoai = soDienThoai;
-	}
-
-	public String getDiaChi() {
-		return diaChi;
-	}
-
-	public void setDiaChi(String diaChi) {
-		this.diaChi = diaChi;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Set<HoaDon> getHoaDons() {
-		return hoaDons;
-	}
-
-	public void setHoaDons(Set<HoaDon> hoaDons) {
-		this.hoaDons = hoaDons;
-	}
-
-	public CuaHang getCuaHang() {
-		return cuaHang;
-	}
-
-	public void setCuaHang(CuaHang cuaHang) {
-		this.cuaHang = cuaHang;
-	}
-
-	public NguoiDung(int id, String hoTenDem, String ten, String soDienThoai, String diaChi, User user,
+	public NguoiDung(int id, String hoTenDem, String ten, String soDienThoai, String diaChi, TaiKhoan taiKhoan,
 			Set<HoaDon> hoaDons, CuaHang cuaHang) {
 		super();
 		this.id = id;
@@ -126,10 +64,114 @@ public class NguoiDung implements Serializable {
 		this.ten = ten;
 		this.soDienThoai = soDienThoai;
 		this.diaChi = diaChi;
-		this.user = user;
+		this.taiKhoan = taiKhoan;
 		this.hoaDons = hoaDons;
 		this.cuaHang = cuaHang;
 	}
+
+
+
+	public int getId() {
+		return id;
+	}
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+
+	public String getHoTenDem() {
+		return hoTenDem;
+	}
+
+
+
+	public void setHoTenDem(String hoTenDem) {
+		this.hoTenDem = hoTenDem;
+	}
+
+
+
+	public String getTen() {
+		return ten;
+	}
+
+
+
+	public void setTen(String ten) {
+		this.ten = ten;
+	}
+
+
+
+	public String getSoDienThoai() {
+		return soDienThoai;
+	}
+
+
+
+	public void setSoDienThoai(String soDienThoai) {
+		this.soDienThoai = soDienThoai;
+	}
+
+
+
+	public String getDiaChi() {
+		return diaChi;
+	}
+
+
+
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
+	}
+
+
+
+	public TaiKhoan getTaiKhoan() {
+		return taiKhoan;
+	}
+
+
+
+	public void setTaiKhoan(TaiKhoan taiKhoan) {
+		this.taiKhoan = taiKhoan;
+	}
+
+
+
+	public Set<HoaDon> getHoaDons() {
+		return hoaDons;
+	}
+
+
+
+	public void setHoaDons(Set<HoaDon> hoaDons) {
+		this.hoaDons = hoaDons;
+	}
+
+
+
+	public CuaHang getCuaHang() {
+		return cuaHang;
+	}
+
+
+
+	public void setCuaHang(CuaHang cuaHang) {
+		this.cuaHang = cuaHang;
+	}
+
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
 
 	public NguoiDung() {
 		super();

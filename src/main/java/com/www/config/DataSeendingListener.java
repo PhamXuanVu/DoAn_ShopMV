@@ -27,52 +27,50 @@ public class DataSeendingListener implements ApplicationListener {
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
 
         /*create user admin and member*/
-        if (roleRepository.findByName("ROLE_ADMIN") == null) {
-            Role role = new Role();
-            role.setName("ROLE_ADMIN");
-            roleRepository.save(role);
+        if (roleRepository.findByTenVaiTro("ROLE_ADMIN") == null) {
+            VaiTro vaiTro = new VaiTro();
+            vaiTro.setTenVaiTro("ROLE_ADMIN");
+            roleRepository.save(vaiTro);
         }
 
-        if (roleRepository.findByName("ROLE_MEMBER") == null) {
-            Role role = new Role();
-            role.setName("ROLE_MEMBER");
-            roleRepository.save(role);
+        if (roleRepository.findByTenVaiTro("ROLE_MEMBER") == null) {
+            VaiTro vaiTro = new VaiTro();
+            vaiTro.setTenVaiTro("ROLE_MEMBER");
+            roleRepository.save(vaiTro);
         }
 
         if (userRepository.findByEmail("admin@gmail.com") == null) {
-            User user = new User();
-            user.setEmail("admin@gmail.com");
-            user.setPassword(passwordEncoder.encode("123456"));
-            Set<Role> roles = new HashSet<>();
-            roles.add(roleRepository.findByName("ROLE_ADMIN"));
-            roles.add(roleRepository.findByName("ROLE_MEMBER"));
-            user.setRoles(roles);
+            TaiKhoan taiKhoan = new TaiKhoan();
+            taiKhoan.setEmail("admin@gmail.com");
+            taiKhoan.setMatKhau(passwordEncoder.encode("123456"));
+            Set<VaiTro> vaiTros = new HashSet<>();
+            vaiTros.add(roleRepository.findByTenVaiTro("ROLE_ADMIN"));
+            vaiTros.add(roleRepository.findByTenVaiTro("ROLE_MEMBER"));
+            taiKhoan.setVaiTros(vaiTros);
 
             NguoiDung nguoiDung = new NguoiDung();
             nguoiDung.setHoTenDem("Pham Xuan");
             nguoiDung.setTen("Vu");
             nguoiDung.setSoDienThoai("0999999999");
-            nguoiDung.setDiaChi("12,Nguyễn Văn Bảo,P4,Gò Vấp,HCM");
-            CuaHang cuaHang = new CuaHang("ShopMV"); 
-            nguoiDung.setCuaHang(cuaHang);
-            nguoiDung.setUser(user);
+            nguoiDung.setDiaChi("12, Nguyễn Văn Bảo,P4,Gò Vấp,HCM");
+            nguoiDung.setTaiKhoan(taiKhoan);
 
             nguoiDungRepository.save(nguoiDung);
         }
         if (userRepository.findByEmail("quynhmai@gmail.com") == null) {
-            User user = new User();
-            user.setEmail("quynhmai@gmail.com");
-            user.setPassword(passwordEncoder.encode("123456"));
-            Set<Role> roles = new HashSet<>();
-            roles.add(roleRepository.findByName("ROLE_MEMBER"));
-            user.setRoles(roles);
+            TaiKhoan taiKhoan = new TaiKhoan();
+            taiKhoan.setEmail("quynhmai@gmail.com");
+            taiKhoan.setMatKhau(passwordEncoder.encode("123456"));
+            Set<VaiTro> vaiTros = new HashSet<>();
+            vaiTros.add(roleRepository.findByTenVaiTro("ROLE_MEMBER"));
+            taiKhoan.setVaiTros(vaiTros);
 
             NguoiDung nguoiDung = new NguoiDung();
             nguoiDung.setHoTenDem("Nguyen Thi Quynh");
             nguoiDung.setTen("Mai");
             nguoiDung.setSoDienThoai("0999999999");
             nguoiDung.setDiaChi("12, Nguyễn Văn Bảo,P4,Gò Vấp,HCM");
-            nguoiDung.setUser(user);
+            nguoiDung.setTaiKhoan(taiKhoan);
 
             nguoiDungRepository.save(nguoiDung);
         }

@@ -24,7 +24,7 @@ public class DanhMuc {
 	@Nationalized
 	private String tenDanhMuc;
 	
-	@OneToMany(mappedBy = "danhMuc", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "danhMuc", fetch = FetchType.EAGER)
     private List<SanPham> sanPhams;
 
 	public int getDanhMucId() {

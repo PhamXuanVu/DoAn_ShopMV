@@ -2,7 +2,7 @@ package com.www.controller;
 
 import com.www.entity.DanhMuc;
 import com.www.entity.NguoiDung;
-import com.www.entity.User;
+import com.www.entity.TaiKhoan;
 import com.www.repository.DanhMucRepository;
 import com.www.repository.NguoiDungRepository;
 import com.www.repository.UserRepository;
@@ -30,9 +30,9 @@ public class AdviceController {
     public NguoiDung getNguoiDungLogin() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        User user = userRepository.findByEmail(authentication.getName());
+        TaiKhoan taiKhoan = userRepository.findByEmail(authentication.getName());
 
-        NguoiDung nguoiDung = nguoiDungRepository.findByUser(user);
+        NguoiDung nguoiDung = nguoiDungRepository.findByTaiKhoan(taiKhoan);
 
         return nguoiDung;
     }

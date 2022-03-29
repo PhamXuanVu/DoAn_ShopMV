@@ -60,7 +60,7 @@ public class SanPhamController {
 	}
 	
 	@RequestMapping("/form-add-san-pham/{id}")
-	public String getFormAddSanPham(@PathVariable int id,Model model) {
+	public String getFormAddSanPhamAdmin(@PathVariable int id,Model model) {
 		model.addAttribute("danhMucId",id);
 		model.addAttribute("getTenDanhMuc",danhMucRepository.findById(id).get());
 		return "/admin/form-add-san-pham";
@@ -85,28 +85,34 @@ public class SanPhamController {
 
 	}
 	
-	@RequestMapping(value="/update/{id}")   
-	public String getUpdateSanPham(@PathVariable int id, Model model) {
-		SanPham sanPham = sanPhamRepository.findById(id).get();   
-		model.addAttribute("sanPhamId",id);
-		model.addAttribute("sanPham",sanPham);
-		return "admin/form-update-sanpham";
-	}
-	
-	@RequestMapping(value="/saveUpdate/{id}",method = RequestMethod.POST)    
-	public String saveUpdateSanPham(@PathVariable int id,@ModelAttribute("sanPham") SanPham sanPham){
+//	@RequestMapping(value="/update/{id}")   
+//	public String getUpdateSanPhamAdmin(@PathVariable int id, Model model) {
+//		SanPham sanPham = sanPhamRepository.findById(id).get();   
+//		model.addAttribute("sanPhamId",id);
+//		model.addAttribute("sanPham",sanPham);
+//		return "admin/form-update-sanpham";
+//	}
+//	
+//	@RequestMapping(value="/saveUpdate/{id}",method = RequestMethod.POST)    
+//	public String saveUpdateSanPhamAdmin(@PathVariable int id,@ModelAttribute("sanPham") SanPham sanPham){
+//		SanPham sanPham1 = sanPhamRepository.findById(id).get();
+//		sanPham1.setTenSanPham(sanPham.getTenSanPham());
+//		sanPham1.setDonGia(sanPham.getDonGia());
+//		sanPham1.setMoTa(sanPham.getMoTa());
+//		sanPham1.setSoLuong(sanPham.getSoLuong());
+//		sanPham1.setHinhAnh("/images/"+sanPham.getHinhAnh());
+//		CuaHang cuaHang = cuaHangRepository.findById(1).get();
+//		sanPham1.setCuaHang(cuaHang);
+//		sanPhamRepository.save(sanPham1);
+//		
+//		return "redirect:/admin" ;
+//	} 
+	@RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+	public String deleteSanPhamAdmin(@PathVariable int id) {
 		SanPham sanPham1 = sanPhamRepository.findById(id).get();
-		sanPham1.setTenSanPham(sanPham.getTenSanPham());
-		sanPham1.setDonGia(sanPham.getDonGia());
-		sanPham1.setMoTa(sanPham.getMoTa());
-		sanPham1.setSoLuong(sanPham.getSoLuong());
-		sanPham1.setHinhAnh("/images/"+sanPham.getHinhAnh());
-		CuaHang cuaHang = cuaHangRepository.findById(1).get();
-		sanPham1.setCuaHang(cuaHang);
-		sanPhamRepository.save(sanPham1);
-		
-		return "redirect:/admin" ;
-	} 
-	
+		sanPhamRepository.delete(sanPham1);
+//		sanPhamRepository.deleteById(id);
+		return "redirect:/admin";
+	}
 	
 }

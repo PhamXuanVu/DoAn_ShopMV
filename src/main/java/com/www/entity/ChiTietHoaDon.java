@@ -34,6 +34,11 @@ public class ChiTietHoaDon {
     @JoinColumn(name = "hoaDonId")
     private HoaDon hoaDon;
 	
+	@ManyToOne(cascade = CascadeType.ALL)
+    @MapsId("thanhToanId")
+    @JoinColumn(name = "thanhToanId")
+    private ThanhToan thanhToan;
+	
 	private int soLuong;
 	
 	

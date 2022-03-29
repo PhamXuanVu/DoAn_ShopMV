@@ -15,6 +15,7 @@
 	<div class="row">
 		<c:forEach items="${danhMucSP}" var="sp">
 			<div class="card" style="width: 200px; margin-left: 50px; margin-top: 50px; text-align: center;">
+			<p class="card-text" style="font-weight: 700;">${sp.getCuaHang().getTenCuaHang()}</p>
 				<c:url var="image" value="${sp.hinhAnh}" />
 				<img class="rounded" style="heigth: 250px"
 					src="${image}" alt="Card image cap">

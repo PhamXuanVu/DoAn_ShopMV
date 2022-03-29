@@ -1,15 +1,16 @@
 package com.www.repository;
 
-import com.www.entity.NguoiDung;
-import com.www.entity.User;
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.www.entity.NguoiDung;
+import com.www.entity.TaiKhoan;
 
 @Repository
 public interface NguoiDungRepository extends CrudRepository<NguoiDung, String> {
-    NguoiDung findByUser(User user);
+	NguoiDung findByTaiKhoan(TaiKhoan taiKhoan);
     List<NguoiDung> findByHoTenDem(String hoTenDem);
     List<NguoiDung> findAll();
     NguoiDung findById(int id);

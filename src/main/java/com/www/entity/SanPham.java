@@ -43,11 +43,11 @@ public class SanPham {
 	@OneToMany(mappedBy = "sanPham", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<ChiTietHoaDon> hoaDons;
 	
-	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "danhMucId")
     private DanhMuc danhMuc;
 	
-	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cuaHangId")
     private CuaHang cuaHang;
 

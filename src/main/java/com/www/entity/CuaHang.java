@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -25,11 +27,25 @@ public class CuaHang {
 	@Nationalized
 	private String tenCuaHang;
 	
-	@OneToOne(mappedBy = "cuaHang")
+	@Nationalized
+	private String diaChiLayHang;
+	
+	@Nationalized
+	private String email;
+	
+	@Nationalized
+	private String sdt;
+	
+	@OneToOne(mappedBy = "cuaHang", cascade = CascadeType.ALL)
     private NguoiDung nguoiDung;
 	
-	@OneToMany(mappedBy = "cuaHang", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "cuaHang", cascade = CascadeType.ALL)
     private Set<SanPham> sanPhams;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "donViVanChuyenId")
+    private DonViVanChuyen donViVanChuyen;
+	
 
 	public int getCuaHangId() {
 		return cuaHangId;
@@ -62,13 +78,30 @@ public class CuaHang {
 	public void setSanPhams(Set<SanPham> sanPhams) {
 		this.sanPhams = sanPhams;
 	}
+	
+	
+	public String getDiaChiLayHang() {
+		return diaChiLayHang;
+	}
 
-	public CuaHang(int cuaHangId, String tenCuaHang, NguoiDung nguoiDung, Set<SanPham> sanPhams) {
-		super();
-		this.cuaHangId = cuaHangId;
-		this.tenCuaHang = tenCuaHang;
-		this.nguoiDung = nguoiDung;
-		this.sanPhams = sanPhams;
+	public void setDiaChiLayHang(String diaChiLayHang) {
+		this.diaChiLayHang = diaChiLayHang;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getSdt() {
+		return sdt;
+	}
+
+	public void setSdt(String sdt) {
+		this.sdt = sdt;
 	}
 
 	public CuaHang() {
@@ -78,6 +111,28 @@ public class CuaHang {
 	public CuaHang(String tenCuaHang) {
 		this.tenCuaHang = tenCuaHang;
 	}
+
+	public CuaHang(int cuaHangId, String tenCuaHang, String diaChiLayHang, String email, String sdt,
+			NguoiDung nguoiDung, Set<SanPham> sanPhams, DonViVanChuyen donViVanChuyen) {
+		super();
+		this.cuaHangId = cuaHangId;
+		this.tenCuaHang = tenCuaHang;
+		this.diaChiLayHang = diaChiLayHang;
+		this.email = email;
+		this.sdt = sdt;
+		this.nguoiDung = nguoiDung;
+		this.sanPhams = sanPhams;
+		this.donViVanChuyen = donViVanChuyen;
+	}
+
+	public CuaHang(String tenCuaHang, String diaChiLayHang, String email, String sdt) {
+		this.tenCuaHang = tenCuaHang;
+		this.diaChiLayHang = diaChiLayHang;
+		this.email = email;
+		this.sdt = sdt;
+	}
+
+	
 	
 	
 	

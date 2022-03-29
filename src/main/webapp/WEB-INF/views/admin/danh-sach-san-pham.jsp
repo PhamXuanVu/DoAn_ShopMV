@@ -22,6 +22,8 @@
 				<button type="button" class="btn btn-primary">
 					<a style="text-decoration: none" class="link-light" href="${pageContext.request.contextPath }/danhmuc/form-add-san-pham/${danhMucId}">Thêm sản phẩm</a>
 				</button>
+				<input name="danhMucId" type="hidden" class="form-control"
+										value="${danhMucId}">
 				<table class="table" style="text-align: center;">
 					<thead>
 						<tr>
@@ -55,7 +57,7 @@
 									<div class="col">
 										<button type="button" class="btn btn-outline-danger">
 											<a style="text-decoration: none" class="link-danger"
-												href="<%-- ${pageContext.request.contextPath }/danhmuc/deleteKeo/${sp.id } --%>"
+												href="${pageContext.request.contextPath }/danhmuc/delete/${sp.getSanPhamId()}"
 												onclick="return confirm('Bạn có muốn xóa?')">Xóa</a>
 										</button>
 									</div>

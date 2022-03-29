@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class NguoiDungDTO {
 	
-	@NotEmpty(message = "Họ tên đệm không được để trống")
+	@NotEmpty(message = "H�? tên đệm không được để trống")
 	private String hoTenDem;
 	
 	@NotNull(message = "Tên không được để trống")
@@ -23,7 +23,7 @@ public class NguoiDungDTO {
 	@Email(message = "Email không đúng định dạng")
     private String email;
 	
-	@NotNull(message = "Địa không được để trống")
+	@NotNull(message = "�?ịa không được để trống")
     private String diaChi;
 	
 	@NotEmpty(message = "Mật khẩu không được để trống")

@@ -1,12 +1,12 @@
 package com.www.repository;
 
 
-import com.www.entity.User;
+import com.www.entity.TaiKhoan;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Integer> {
-    User findByEmail(String email);
+public interface UserRepository extends CrudRepository<TaiKhoan, Integer> {
+    TaiKhoan findByEmail(String email);
     
 }

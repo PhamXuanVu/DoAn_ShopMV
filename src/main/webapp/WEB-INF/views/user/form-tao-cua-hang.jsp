@@ -27,7 +27,19 @@
 							method="POST">
 							<div class="form-group">
 								<label>Tên cửa hàng</label> <input name="tenCuaHang"
-									class="form-control" type="text">
+									class="form-control" type="text" >
+							</div>
+							<div class="form-group">
+								<label>Địa chỉ lấy hàng</label> <input name="diaChiLayHang"
+									class="form-control" type="text" >
+							</div>
+							<div class="form-group">
+								<label>Email</label> <input name="email"
+									class="form-control" type="text"  disabled="disabled" value="${nguoiDung.taiKhoan.email }">
+							</div>
+							<div class="form-group">
+								<label>Số điện thoại</label> <input name="sdt"
+									class="form-control" disabled="disabled" type="text" value="${nguoiDung.soDienThoai }">
 							</div>
 							<div class="form-group">
 								<button type="submit" class="btn btn-primary btn-block">

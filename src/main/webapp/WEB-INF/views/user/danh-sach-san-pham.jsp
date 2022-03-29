@@ -20,7 +20,7 @@
 			</div>
 			<div class="col-8">
 				<button type="button" class="btn btn-primary">
-					<a style="text-decoration: none" class="link-light" href="<%-- ${pageContext.request.contextPath }/danhmuc/form-add-san-pham/${danhMucId} --%>">Đăng sản phẩm</a>
+					<a style="text-decoration: none" class="link-light" href="${pageContext.request.contextPath }/user/form-add-san-pham/${nguoiDung.getId()}">Đăng sản phẩm</a>
 				</button>
 				<table class="table" style="text-align: center;">
 					<thead>
@@ -49,13 +49,13 @@
 									<div class="col">
 										<button type="button" class="btn btn-outline-warning">
 											<a style="text-decoration: none" class="link-warning"
-												href="<%-- ${pageContext.request.contextPath }/danhmuc/update/${sp.id } --%>">Sửa</a>
+												href="${pageContext.request.contextPath }/user/form-update-san-pham/${sp.sanPhamId }">Sửa</a>
 										</button>
 									</div>
 									<div class="col">
 										<button type="button" class="btn btn-outline-danger">
 											<a style="text-decoration: none" class="link-danger"
-												href="<%-- ${pageContext.request.contextPath }/danhmuc/deleteKeo/${sp.id } --%>"
+												href="${pageContext.request.contextPath }/user/delete/${sp.sanPhamId }"
 												onclick="return confirm('Bạn có muốn xóa?')">Xóa</a>
 										</button>
 									</div>

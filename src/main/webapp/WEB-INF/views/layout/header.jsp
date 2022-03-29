@@ -20,7 +20,7 @@ body {
 	<c:url var="login" value="/user/login" />
 	<c:url var="admin" value="/admin/" />
 	<div>
-		<h1 style="text-align: center; color: red;">MTV-Shop</h1>
+		<h1 style="text-align: center; color: red;">OSPing</h1>
 	</div>
 	<c:if test="${pageContext.request.userPrincipal.name == null}">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -72,8 +72,12 @@ body {
 								</sec:authorize>
 								<sec:authorize
 									access="hasRole('ROLE_MEMBER') and !hasRole('ROLE_ADMIN')">
-									<li><a class="dropdown-item" href="${pageContext.request.contextPath}/user/cuahang/${nguoiDung.getId()}">Cửa hàng của bạn
-									</a></li>
+									<li><a class="dropdown-item"
+										href="${pageContext.request.contextPath}/user/cuahang/${nguoiDung.getId()}">Cửa
+											hàng của bạn </a></li>
+									<li><a class="dropdown-item"
+										href="${pageContext.request.contextPath}/user/form-update-user/${nguoiDung.getId()}">Tài
+											khoản của bạn </a></li>
 								</sec:authorize>
 								<li><a class="dropdown-item"
 									href="${pageContext.request.contextPath}/perform_logout">Đăng
