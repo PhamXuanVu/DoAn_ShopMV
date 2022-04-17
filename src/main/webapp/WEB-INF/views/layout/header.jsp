@@ -43,6 +43,13 @@ body {
 
 					</ul>
 				</div>
+				<form class="d-flex"
+					action="${pageContext.request.contextPath}/danhmuc/timkiem"
+					method="POST" enctype="application/x-www-form-urlencoded">
+					<input name="tenSanPham" class="form-control me-2" type="text"
+						placeholder="Tìm kiếm...">
+					<button class="btn btn-primary" type="submit">Tìm kiếm</button>
+				</form>
 			</div>
 		</nav>
 	</c:if>
@@ -98,6 +105,13 @@ body {
 							href="${pageContext.request.contextPath}/gioHang">Giỏ hàng</a></li>
 					</ul>
 				</div>
+				<form class="d-flex"
+					action="${pageContext.request.contextPath}/danhmuc/timkiem"
+					method="POST" enctype="application/x-www-form-urlencoded">
+					<input name="tenSanPham" class="form-control me-2" type="text"
+						placeholder="Tìm kiếm...">
+					<button class="btn btn-primary" type="submit">Tìm kiếm</button>
+				</form>
 			</div>
 		</nav>
 	</c:if>

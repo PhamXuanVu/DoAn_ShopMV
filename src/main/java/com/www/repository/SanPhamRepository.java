@@ -16,4 +16,6 @@ public interface SanPhamRepository extends CrudRepository<SanPham, Integer> {
 	@Query(value = "select * from [dbo].[san_pham] where [cuaHangId]=?1",nativeQuery = true)
 	List<SanPham> getSanPhamByCuaHangId(int id);
 	
+	@Query(value = "select * from [dbo].[san_pham] s join [dbo].[cua_hang] c on s.cuaHangId = c.cuaHangId where [tenSanPham]  like ?1 or [tenCuaHang] like ?1",nativeQuery = true)
+	List<SanPham> getSanPhamByTenSanPham(String tenSanPham);
 }

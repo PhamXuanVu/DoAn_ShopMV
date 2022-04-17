@@ -30,7 +30,7 @@
 
 							<div class="form-row">
 								<div class="col form-group">
-									<input name="sanPhamId" type="text" class="form-control"
+									<input name="sanPhamId" type="hidden" class="form-control"
 										value="${sanPham.sanPhamId}">
 								</div>
 								<div class="col form-group">

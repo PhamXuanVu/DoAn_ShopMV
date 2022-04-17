@@ -114,5 +114,9 @@ public class SanPhamController {
 //		sanPhamRepository.deleteById(id);
 		return "redirect:/admin";
 	}
-	
+	@RequestMapping("/timkiem")
+	public String timKiemSanPham(String tenSanPham,Model model) {
+		model.addAttribute("sanPhamTimKiem",sanPhamRepository.getSanPhamByTenSanPham("%"+tenSanPham+"%"));
+		return "/tim-kiem";
+	}
 }
