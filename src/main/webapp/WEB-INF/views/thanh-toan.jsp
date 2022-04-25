@@ -8,8 +8,59 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-<c:url var="cssCart" value="/css/cart.css" />
-<link rel="stylesheet" href="${cssCart }" />
+<style type="text/css">
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.cart-info {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+th {
+	text-align: left;
+	padding: 5px;
+	color: #FFF;
+	background: #ff523b;
+	font-weight: normal;
+}
+
+td {
+	padding: 10px 5px;
+}
+
+td input {
+	width: 40px;
+	height: 30px;
+	padding: 5px;
+}
+
+td a {
+	color: #ff523b;
+	font-size: 12px;
+}
+
+.total-price {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.total-price table {
+	border-top: 3px solid #ff523b;
+	max-width: 350px;
+}
+
+td:last-child {
+	text-align: right;
+}
+
+th:last-child {
+	text-align: right;
+}
+</style>	
 <title>Thanh toán</title>
 </head>
 <body>
@@ -105,6 +156,7 @@
 			</div>
 		</form>
 	</div>
+			<jsp:include page="layout/footer.jsp" />
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

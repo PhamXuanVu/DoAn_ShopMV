@@ -27,6 +27,8 @@ public class MainController {
 	@GetMapping("/")
 	public String hi(Model model) {
 		model.addAttribute("sanPham", sanPhamRepository.findAll());
+		model.addAttribute("sanPhamNoiBat", sanPhamRepository.getSanPhamNoiBat());
+		model.addAttribute("sanPhamMoi", sanPhamRepository.getSanPhamMoi());
 	    return "index";
 	}
 	

@@ -15,10 +15,10 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-4">
+			<div class="col-2">
 				<jsp:include page="../layout/sidebar-user.jsp" />
 			</div>
-			<div class="col-8">
+			<div class="col-10">
 				<div class="card">
 					<header class="card-header">
 						<h4 class="card-title mt-2">Cập nhật sản phẩm</h4>
@@ -28,25 +28,23 @@
 							action="${pageContext.request.contextPath}/user/form-update-san-pham/${sanPham.sanPhamId}"
 							method="POST" enctype="application/x-www-form-urlencoded">
 
-							<div class="form-row">
-								<div class="col form-group">
-									<input name="sanPhamId" type="hidden" class="form-control"
-										value="${sanPham.sanPhamId}">
-								</div>
-								<div class="col form-group">
-									<label>Tên sản phẩm </label> <input name="tenSanPham"
-										type="text" class="form-control" value="${sanPham.tenSanPham}">
-								</div>
-								<div class="col form-group">
-									<label>Đơn giá</label> <input name="donGia" type="number"
-										class="form-control" value="${sanPham.donGia}">
-								</div>
+							<div class="col form-group">
+								<input name="sanPhamId" type="hidden" class="form-control"
+									value="${sanPham.sanPhamId}">
 							</div>
-							<div class="form-group">
+							<div class="col form-group">
+								<label>Tên sản phẩm </label> <input name="tenSanPham"
+									type="text" class="form-control" value="${sanPham.tenSanPham}">
+							</div>
+							<div class="col form-group">
+								<label>Đơn giá</label> <input name="donGia" type="number"
+									class="form-control" value="${sanPham.donGia}">
+							</div>
+							<div class="col form-group">
 								<label>Số lượng</label> <input name="soLuong" type="text"
 									class="form-control" value="${sanPham.soLuong}">
 							</div>
-							<div class="form-group">
+							<div class="col form-group">
 								<label>Mô tả</label> <input name="moTa" type="text"
 									class="form-control" value="${sanPham.moTa}">
 							</div>
@@ -57,8 +55,8 @@
 							<c:url var="image" value="${sanPham.hinhAnh}" />
 							<img width="60px" height="60px" src="${image}"
 								alt="Card image cap">
-							<div class="form-group">
-								<button type="submit" class="btn btn-primary btn-block">
+							<div class="col form-group">
+								<br/><button type="submit" class="btn btn-primary btn-block">
 									Cập nhật</button>
 							</div>
 						</form>

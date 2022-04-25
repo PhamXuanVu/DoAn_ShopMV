@@ -52,7 +52,7 @@ body {
 			<div class="row" style="justify-content: center;">
 				<div class="col-lg-3">
 					<div class="header__logo">
-						<a href=""><img src="/ShopMV/images/logo.jpg" alt=""></a>
+						<a href="${homePageUrl}"><img src="/ShopMV/images/logo.jpg" alt=""></a>
 					</div>
 				</div>
 				<div class="col-lg-5">
@@ -156,7 +156,7 @@ body {
 			<div class="row">
 				<div class="col-lg-3">
 					<div class="header__logo">
-						<a href=""><img src="/ShopMV/images/logo.jpg" alt=""></a>
+						<a href="${homePageUrl}"><img src="/ShopMV/images/logo.jpg" alt=""></a>
 					</div>
 				</div>
 				<div class="col-lg-5">

@@ -14,7 +14,70 @@
 </head>
 <body>
 	<jsp:include page="layout/header.jsp" />
-	<img style="/* display: block; margin-left: auto; margin-right: auto; */" src="/ShopMV/images/spnb.jpg" alt="">
+	
+	
+		<img style="display: block; margin-left: auto; margin-right: auto; " src="/ShopMV/images/spnb.jpg" alt="">
+		<div class="row">
+		<c:forEach items="${sanPhamNoiBat}" var="sp">
+			<div class="card"
+				style="width: 200px; margin-left: 50px; margin-top: 50px; text-align: center;">
+				<p class="card-text" style="font-weight: 700;">${sp.getCuaHang().getTenCuaHang()}</p>
+				<c:url var="image" value="${sp.hinhAnh}" />
+				<img class="rounded" style="heigth: 250px" src="${image}"
+					alt="Card image cap">
+				<div class="card-body">
+					<p class="card-text" style="font-weight: 700;">${sp.tenSanPham}</p>
+					<p class="card-text">${sp.getGiaFormat()}</p>
+					<div class="button_actions clearfix">
+
+						<button id="btnSubmit"
+							class="btn btn_base btn_add_cart btn-cart add_to_cart"
+							style="background-color: red">
+							<span class="text_1"><a style="text-decoration: none"
+								class="link-warning"
+								href="${pageContext.request.contextPath }/chiTietSP/${sp.sanPhamId }">Xem
+									chi tiết</a></span>
+						</button>
+
+					</div>
+				</div>
+			</div>
+
+		</c:forEach>
+	</div>
+	
+	<img style="display: block; margin-left: auto; margin-right: auto; " src="/ShopMV/images/spnb.jpg" alt="">
+		<div class="row">
+		<c:forEach items="${sanPhamMoi}" var="sp">
+			<div class="card"
+				style="width: 200px; margin-left: 50px; margin-top: 50px; text-align: center;">
+				<p class="card-text" style="font-weight: 700;">${sp.getCuaHang().getTenCuaHang()}</p>
+				<c:url var="image" value="${sp.hinhAnh}" />
+				<img class="rounded" style="heigth: 250px" src="${image}"
+					alt="Card image cap">
+				<div class="card-body">
+					<p class="card-text" style="font-weight: 700;">${sp.tenSanPham}</p>
+					<p class="card-text">${sp.getGiaFormat()}</p>
+					<div class="button_actions clearfix">
+
+						<button id="btnSubmit"
+							class="btn btn_base btn_add_cart btn-cart add_to_cart"
+							style="background-color: red">
+							<span class="text_1"><a style="text-decoration: none"
+								class="link-warning"
+								href="${pageContext.request.contextPath }/chiTietSP/${sp.sanPhamId }">Xem
+									chi tiết</a></span>
+						</button>
+
+					</div>
+				</div>
+			</div>
+
+		</c:forEach>
+	</div>
+	
+	
+	<img style="display: block; margin-left: auto; margin-right: auto;" src="/ShopMV/images/spnb.jpg" alt="">
 	<div class="row">
 		<c:forEach items="${sanPham}" var="sp">
 			<div class="card"
