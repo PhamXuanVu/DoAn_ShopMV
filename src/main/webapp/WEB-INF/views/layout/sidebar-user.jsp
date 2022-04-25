@@ -12,7 +12,9 @@
 	<c:url var="danhMucAd" value="/danhmuc/" />
 	<c:if test="${nguoiDung.cuaHang.tenCuaHang == null}">
 		Bạn chưa có cửa hàng
-		<a class="navbar-brand" href="${pageContext.request.contextPath }/user/form-tao-cua-hang/${nguoiDung.getId()}">Tạo cửa hàng ngay</a>
+		<a class="navbar-brand"
+			href="${pageContext.request.contextPath }/user/form-tao-cua-hang/${nguoiDung.getId()}">Tạo
+			cửa hàng ngay</a>
 	</c:if>
 	<c:if test="${nguoiDung.cuaHang.tenCuaHang != null}">
 		<div class="d-flex" id="wrapper">
@@ -22,12 +24,17 @@
 				<div class="list-group list-group-flush">
 					<a
 						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="${pageContext.request.contextPath }/user/sanphamcuahang/${nguoiDung.cuaHang.cuaHangId}">Sản phẩm</a>
-					<a
+						href="${pageContext.request.contextPath }/user/sanphamcuahang/${nguoiDung.cuaHang.cuaHangId}">Sản
+						phẩm</a> <a
 						class="list-group-item list-group-item-action list-group-item-light p-3"
 						href="#!">Hóa đơn</a> <a
 						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="#!">Thống kê</a>
+						href="#!">Thống kê</a> <a
+						class="list-group-item list-group-item-action list-group-item-light p-3"
+						href="#!">Vận chuyển</a> <a
+						class="list-group-item list-group-item-action list-group-item-light p-3"
+						href="${pageContext.request.contextPath }/user/form-update-cua-hang/${nguoiDung.cuaHang.cuaHangId}">Cửa Hàng</a>
+
 
 				</div>
 

@@ -5,7 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Admin</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
 </head>
 <body>
 
@@ -29,22 +33,18 @@
 							action="${pageContext.request.contextPath}/user/form-add-san-pham/${nguoiDung.getId()}"
 							method="POST" enctype="application/x-www-form-urlencoded">
 							<form:form modelAttribute="danhMucSP" method="get">
-								<div class="form-row">
-									<div class="col form-group">
-										
+									<div class="form-group">	
 										<form:select path="danhMuc">
 											<c:forEach var="danhMuc" items="${danhMuc }">
 												<form:option value="${danhMuc.tenDanhMuc }"></form:option>
 											</c:forEach>
 										</form:select>
 										
-									</div>
-									<div class="col form-group">
-
+									<div class="form-group">
 										<label>Tên sản phẩm </label> <input name="tenSanPham"
 											type="text" class="form-control" placeholder="">
 									</div>
-									<div class="col form-group">
+									<div class="form-group">
 										<label>Đơn giá</label> <input name="donGia" type="number"
 											class="form-control" placeholder=" ">
 									</div>
@@ -57,8 +57,8 @@
 									<label>Mô tả</label> <input name="moTa" type="text"
 										class="form-control" placeholder="">
 								</div>
-								<div class="col form-group">
-									<label>Hình ảnh </label> <input name="hinhAnh" type="file"
+								<div class="form-group">
+									<label>Hình ảnh </label><input name="hinhAnh" type="file"
 										class="form-control" placeholder="">
 								</div>
 								<div class="form-group">
@@ -75,5 +75,9 @@
 
 		</div>
 	</div>
+		<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
 </body>
 </html>

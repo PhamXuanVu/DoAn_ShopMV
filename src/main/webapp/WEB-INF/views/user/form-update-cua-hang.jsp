@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Đăng ký</title>
+<title>Update cửa hàng</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -19,34 +19,31 @@
 			<div class="col-md-6">
 				<div class="card">
 					<header class="card-header">
-						<h4 class="card-title mt-2">Tài khoản của tôi</h4>
+						<h4 class="card-title mt-2">Update cửa hàng</h4>
 					</header>
 					<article class="card-body">
 						<form class="m-auto"
-							action="${pageContext.request.contextPath}/user/form-update-user/${nguoiDung.getId() }"
+							action="${pageContext.request.contextPath}/user/form-update-cua-hang/${nguoiDung.cuaHang.getCuaHangId()}"
 							method="POST">
-							<div class="col form-group">
-								<label>Họ Tên đệm </label> <input name="hoTenDem" type="text"
-									class="form-control" placeholder=""
-									value="${nguoiDung.hoTenDem }">
+							<div class="form-group">
+								<label>Tên cửa hàng</label> <input name="tenCuaHang"
+									class="form-control" type="text" value="${nguoiDung.cuaHang.tenCuaHang}" >
 							</div>
-							<div class="col form-group">
-								<label>Tên</label> <input name="ten" type="text"
-									class="form-control" placeholder="" value="${nguoiDung.ten }">
+							<div class="form-group">
+								<label>Địa chỉ lấy hàng</label> <input name="diaChiLayHang"
+									class="form-control" type="text" value="${nguoiDung.cuaHang.getDiaChiLayHang() }">
 							</div>
-							<div class="col form-group">
-								<label>Số điện thoại</label> <input name="soDienThoai"
-									type="text" class="form-control" placeholder=""
-									value="${nguoiDung.soDienThoai }">
+							<div class="form-group">
+								<label>Email</label> <input name="email"
+									class="form-control" type="text"  disabled="disabled" value="${nguoiDung.cuaHang.email }">
 							</div>
-							<div class="col form-group">
-								<label>Địa chỉ </label> <input name="diaChi" type="text"
-									class="form-control" placeholder=""
-									value="${nguoiDung.diaChi }">
+							<div class="form-group">
+								<label>Số điện thoại</label> <input name="sdt"
+									class="form-control" disabled="disabled" type="text" value="${nguoiDung.cuaHang.sdt }">
 							</div>
-							<div class="col form-group">
+							<div class="form-group">
 								<button type="submit" class="btn btn-primary btn-block">
-									Cập nhật</button>
+									Update cửa hàng</button>
 							</div>
 						</form>
 					</article>

@@ -34,7 +34,7 @@
 			</div>
 		</c:if>
 		<form class="m-auto"
-			action="${pageContext.request.contextPath}/hoaDon/add"
+			action="${pageContext.request.contextPath}/gioHang/pay"
 			method="POST" enctype="application/x-www-form-urlencoded">
 			<div class="row">
 				<div class="col-xs-6 col-sm-6 col-md-6">
@@ -66,6 +66,7 @@
 							<th>Tổng</th>
 						</tr>
 						<c:forEach items="${cart.sanPhams}" var="chiTietHoaDon">
+						<input name= "price" type="hidden" value="${cart.tinhTongTienTrongGioHang()}" />
 							<tr>
 								<td>
 									<div class="cart-info">

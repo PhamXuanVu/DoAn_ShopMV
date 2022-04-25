@@ -205,4 +205,31 @@ public class UserController {
 		sanPhamRepository.delete(sanPham1);
 		return "redirect:/user/sanphamcuahang/" + sanPham1.getCuaHang().getCuaHangId();
 	}
+	
+	@GetMapping("/nguoimua")
+	public String getNguoiMua(Model model) {
+		model.addAttribute("nguoiMua",nguoiDungRepository.findByRoleMember());
+		return "/admin/danh-sach-nguoi-mua";
+	}
+	
+	@GetMapping("/nguoiban")
+	public String getNguoiBan(Model model) {
+		model.addAttribute("nguoiBan",nguoiDungRepository.findByCuaHang());
+		return "/admin/danh-sach-nguoi-ban";
+	}
+	
+	@GetMapping("/form-update-cua-hang/{id}")
+	public String updateCuaHang(@PathVariable int id,Model model) {
+	    return "/user/form-update-cua-hang";
+	}
+	@PostMapping(value = "/form-update-cua-hang/{id}", consumes = "application/x-www-form-urlencoded")
+    public RedirectView postUpdateCuaHang(@PathVariable int id,@ModelAttribute("cuaHang") CuaHang cuaHang, BindingResult bindingResult, Model model, HttpServletRequest request) {
+        	CuaHang tempCuaHang = cuaHangRepository.findById(id).get();
+        	tempCuaHang.setTenCuaHang(cuaHang.getTenCuaHang());
+        	tempCuaHang.setDiaChiLayHang(cuaHang.getDiaChiLayHang());
+        	cuaHangRepository.save(tempCuaHang);
+        	
+        	
+            return new RedirectView(request.getContextPath() + "/user/cuahang/" + id);
+        }
 }

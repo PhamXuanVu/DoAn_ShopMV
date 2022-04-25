@@ -10,45 +10,28 @@
 </head>
 <body>
 	<c:url var="danhMucAd" value="/danhmuc/" />
-		<div class="d-flex" id="wrapper">
-			<!-- Sidebar-->
-			<div class="border-end bg-white" id="sidebar-wrapper">
-				<div class="sidebar-heading border-bottom bg-light">Admin</div>
-				<div class="list-group list-group-flush">
+	<div class="d-flex" id="wrapper">
+		<!-- Sidebar-->
+		<div class="border-end bg-white" id="sidebar-wrapper">
+			<div class="sidebar-heading border-bottom bg-light">Admin</div>
+			<div class="list-group list-group-flush">
+				<a
+					class="list-group-item list-group-item-action list-group-item-light p-3"
+					href="${pageContext.request.contextPath }/user/nguoimua">Người mua</a> <a
+					class="list-group-item list-group-item-action list-group-item-light p-3"
+					href="${pageContext.request.contextPath }/user/nguoiban">Người bán</a><a
+					class="list-group-item list-group-item-action list-group-item-light p-3"
+					href="">Hóa đơn</a> <a
+					class="list-group-item list-group-item-action list-group-item-light p-3"
+					href="#!">Thanh toán</a>
 					<a
-						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="${danhMucAd}">Danh mục sản phẩm</a>
-					<div class="accordion-item">
-						<h2 class="accordion-header" id="headingOne">
-							<button class="accordion-button" type="button"
-								data-bs-toggle="collapse" data-bs-target="#collapseOne"
-								aria-expanded="true" aria-controls="collapseOne">Sản
-								phẩm</button>
-						</h2>
-						<div id="collapseOne" class="accordion-collapse collapse show"
-							aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<c:forEach items="${danhMuc}" var="sp">
-									<a
-										class="list-group-item list-group-item-action list-group-item-light p-3"
-										href="${pageContext.request.contextPath }/danhmuc/san-pham-admin/${sp.danhMucId}">${sp.tenDanhMuc}</a>
-								</c:forEach>
-							</div>
-						</div>
-					</div>
-
-					<a
-						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="#!">Người dùng</a> <a
-						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="">Hóa đơn</a> <a
-						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="#!">Thống kê</a>
-
-				</div>
+					class="list-group-item list-group-item-action list-group-item-light p-3"
+					href="#!">Vận chuyển</a>
 
 			</div>
+
 		</div>
+	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

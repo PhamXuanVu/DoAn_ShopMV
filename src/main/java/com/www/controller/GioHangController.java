@@ -3,21 +3,34 @@
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.paypal.api.payments.Links;
+import com.paypal.api.payments.Payment;
+import com.paypal.base.rest.PayPalRESTException;
+import com.www.Util.UtilClass;
+import com.www.config.PaypalPaymentIntent;
+import com.www.config.PaypalPaymentMethod;
 import com.www.entity.ChiTietHoaDon;
 import com.www.entity.HoaDon;
 import com.www.entity.NguoiDung;
 import com.www.entity.SanPham;
+import com.www.repository.HoaDonRepository;
+import com.www.repository.NguoiDungRepository;
 import com.www.repository.SanPhamRepository;
+import com.www.repository.UserRepository;
+import com.www.service.PaypalService;
 
 @Controller
 @RequestMapping("/gioHang")
@@ -25,6 +38,18 @@ public class GioHangController {
     ObjectMapper objectMapper = new ObjectMapper();
     @Autowired
     private SanPhamRepository sanPhamRepository;
+    
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Autowired
+    private HoaDonRepository hoaDonRepository;
+    
+    @Autowired
+    private NguoiDungRepository nguoiDungRepository;
+    
+    @Autowired
+	private PaypalService paypalService;
 
     @RequestMapping(value = {"", "/"})
     public String getCart() {
@@ -80,10 +105,38 @@ public class GioHangController {
     @RequestMapping("/thanhToan")
     private String getPayment(HttpSession session, Model model) {
         if (session.getAttribute("cart") == null){
-            return "redirect:/cart?failure=true";
+            return "redirect:/gioHang";
         }
         NguoiDung nguoiDung = (NguoiDung) model.getAttribute("nguoiDung");
         return "thanh-toan";
     }
-
+    
+    
+    public static final String URL_PAYPAL_SUCCESS = "thanhToan?success=true";
+	public static final String URL_PAYPAL_CANCEL = "thanhToan?failure=true";
+	private Logger log = LoggerFactory.getLogger(getClass());
+	
+    @PostMapping("/pay")	
+	public String pay(HttpServletRequest request,@RequestParam("price") double price, HttpSession session ){
+    	String cancelUrl = UtilClass.getBaseURL(request) + "/gioHang/" + URL_PAYPAL_CANCEL;
+    	String successUrl = UtilClass.getBaseURL(request) + "/gioHang/" + URL_PAYPAL_SUCCESS;
+		try {
+			Payment payment = paypalService.createPayment(
+					price/23000,
+					"USD",
+					PaypalPaymentMethod.paypal,
+					PaypalPaymentIntent.sale,
+					"payment description",
+					cancelUrl,
+					successUrl);	
+			for(Links links : payment.getLinks()){
+				if(links.getRel().equals("approval_url")){
+					return "redirect:" + links.getHref();
+				}
+			}
+		} catch (PayPalRESTException e) {
+			log.error(e.getMessage());
+		}
+		return "redirect:/";
+	}
 }

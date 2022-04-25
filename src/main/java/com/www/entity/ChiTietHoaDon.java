@@ -39,6 +39,8 @@ public class ChiTietHoaDon {
     @JoinColumn(name = "thanhToanId")
     private ThanhToan thanhToan;
 	
+	private double tongGiaBan;
+	
 	private int soLuong;
 	
 	
@@ -62,13 +64,27 @@ public class ChiTietHoaDon {
 	public void setHoaDon(HoaDon hoaDon) {
 		this.hoaDon = hoaDon;
 	}
+	
+	public ThanhToan getThanhToan() {
+		return thanhToan;
+	}
+	public void setThanhToan(ThanhToan thanhToan) {
+		this.thanhToan = thanhToan;
+	}
+	
+	public double getTongGiaBan() {
+		return tinhTienChiTietHoaDon();
+	}
+	public void setTongGiaBan(double tongGiaBan) {
+		this.tongGiaBan = tinhTienChiTietHoaDon();
+	}
 	public int getSoLuong() {
 		return soLuong;
 	}
 	public void setSoLuong(int soLuong) {
 		this.soLuong = soLuong;
 	}
-	@Column(name = "gia_ban", nullable = false)
+	
     public double tinhGiaBan() {
         return this.getSanPham().getDonGia();
     }

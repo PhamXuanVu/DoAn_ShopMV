@@ -16,7 +16,6 @@
 				<h3 style="text-align: center;">Không tìm thấy sản phẩm tương ứng!</h3>
 			</c:if>
 		<c:forEach items="${sanPhamTimKiem}" var="sp">
-			<h1>${sp.sanPhamId } -- Hi</h1>
 			<c:if test="${sp != null }">
 				<div class="card"
 					style="width: 200px; margin-left: 50px; margin-top: 50px; text-align: center;">

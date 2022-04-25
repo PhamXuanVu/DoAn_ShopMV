@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Cửa hàng của tôi</title>
+<title>Admin</title>
 </head>
 <body>
 	<c:url var="addSP" value="/danhmuc/form-add-san-pham" />
@@ -15,47 +15,45 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-2">
-				<jsp:include page="../layout/sidebar-user.jsp" />
+			<div class="col-4">
+				<jsp:include page="../layout/sidebar-admin.jsp" />
 			</div>
-			<div class="col-10">
+			<div class="col-8">
 				<button type="button" class="btn btn-primary">
-					<a style="text-decoration: none" class="link-light" href="${pageContext.request.contextPath }/user/form-add-san-pham/${nguoiDung.getId()}">Đăng sản phẩm</a>
+					<a style="text-decoration: none" class="link-light" href="${pageContext.request.contextPath }/danhmuc/form-add-san-pham/${danhMucId}">Thêm sản phẩm</a>
 				</button>
 				<table class="table" style="text-align: center;">
 					<thead>
 						<tr>
 							<th scope="col">ID</th>
-							<th scope="col">Hình ảnh</th>
-							<th scope="col">Tên sản phẩm</th>
-							<th scope="col">Đơn giá</th>
-							<th scope="col">Số lượng</th>
-							<th scope="col">Mô tả</th>
+							<th scope="col">Tên cửa hàng</th>
+							<th scope="col">Họ tên đệm</th>
+							<th scope="col">Tên</th>
+							<th scope="col">Số điện thoại</th>
+							<th scope="col">Địa chỉ</th>
 							<th scope="col"></th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${sanPhamCuaHang}" var="sp">
+						<c:forEach items="${nguoiBan}" var="nguoiBan">
 							<tr>
-								<th>${sp.getSanPhamId()}</th>
-								<c:url var="image" value="${sp.hinhAnh}" />
-								<td><img width="60px" height="60px" src="${image}"
-									alt="Card image cap"></td>
-								<td>${sp.tenSanPham}</td>
-								<td>${sp.getGiaFormat()}</td>
-								<td>${sp.soLuong}</td>
-								<td>${sp.moTa}</td>
+								<th>${nguoiBan.id}</th>
+								<td>${nguoiBan.cuaHang.tenCuaHang}</td>
+								<td>${nguoiBan.hoTenDem}</td>
+								<td>${nguoiBan.ten}</td>
+								<td>${nguoiBan.soDienThoai}</td>
+								<td>${nguoiBan.diaChi}</td>
 								<td>
 									<div class="col">
 										<button type="button" class="btn btn-outline-warning">
 											<a style="text-decoration: none" class="link-warning"
-												href="${pageContext.request.contextPath }/user/form-update-san-pham/${sp.sanPhamId }">Sửa</a>
+												href="<%-- ${pageContext.request.contextPath }/danhmuc/update/${sp.getSanPhamId() } --%>">Sửa</a>
 										</button>
 									</div>
 									<div class="col">
 										<button type="button" class="btn btn-outline-danger">
 											<a style="text-decoration: none" class="link-danger"
-												href="${pageContext.request.contextPath }/user/delete/${sp.sanPhamId }"
+												href="<%-- ${pageContext.request.contextPath }/danhmuc/delete/${sp.getSanPhamId()} --%>"
 												onclick="return confirm('Bạn có muốn xóa?')">Xóa</a>
 										</button>
 									</div>
