@@ -18,9 +18,17 @@
 			<div class="col-2">
 				<jsp:include page="../layout/sidebar-admin.jsp" />
 			</div>
+			
 			<div class="col-10">
+				<c:choose>
+					<c:when test="${param.success}">
+						<p style="color: red;" class="error">Xóa người mua thành công!</p>
+					</c:when>
+				</c:choose>
 				<button type="button" class="btn btn-success">
-					<a style="text-decoration: none" class="link-light" href="<%-- ${pageContext.request.contextPath }/danhmuc/form-add-san-pham/${danhMucId} --%>">Thêm người mua</a>
+					<a style="text-decoration: none" class="link-light"
+						href="${pageContext.request.contextPath}/user/form-add-nguoi-mua">Thêm
+						người mua</a>
 				</button>
 				<table class="table" style="text-align: center;">
 					<thead>
@@ -45,13 +53,13 @@
 									<div class="col">
 										<button type="button" class="btn btn-outline-warning">
 											<a style="text-decoration: none" class="link-warning"
-												href="<%-- ${pageContext.request.contextPath }/danhmuc/update/${sp.getSanPhamId() } --%>">Sửa</a>
+												href="${pageContext.request.contextPath}/user/form-update-nguoi-mua/${nguoiMua.id}">Sửa</a>
 										</button>
 									</div>
 									<div class="col">
 										<button type="button" class="btn btn-outline-danger">
 											<a style="text-decoration: none" class="link-danger"
-												href="<%-- ${pageContext.request.contextPath }/danhmuc/delete/${sp.getSanPhamId()} --%>"
+												href="${pageContext.request.contextPath }/user/deleteNguoiMua/${nguoiMua.id}"
 												onclick="return confirm('Bạn có muốn xóa?')">Xóa</a>
 										</button>
 									</div>

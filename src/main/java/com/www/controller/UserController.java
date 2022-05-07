@@ -232,4 +232,68 @@ public class UserController {
         	
             return new RedirectView(request.getContextPath() + "/user/cuahang/" + id);
         }
+	
+	@GetMapping("/form-add-nguoi-mua")
+	public String formAddNguoiMua() {
+	    return "/user/form-add-nguoi-mua";
+	}
+	
+	@PostMapping(value = "/form-add-nguoi-mua", consumes = "application/x-www-form-urlencoded")
+    public RedirectView postAddNguoiMua(NguoiDungDTO nguoiDungDTO, BindingResult bindingResult, Model model, HttpServletRequest request) {
+        if (bindingResult.hasErrors()) {
+            System.out.println("Co loi xay ra " + bindingResult);
+
+            return new RedirectView(request.getContextPath() + "/user/login");
+        } else {
+            if (userRepository.findByEmail(nguoiDungDTO.getEmail()) == null) {
+                VaiTro vaiTro = roleRepository.findByTenVaiTro("ROLE_MEMBER");
+
+                TaiKhoan taiKhoan = new TaiKhoan();
+                Set<VaiTro> vaiTros = new HashSet<>();
+                vaiTros.add(vaiTro);
+                taiKhoan.setVaiTros(vaiTros);
+                taiKhoan.setEmail(nguoiDungDTO.getEmail());
+                taiKhoan.setMatKhau(passwordEncoder.encode(nguoiDungDTO.getMatKhau()));
+         
+                userRepository.save(taiKhoan);
+
+                NguoiDung nguoiDung = new NguoiDung();
+                nguoiDung.setTaiKhoan(taiKhoan);
+                nguoiDung.setHoTenDem(nguoiDungDTO.getHoTenDem());
+                nguoiDung.setTen(nguoiDungDTO.getTen());
+                nguoiDung.setSoDienThoai(nguoiDungDTO.getSoDienThoai());
+                nguoiDung.setDiaChi(nguoiDungDTO.getDiaChi());
+                nguoiDungRepository.save(nguoiDung);
+
+                return new RedirectView(request.getContextPath() + "/user/form-add-nguoi-mua?success");
+            }
+
+            return new RedirectView(request.getContextPath() + "/user/form-add-nguoi-mua?failure");
+        }
+
+    }
+	
+	@GetMapping("/form-update-nguoi-mua/{id}")
+	public String updateNguoiMua(@PathVariable int id,Model model) {
+		model.addAttribute("nguoiMua",nguoiDungRepository.findById(id));
+	    return "/user/form-update-nguoi-mua";
+	}
+	
+	@PostMapping(value = "/form-update-nguoi-mua/{id}", consumes = "application/x-www-form-urlencoded")
+    public RedirectView postUpdateNguoiMua(@PathVariable int id,NguoiDungDTO nguoiDungDTO, BindingResult bindingResult, Model model, HttpServletRequest request) {
+				
+                NguoiDung nguoiDung = nguoiDungRepository.findById(id);
+                nguoiDung.setHoTenDem(nguoiDungDTO.getHoTenDem());
+                nguoiDung.setTen(nguoiDungDTO.getTen());
+                nguoiDung.setSoDienThoai(nguoiDungDTO.getSoDienThoai());
+                nguoiDung.setDiaChi(nguoiDungDTO.getDiaChi());
+                nguoiDungRepository.save(nguoiDung);
+                return new RedirectView(request.getContextPath() + "/user/form-update-nguoi-mua?success");
+	}
+	
+	@RequestMapping(value = "deleteNguoiMua/{id}", method = RequestMethod.GET)
+	public String deleteNguoiMua(@PathVariable int id) {
+		nguoiDungRepository.delete(nguoiDungRepository.findById(id));
+		return "redirect:/user/nguoimua?success=true";
+	}
 }
