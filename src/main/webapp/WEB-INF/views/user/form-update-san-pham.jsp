@@ -56,7 +56,7 @@
 							<img width="60px" height="60px" src="${image}"
 								alt="Card image cap">
 							<div class="col form-group">
-								<br/><button type="submit" class="btn btn-primary btn-block">
+								<br/><button type="submit" class="btn btn-success btn-block">
 									Cập nhật</button>
 							</div>
 						</form>

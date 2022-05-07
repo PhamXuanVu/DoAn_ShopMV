@@ -45,7 +45,7 @@
 									value="${nguoiDung.diaChi }">
 							</div>
 							<div class="col form-group">
-								<button type="submit" class="btn btn-primary btn-block">
+								<button type="submit" class="btn btn-success btn-block">
 									Cập nhật</button>
 							</div>
 						</form>

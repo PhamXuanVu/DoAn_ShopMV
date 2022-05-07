@@ -19,7 +19,7 @@
 				<jsp:include page="../layout/sidebar-user.jsp" />
 			</div>
 			<div class="col-10">
-				<button type="button" class="btn btn-primary">
+				<button type="button" class="btn btn-success">
 					<a style="text-decoration: none" class="link-light" href="${pageContext.request.contextPath }/user/form-add-san-pham/${nguoiDung.getId()}">Đăng sản phẩm</a>
 				</button>
 				<table class="table" style="text-align: center;">

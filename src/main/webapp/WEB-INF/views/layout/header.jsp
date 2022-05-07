@@ -93,7 +93,7 @@ body {
   <path
 										d="M0 3.5A.5.5 0 0 1 .5 3h15a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-2zm0 5A.5.5 0 0 1 .5 8h15a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1zm0 4a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z" />
 </svg>
-								&ensp;<span>Tất cả danh mục</span> &ensp;
+								&ensp;<span>Tất cả danh mục</span>
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 									fill="#fff" class="bi bi-chevron-down" viewBox="0 0 16 16">
   <path fill-rule="evenodd"
@@ -163,8 +163,8 @@ body {
 					<nav class="header__menu">
 						<ul>
 							<li><a href="${ homePageUrl}">TRANG CHỦ</a></li>
-							<li class="active"><a href="./shop-grid.html">Shop</a></li>
-							<li><a href="./contact.html">LIÊN HỆ</a></li>
+							<li class="active"><a href="">Shop</a></li>
+							<li><a href="">LIÊN HỆ</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -188,11 +188,10 @@ body {
 											<sec:authorize
 												access="hasRole('ROLE_MEMBER') and !hasRole('ROLE_ADMIN')">
 												<li><a
-													href="${pageContext.request.contextPath}/user/cuahang/${nguoiDung.getId()}">Cửa
-														hàng của bạn</a></li>
+													href="${pageContext.request.contextPath}/user/cuahang/${nguoiDung.getId()}">Shop của bạn</a></li>
 												<li><a
 													href="${pageContext.request.contextPath}/user/form-update-user/${nguoiDung.getId()}">Tài
-														khoản của bạn</a></li>
+														khoản</a></li>
 											</sec:authorize>
 											<li><a
 												href="${pageContext.request.contextPath}/perform_logout">Đăng
@@ -231,7 +230,7 @@ body {
   <path
 										d="M0 3.5A.5.5 0 0 1 .5 3h15a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-2zm0 5A.5.5 0 0 1 .5 8h15a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1zm0 4a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z" />
 </svg>
-								&ensp;<span>Tất cả danh mục</span> &ensp;
+								&ensp;<span>Tất cả danh mục</span>
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 									fill="#fff" class="bi bi-chevron-down" viewBox="0 0 16 16">
   <path fill-rule="evenodd"

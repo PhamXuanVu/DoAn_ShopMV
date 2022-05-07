@@ -26,7 +26,7 @@ body {
 				<jsp:include page="../layout/sidebar-user.jsp" />
 			</div>
 			<div class="col-8">
-				
+				<img src="/ShopMV/images/banner-ch.png" alt="">
 			</div>
 		</div>
 	</div>

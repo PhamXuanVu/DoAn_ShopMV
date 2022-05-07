@@ -42,7 +42,7 @@
 									class="form-control" disabled="disabled" type="text" value="${nguoiDung.cuaHang.sdt }">
 							</div>
 							<div class="form-group">
-								<button type="submit" class="btn btn-primary btn-block">
+								<button type="submit" class="btn btn-success btn-block">
 									Update cửa hàng</button>
 							</div>
 						</form>

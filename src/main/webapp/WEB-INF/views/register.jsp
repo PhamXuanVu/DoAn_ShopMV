@@ -54,7 +54,7 @@
 									class="form-control" type="password">
 							</div>
 							<div class="form-group">
-								<button type="submit" class="btn btn-primary btn-block">
+								<button type="submit" class="btn btn-success btn-block">
 									Đăng ký</button>
 							</div>
 						</form>

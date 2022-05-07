@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,7 +47,7 @@
 		</c:forEach>
 	</div>
 	
-	<img style="display: block; margin-left: auto; margin-right: auto; " src="/ShopMV/images/spnb.jpg" alt="">
+	<img style="display: block; margin-left: auto; margin-right: auto; " src="/ShopMV/images/spm.jpg" alt="">
 		<div class="row">
 		<c:forEach items="${sanPhamMoi}" var="sp">
 			<div class="card"
@@ -77,9 +78,14 @@
 	</div>
 	
 	
-	<img style="display: block; margin-left: auto; margin-right: auto;" src="/ShopMV/images/spnb.jpg" alt="">
+	<img style="display: block; margin-left: auto; margin-right: auto;" src="/ShopMV/images/tcsp.jpg" alt="">
 	<div class="row">
-		<c:forEach items="${sanPham}" var="sp">
+	<jsp:useBean id="pagedListHolder" scope="request"
+			type="org.springframework.beans.support.PagedListHolder" />
+		<c:url value="/" var="pagedLink">
+			<c:param name="p" value="~" />
+		</c:url>
+		<c:forEach items="${pagedListHolder.pageList}" var="sp">
 			<div class="card"
 				style="width: 200px; margin-left: 50px; margin-top: 50px; text-align: center;">
 				<p class="card-text" style="font-weight: 700;">${sp.getCuaHang().getTenCuaHang()}</p>
@@ -99,12 +105,13 @@
 								href="${pageContext.request.contextPath }/chiTietSP/${sp.sanPhamId }">Xem
 									chi tiết</a></span>
 						</button>
-
 					</div>
 				</div>
 			</div>
 
 		</c:forEach>
+		<tg:paging pagedListHolder="${pagedListHolder}"
+			pagedLink="${pagedLink}" />
 	</div>
 	<jsp:include page="layout/footer.jsp" />
 	<script

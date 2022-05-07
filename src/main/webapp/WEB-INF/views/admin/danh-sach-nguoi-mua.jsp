@@ -15,12 +15,12 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-4">
+			<div class="col-2">
 				<jsp:include page="../layout/sidebar-admin.jsp" />
 			</div>
-			<div class="col-8">
-				<button type="button" class="btn btn-primary">
-					<a style="text-decoration: none" class="link-light" href="${pageContext.request.contextPath }/danhmuc/form-add-san-pham/${danhMucId}">Thêm sản phẩm</a>
+			<div class="col-10">
+				<button type="button" class="btn btn-success">
+					<a style="text-decoration: none" class="link-light" href="<%-- ${pageContext.request.contextPath }/danhmuc/form-add-san-pham/${danhMucId} --%>">Thêm người mua</a>
 				</button>
 				<table class="table" style="text-align: center;">
 					<thead>

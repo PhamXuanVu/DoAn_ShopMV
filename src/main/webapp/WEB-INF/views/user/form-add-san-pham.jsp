@@ -62,7 +62,7 @@
 										class="form-control" placeholder="">
 								</div>
 								<div class="form-group">
-									<button type="submit" class="btn btn-primary btn-block">
+									<button type="submit" class="btn btn-success btn-block">
 										Thêm</button>
 								</div>
 								</form:form>

@@ -10,6 +10,7 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
+
 </head>
 <body>
 	<c:url var="register" value="/user/register" />
@@ -50,13 +51,28 @@
 
 					</div>
 					<div class="text-center text-lg-start mt-4 pt-2">
-						<button type="submit" class="btn btn-primary btn-lg"
+						<button type="submit" class="btn btn-success btn-lg"
 							style="text-align: center; padding-left: 2.5rem; padding-right: 2.5rem;">Đăng
 							nhập</button>
+
+						<div style="align-items: center; display: flex;">
+							<div
+								style="height: 1px; width: 25%; background-color: #dbdbdb; flex: 1;"></div>
+							<div>Hoặc</div>
+							<div
+								style="height: 1px; width: 25%; background-color: #dbdbdb; flex: 1;"></div>
+						</div>
+						<a
+							href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:7070/ShopMV/login-google&response_type=code
+    &client_id=1041006769565-cspat7vr5c5ahh2eulucn383m5upqh22.apps.googleusercontent.com&approval_prompt=force"><img
+							class="google-icon"
+							src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+						</a>
 						<p class="small fw-bold mt-2 pt-1 mb-0">
 							Bạn chưa có tài khoản? <a href="${register }" class="link-danger">Đăng
 								ký</a>
 						</p>
+
 					</div>
 				</div>
 			</div>
