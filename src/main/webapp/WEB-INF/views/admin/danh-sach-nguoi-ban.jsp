@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,8 +20,24 @@
 				<jsp:include page="../layout/sidebar-admin.jsp" />
 			</div>
 			<div class="col-10">
+				<c:choose>
+					<c:when test="${param.addSuccess}">
+						<p style="color: red;" class="error">Thêm thành công 1 người
+							bán!</p>
+					</c:when>
+					<c:when test="${param.updateSuccess}">
+						<p style="color: red;" class="error">Cập nhật thành công 1
+							người bán!</p>
+					</c:when>
+					<c:when test="${param.deleteSuccess}">
+						<p style="color: red;" class="error">Xóa thành công 1 người
+							bán!</p>
+					</c:when>
+				</c:choose>
 				<button type="button" class="btn btn-success">
-					<a style="text-decoration: none" class="link-light" href="<%-- ${pageContext.request.contextPath }/danhmuc/form-add-san-pham/${danhMucId} --%>">Thêm người bán</a>
+					<a style="text-decoration: none" class="link-light"
+						href="${pageContext.request.contextPath }/user/form-add-nguoi-ban">Thêm
+						người bán</a>
 				</button>
 				<table class="table" style="text-align: center;">
 					<thead>
@@ -35,7 +52,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${nguoiBan}" var="nguoiBan">
+						<c:forEach items="${pagedListHolder.pageList}" var="nguoiBan">
 							<tr>
 								<th>${nguoiBan.id}</th>
 								<td>${nguoiBan.cuaHang.tenCuaHang}</td>
@@ -47,13 +64,13 @@
 									<div class="col">
 										<button type="button" class="btn btn-outline-warning">
 											<a style="text-decoration: none" class="link-warning"
-												href="<%-- ${pageContext.request.contextPath }/danhmuc/update/${sp.getSanPhamId() } --%>">Sửa</a>
+												href="${pageContext.request.contextPath}/user/form-update-nguoi-ban/${nguoiBan.id}">Sửa</a>
 										</button>
 									</div>
 									<div class="col">
 										<button type="button" class="btn btn-outline-danger">
 											<a style="text-decoration: none" class="link-danger"
-												href="<%-- ${pageContext.request.contextPath }/danhmuc/delete/${sp.getSanPhamId()} --%>"
+												href="${pageContext.request.contextPath }/user/deleteNguoiBan/${nguoiBan.id}"
 												onclick="return confirm('Bạn có muốn xóa?')">Xóa</a>
 										</button>
 									</div>
@@ -64,6 +81,13 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				<jsp:useBean id="pagedListHolder" scope="request"
+					type="org.springframework.beans.support.PagedListHolder" />
+				<c:url value="/user/nguoiban" var="pagedLink">
+					<c:param name="p" value="~" />
+				</c:url>
+				<tg:paging pagedListHolder="${pagedListHolder}"
+					pagedLink="${pagedLink}" />
 			</div>
 		</div>
 	</div>

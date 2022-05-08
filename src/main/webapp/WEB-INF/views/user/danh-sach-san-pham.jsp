@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +21,9 @@
 			</div>
 			<div class="col-10">
 				<button type="button" class="btn btn-success">
-					<a style="text-decoration: none" class="link-light" href="${pageContext.request.contextPath }/user/form-add-san-pham/${nguoiDung.getId()}">Đăng sản phẩm</a>
+					<a style="text-decoration: none" class="link-light"
+						href="${pageContext.request.contextPath }/user/form-add-san-pham/${nguoiDung.getId()}">Đăng
+						sản phẩm</a>
 				</button>
 				<table class="table" style="text-align: center;">
 					<thead>
@@ -35,7 +38,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${sanPhamCuaHang}" var="sp">
+						<c:forEach items="${pagedListHolder.pageList}" var="sp">
 							<tr>
 								<th>${sp.getSanPhamId()}</th>
 								<c:url var="image" value="${sp.hinhAnh}" />
@@ -66,6 +69,13 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				<jsp:useBean id="pagedListHolder" scope="request"
+					type="org.springframework.beans.support.PagedListHolder" />
+				<c:url value="/user/sanphamcuahang/${nguoiDung.cuaHang.cuaHangId }" var="pagedLink">
+					<c:param name="p" value="~" />
+				</c:url>
+				<tg:paging pagedListHolder="${pagedListHolder}"
+					pagedLink="${pagedLink}" />
 			</div>
 		</div>
 	</div>

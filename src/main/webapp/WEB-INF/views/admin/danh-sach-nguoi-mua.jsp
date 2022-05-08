@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +19,7 @@
 			<div class="col-2">
 				<jsp:include page="../layout/sidebar-admin.jsp" />
 			</div>
-			
+
 			<div class="col-10">
 				<c:choose>
 					<c:when test="${param.success}">
@@ -42,7 +43,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${nguoiMua}" var="nguoiMua">
+						<c:forEach items="${pagedListHolder.pageList}" var="nguoiMua">
 							<tr>
 								<th>${nguoiMua.id}</th>
 								<td>${nguoiMua.hoTenDem}</td>
@@ -70,6 +71,13 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				<jsp:useBean id="pagedListHolder" scope="request"
+					type="org.springframework.beans.support.PagedListHolder" />
+				<c:url value="/user/nguoimua" var="pagedLink">
+					<c:param name="p" value="~" />
+				</c:url>
+				<tg:paging pagedListHolder="${pagedListHolder}"
+					pagedLink="${pagedLink}" />
 			</div>
 		</div>
 	</div>

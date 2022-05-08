@@ -6,11 +6,14 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -98,10 +101,10 @@ public class UserController {
                 nguoiDung.setDiaChi(nguoiDungDTO.getDiaChi());
                 nguoiDungRepository.save(nguoiDung);
 
-                return new RedirectView(request.getContextPath() + "/user/login?success");
+                return new RedirectView(request.getContextPath() + "/user/login?success=true");
             }
 
-            return new RedirectView(request.getContextPath() + "/user/register?failure");
+            return new RedirectView(request.getContextPath() + "/user/register?failure=true");
         }
 
     }
@@ -128,9 +131,15 @@ public class UserController {
         }
 	
 	@GetMapping("/sanphamcuahang/{id}")
-	public String getSanPhamsByCuaHang(@PathVariable int id,Model model) {
-		model.addAttribute("cuaHangId",id);
-		model.addAttribute("sanPhamCuaHang",sanPhamRepository.getSanPhamByCuaHangId(id));
+	public String getSanPhamsByCuaHang(@PathVariable int id,HttpServletRequest request,ModelMap modelMap) {
+//		model.addAttribute("cuaHangId",id);
+//		model.addAttribute("sanPhamCuaHang",sanPhamRepository.getSanPhamByCuaHangId(id));
+		
+		PagedListHolder pagedListHolder = new PagedListHolder(sanPhamRepository.getSanPhamByCuaHangId(id));
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setPageSize(8);
+		modelMap.put("pagedListHolder", pagedListHolder);
 		return "/user/danh-sach-san-pham";
 	}
 	
@@ -207,14 +216,22 @@ public class UserController {
 	}
 	
 	@GetMapping("/nguoimua")
-	public String getNguoiMua(Model model) {
-		model.addAttribute("nguoiMua",nguoiDungRepository.findByRoleMember());
+	public String getNguoiMua(HttpServletRequest request,ModelMap modelMap) {
+		PagedListHolder pagedListHolder = new PagedListHolder(nguoiDungRepository.findByRoleMember());
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setPageSize(8);
+		modelMap.put("pagedListHolder", pagedListHolder);
 		return "/admin/danh-sach-nguoi-mua";
 	}
 	
 	@GetMapping("/nguoiban")
-	public String getNguoiBan(Model model) {
-		model.addAttribute("nguoiBan",nguoiDungRepository.findByCuaHang());
+	public String getNguoiBan(HttpServletRequest request,ModelMap modelMap) {
+		PagedListHolder pagedListHolder = new PagedListHolder(nguoiDungRepository.findByCuaHang());
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setPageSize(8);
+		modelMap.put("pagedListHolder", pagedListHolder);
 		return "/admin/danh-sach-nguoi-ban";
 	}
 	
@@ -235,7 +252,7 @@ public class UserController {
 	
 	@GetMapping("/form-add-nguoi-mua")
 	public String formAddNguoiMua() {
-	    return "/user/form-add-nguoi-mua";
+	    return "/admin/form-add-nguoi-mua";
 	}
 	
 	@PostMapping(value = "/form-add-nguoi-mua", consumes = "application/x-www-form-urlencoded")
@@ -288,12 +305,74 @@ public class UserController {
                 nguoiDung.setSoDienThoai(nguoiDungDTO.getSoDienThoai());
                 nguoiDung.setDiaChi(nguoiDungDTO.getDiaChi());
                 nguoiDungRepository.save(nguoiDung);
-                return new RedirectView(request.getContextPath() + "/user/form-update-nguoi-mua?success");
+                return new RedirectView(request.getContextPath() + "/user/form-update-nguoi-mua?success=true");
 	}
 	
 	@RequestMapping(value = "deleteNguoiMua/{id}", method = RequestMethod.GET)
 	public String deleteNguoiMua(@PathVariable int id) {
 		nguoiDungRepository.delete(nguoiDungRepository.findById(id));
 		return "redirect:/user/nguoimua?success=true";
+	}
+	
+	@GetMapping("/form-add-nguoi-ban")
+	public String formAddNguoiBan() {
+	    return "/admin/form-add-nguoi-ban";
+	}
+	
+	@PostMapping(value = "/form-add-nguoi-ban", consumes = "application/x-www-form-urlencoded")
+    public RedirectView postAddNguoiBan(NguoiDungDTO nguoiDungDTO, BindingResult bindingResult, Model model, HttpServletRequest request) {
+            if (userRepository.findByEmail(nguoiDungDTO.getEmail()) == null) {
+                VaiTro vaiTro = roleRepository.findByTenVaiTro("ROLE_MEMBER");
+
+                TaiKhoan taiKhoan = new TaiKhoan();
+                Set<VaiTro> vaiTros = new HashSet<>();
+                vaiTros.add(vaiTro);
+                taiKhoan.setVaiTros(vaiTros);
+                taiKhoan.setEmail(nguoiDungDTO.getEmail());
+                taiKhoan.setMatKhau(passwordEncoder.encode(nguoiDungDTO.getMatKhau()));
+         
+                userRepository.save(taiKhoan);
+
+                NguoiDung nguoiDung = new NguoiDung();
+                nguoiDung.setTaiKhoan(taiKhoan);
+                nguoiDung.setHoTenDem(nguoiDungDTO.getHoTenDem());
+                nguoiDung.setTen(nguoiDungDTO.getTen());
+                nguoiDung.setSoDienThoai(nguoiDungDTO.getSoDienThoai());
+                nguoiDung.setDiaChi(nguoiDungDTO.getDiaChi());
+                CuaHang cuaHang = new CuaHang(nguoiDungDTO.getTenCuaHang(), nguoiDungDTO.getDiaChiLayHang(),nguoiDungDTO.getEmail(), nguoiDungDTO.getSoDienThoai());
+                nguoiDung.setCuaHang(cuaHang);
+                nguoiDungRepository.save(nguoiDung);
+
+                return new RedirectView(request.getContextPath() + "/user/nguoiban?addSuccess=true");
+            }
+
+            return new RedirectView(request.getContextPath() + "/user/form-add-nguoi-ban?failure=true");
+
+    }
+	
+	@GetMapping("/form-update-nguoi-ban/{id}")
+	public String updateNguoiBan(@PathVariable int id,Model model) {
+		model.addAttribute("nguoiBan",nguoiDungRepository.findById(id));
+	    return "/admin/form-update-nguoi-ban";
+	}
+	
+	@PostMapping(value = "/form-update-nguoi-ban/{id}", consumes = "application/x-www-form-urlencoded")
+    public RedirectView postUpdateNguoiBan(@PathVariable int id,NguoiDungDTO nguoiDungDTO, BindingResult bindingResult, Model model, HttpServletRequest request) {
+				
+                NguoiDung nguoiDung = nguoiDungRepository.findById(id);
+                nguoiDung.setHoTenDem(nguoiDungDTO.getHoTenDem());
+                nguoiDung.setTen(nguoiDungDTO.getTen());
+                nguoiDung.setSoDienThoai(nguoiDungDTO.getSoDienThoai());
+                nguoiDung.setDiaChi(nguoiDungDTO.getDiaChi());
+                CuaHang cuaHang = new CuaHang(nguoiDungDTO.getTenCuaHang(), nguoiDungDTO.getDiaChiLayHang(),nguoiDungDTO.getEmail(), nguoiDungDTO.getSoDienThoai());
+                nguoiDung.setCuaHang(cuaHang);
+                nguoiDungRepository.save(nguoiDung);
+                return new RedirectView(request.getContextPath() + "/user/nguoiban?updateSuccess=true");
+	}
+	
+	@RequestMapping(value = "deleteNguoiBan/{id}", method = RequestMethod.GET)
+	public String deleteNguoiBan(@PathVariable int id) {
+		nguoiDungRepository.delete(nguoiDungRepository.findById(id));
+		return "redirect:/user/nguoiban?deleteSuccess=true";
 	}
 }

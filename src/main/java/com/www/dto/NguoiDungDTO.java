@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class NguoiDungDTO {
 	
-	@NotEmpty(message = "H�? tên đệm không được để trống")
+	@NotEmpty(message = "Họ tên đệm không được để trống")
 	private String hoTenDem;
 	
 	@NotNull(message = "Tên không được để trống")
@@ -23,12 +23,18 @@ public class NguoiDungDTO {
 	@Email(message = "Email không đúng định dạng")
     private String email;
 	
-	@NotNull(message = "�?ịa không được để trống")
+	@NotNull(message = "Địa chỉ không được để trống")
     private String diaChi;
 	
 	@NotEmpty(message = "Mật khẩu không được để trống")
 	@Min(value = 6, message = "Mật khẩu phải từ 6 kí tự trở lên")
     private String matKhau;
+	
+	@NotEmpty(message = "Tên cửa hàng không được để trống")
+	private String tenCuaHang;
+	
+	@NotEmpty(message = "Địa chỉ lấy hàng không được để trống")
+	private String diaChiLayHang;
 
 	public String getHoTenDem() {
 		return hoTenDem;
@@ -76,6 +82,22 @@ public class NguoiDungDTO {
 
 	public void setMatKhau(String matKhau) {
 		this.matKhau = matKhau;
+	}
+
+	public String getTenCuaHang() {
+		return tenCuaHang;
+	}
+
+	public void setTenCuaHang(String tenCuaHang) {
+		this.tenCuaHang = tenCuaHang;
+	}
+
+	public String getDiaChiLayHang() {
+		return diaChiLayHang;
+	}
+
+	public void setDiaChiLayHang(String diaChiLayHang) {
+		this.diaChiLayHang = diaChiLayHang;
 	}
 
 	public NguoiDungDTO() {
