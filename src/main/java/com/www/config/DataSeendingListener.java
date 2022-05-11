@@ -45,7 +45,6 @@ public class DataSeendingListener implements ApplicationListener {
             taiKhoan.setMatKhau(passwordEncoder.encode("123456"));
             Set<VaiTro> vaiTros = new HashSet<>();
             vaiTros.add(roleRepository.findByTenVaiTro("ROLE_ADMIN"));
-            vaiTros.add(roleRepository.findByTenVaiTro("ROLE_MEMBER"));
             taiKhoan.setVaiTros(vaiTros);
 
             NguoiDung nguoiDung = new NguoiDung();

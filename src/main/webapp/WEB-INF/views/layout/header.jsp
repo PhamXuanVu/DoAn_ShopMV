@@ -7,6 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 <link
 	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
 	rel="stylesheet">
@@ -52,7 +54,8 @@ body {
 			<div class="row" style="justify-content: center;">
 				<div class="col-lg-3">
 					<div class="header__logo">
-						<a href="${homePageUrl}"><img src="/ShopMV/images/logo.jpg" alt=""></a>
+						<a href="${homePageUrl}"><img src="/ShopMV/images/logo.jpg"
+							alt=""></a>
 					</div>
 				</div>
 				<div class="col-lg-5">
@@ -141,13 +144,48 @@ body {
 
 		<!-- Breadcrumb Section Begin -->
 		<section>
-			<div class="row">
+			<div class="row" >
 				<div class="col-lg-12">
-					<img src="/ShopMV/images/banner.jpg" alt="">
+					<div id="carouselExampleIndicators" class="carousel slide"
+						data-ride="carousel">
+						<ol class="carousel-indicators">
+							<li data-target="#carouselExampleIndicators" data-slide-to="0"
+								class="active"></li>
+							<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+							<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+							<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+						</ol>
+						<div class="carousel-inner">
+							<div class="carousel-item active">
+								<img style="width: 100%; height: 230px;" class="d-block w-100" src="/ShopMV/images/banner.jpg"
+									alt="First slide">
+							</div>
+							<div  class="carousel-item">
+								<img style="width: 100%; height: 230px;" class="d-block w-100" src="/ShopMV/images/banner-1.jpg"
+									alt="Second slide">
+							</div>
+							<div  class="carousel-item">
+								<img style="width: 100%; height: 230px;" class="d-block w-100" src="/ShopMV/images/banner-2.png"
+									alt="Third slide">
+							</div>
+							<div class="carousel-item">
+								<img style="width: 100%; height: 230px;" class="d-block w-100" src="/ShopMV/images/banner-3.jpg"
+									alt="Third slide">
+							</div>
+						</div>
+						<a class="carousel-control-prev" href="#carouselExampleIndicators"
+							role="button" data-slide="prev"> <span
+							class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+							class="sr-only">Previous</span>
+						</a> <a class="carousel-control-next"
+							href="#carouselExampleIndicators" role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
+					</div>
 				</div>
 			</div>
 		</section>
-
 	</c:if>
 
 
@@ -156,7 +194,8 @@ body {
 			<div class="row">
 				<div class="col-lg-3">
 					<div class="header__logo">
-						<a href="${homePageUrl}"><img src="/ShopMV/images/logo.jpg" alt=""></a>
+						<a href="${homePageUrl}"><img src="/ShopMV/images/logo.jpg"
+							alt=""></a>
 					</div>
 				</div>
 				<div class="col-lg-5">
@@ -188,7 +227,8 @@ body {
 											<sec:authorize
 												access="hasRole('ROLE_MEMBER') and !hasRole('ROLE_ADMIN')">
 												<li><a
-													href="${pageContext.request.contextPath}/user/cuahang/${nguoiDung.getId()}">Shop của bạn</a></li>
+													href="${pageContext.request.contextPath}/user/cuahang/${nguoiDung.getId()}">Shop
+														của bạn</a></li>
 												<li><a
 													href="${pageContext.request.contextPath}/user/form-update-user/${nguoiDung.getId()}">Tài
 														khoản</a></li>
@@ -293,5 +333,11 @@ body {
 	<script src="${pageContext.request.contextPath}/js/jquery.slicknav.js"></script>
 	<script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/main.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 </body>
 </html>

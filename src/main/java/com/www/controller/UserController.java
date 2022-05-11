@@ -293,7 +293,7 @@ public class UserController {
 	@GetMapping("/form-update-nguoi-mua/{id}")
 	public String updateNguoiMua(@PathVariable int id,Model model) {
 		model.addAttribute("nguoiMua",nguoiDungRepository.findById(id));
-	    return "/user/form-update-nguoi-mua";
+	    return "/admin/form-update-nguoi-mua";
 	}
 	
 	@PostMapping(value = "/form-update-nguoi-mua/{id}", consumes = "application/x-www-form-urlencoded")

@@ -52,13 +52,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // For MANAGER only.
         http.authorizeRequests().antMatchers("/product/**").access("hasRole('ROLE_ADMIN')");
         http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");
-        http.authorizeRequests().antMatchers("/cart/payment").authenticated();
-        http.authorizeRequests().antMatchers("/danhmuc/*").permitAll();
+        http.authorizeRequests().antMatchers("/user/nguoimua").access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/user/nguoiban").access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/danhmuc/**").access("!hasRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/gioHang/**").access("hasRole('ROLE_MEMBER')");
         http.authorizeRequests().antMatchers("/user/login").permitAll();
         http.authorizeRequests().antMatchers("/user/register").permitAll();
-
-        http.authorizeRequests().antMatchers("/user/**").access("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')");
-
+        http.authorizeRequests().antMatchers("/chiTietSP/**").access("!hasRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/user/**").access("hasRole('ROLE_MEMBER')");        
+        http.authorizeRequests().antMatchers("/").permitAll();
         http.authorizeRequests().anyRequest().permitAll();
 
         // When the user has logged in as XX.
@@ -72,7 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // Submit URL of login page.
                 .loginProcessingUrl("/j_spring_security_check") // Submit URL
                 .loginPage("/user/login")//
-                .defaultSuccessUrl("/")//
+                .defaultSuccessUrl("/")
                 .failureUrl("/user/login?error=true")
                 .usernameParameter("email")//
                 .passwordParameter("password")
