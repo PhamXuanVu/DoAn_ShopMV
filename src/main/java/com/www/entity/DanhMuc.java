@@ -57,7 +57,12 @@ public class DanhMuc {
 		this.tenDanhMuc = tenDanhMuc;
 		this.sanPhams = sanPhams;
 	}
+	
+	
 
+	public DanhMuc(String tenDanhMuc) {
+		this.tenDanhMuc = tenDanhMuc;
+	}
 
 	public DanhMuc() {
 		super();

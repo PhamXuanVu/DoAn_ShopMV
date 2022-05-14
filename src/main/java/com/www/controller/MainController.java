@@ -41,7 +41,7 @@ public class MainController {
 	private GoogleUtils googleUtils;
 	
 	@GetMapping("/")
-	public String hi(HttpServletRequest request,Model model,ModelMap modelMap) {
+	public String main(HttpServletRequest request,Model model,ModelMap modelMap) {
 		model.addAttribute("sanPham", sanPhamRepository.findAll());
 		model.addAttribute("sanPhamNoiBat", sanPhamRepository.getSanPhamNoiBat());
 		model.addAttribute("sanPhamMoi", sanPhamRepository.getSanPhamMoi());
@@ -49,7 +49,7 @@ public class MainController {
 		PagedListHolder pagedListHolder = new PagedListHolder(products);
 		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 		pagedListHolder.setPage(page);
-		pagedListHolder.setPageSize(5);
+		pagedListHolder.setPageSize(1);
 		modelMap.put("pagedListHolder", pagedListHolder);
 	    return "index";
 	}

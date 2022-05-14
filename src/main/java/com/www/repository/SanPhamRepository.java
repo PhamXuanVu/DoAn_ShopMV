@@ -24,4 +24,7 @@ public interface SanPhamRepository extends CrudRepository<SanPham, Integer> {
 	
 	@Query(value = "select top 6 * from [dbo].[san_pham] order by sanPhamId desc",nativeQuery = true)
 	List<SanPham> getSanPhamMoi();
+	
+	@Query(value = "select * from [dbo].[san_pham] where cuaHangId = ?1",nativeQuery = true)
+	List<SanPham> getSanPhamByCuaHang(int cuaHangId);
 }

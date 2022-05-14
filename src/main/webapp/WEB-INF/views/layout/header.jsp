@@ -143,7 +143,7 @@ body {
 		<!-- Hero Section End -->
 
 		<!-- Breadcrumb Section Begin -->
-		<section>
+		<%-- <section>
 			<div class="row" >
 				<div class="col-lg-12">
 					<div id="carouselExampleIndicators" class="carousel slide"
@@ -185,7 +185,7 @@ body {
 					</div>
 				</div>
 			</div>
-		</section>
+		</section> --%>
 	</c:if>
 
 
@@ -311,16 +311,6 @@ body {
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</section>
-		<!-- Hero Section End -->
-
-		<!-- Breadcrumb Section Begin -->
-		<section>
-			<div class="row">
-				<div class="col-lg-12">
-					<img src="/ShopMV/images/banner.jpg" alt="">
 				</div>
 			</div>
 		</section>

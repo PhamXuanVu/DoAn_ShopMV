@@ -25,7 +25,7 @@
 				<div class="col-md-7">
 					<input name="id" type="hidden" value="${sanPham.getSanPhamId()}">
 					<div class="newarrival text-center">NEW</div>
-					<h2>${sanPham.getCuaHang().getTenCuaHang()}</h2>
+					<a style="text-decoration: none;" href="${pageContext.request.contextPath}/danhmuc/san-pham-cua-hang/${sanPham.cuaHang.cuaHangId}"><h2>${sanPham.getCuaHang().getTenCuaHang()}</h2></a>
 					<h2 >${sanPham.tenSanPham}</h2>
 					<p>${sanPham.moTa }</p>
 

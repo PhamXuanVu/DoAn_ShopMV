@@ -21,7 +21,7 @@ public class VaiTro implements Serializable {
 	@Column(name = "tenVaiTro", nullable = false)
 	private String tenVaiTro;
 	
-	@ManyToMany(mappedBy = "vaiTros")
+	@OneToMany(mappedBy = "vaiTro", cascade = CascadeType.ALL)
 	private Set<TaiKhoan> taiKhoans;
 
 	

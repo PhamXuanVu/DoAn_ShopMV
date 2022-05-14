@@ -24,9 +24,9 @@ public class TaiKhoan implements Serializable {
 	@Column(name = "matKhau", nullable = false)
 	private String matKhau;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "tai_khoan_vai_tro", joinColumns = @JoinColumn(name = "tai_khoan_id"), inverseJoinColumns = @JoinColumn(name = "vai_tro_id"))
-	private Set<VaiTro> vaiTros;
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "vaiTroId")
+	private VaiTro vaiTro;
 
 	@OneToOne(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
 	private NguoiDung nguoiDung;
@@ -55,12 +55,14 @@ public class TaiKhoan implements Serializable {
 		this.matKhau = matKhau;
 	}
 
-	public Set<VaiTro> getVaiTros() {
-		return vaiTros;
+	
+
+	public VaiTro getVaiTro() {
+		return vaiTro;
 	}
 
-	public void setVaiTros(Set<VaiTro> vaiTros) {
-		this.vaiTros = vaiTros;
+	public void setVaiTro(VaiTro vaiTro) {
+		this.vaiTro = vaiTro;
 	}
 
 	public NguoiDung getNguoiDung() {
@@ -75,12 +77,12 @@ public class TaiKhoan implements Serializable {
 		return serialVersionUID;
 	}
 
-	public TaiKhoan(int id, String email, String matKhau, Set<VaiTro> vaiTros, NguoiDung nguoiDung) {
+	public TaiKhoan(int id, String email, String matKhau, VaiTro vaiTro, NguoiDung nguoiDung) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.matKhau = matKhau;
-		this.vaiTros = vaiTros;
+		this.vaiTro = vaiTro;
 		this.nguoiDung = nguoiDung;
 	}
 

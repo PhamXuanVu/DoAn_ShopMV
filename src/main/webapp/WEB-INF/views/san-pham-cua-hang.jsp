@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,10 +14,18 @@
 </head>
 <body>
 	<jsp:include page="layout/header.jsp" />
+
 	<section class="featured spad">
 		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="section-title">
+						<h2>${cuaHang.tenCuaHang }</h2>
+					</div>
+				</div>
+			</div>
 			<div class="row featured__filter">
-				<c:forEach items="${danhMucSP}" var="sp">
+				<c:forEach items="${pagedListHolder.pageList}" var="sp">
 					<c:if test="${sp != null }">
 						<c:url var="image" value="${sp.hinhAnh}" />
 						<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
@@ -63,10 +72,17 @@
 					</c:if>
 				</c:forEach>
 			</div>
+			<jsp:useBean id="pagedListHolder" scope="request"
+				type="org.springframework.beans.support.PagedListHolder" />
+			<c:url value="/danhmuc/tat-ca-san-pham/" var="pagedLink">
+				<c:param name="p" value="~" />
+			</c:url>
+			<tg:paging pagedListHolder="${pagedListHolder}"
+				pagedLink="${pagedLink}" />
 		</div>
 	</section>
-			<jsp:include page="layout/footer.jsp" />
-		<script
+	<jsp:include page="layout/footer.jsp" />
+	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 		crossorigin="anonymous"></script>

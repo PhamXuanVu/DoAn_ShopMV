@@ -5,9 +5,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,9 +43,27 @@ public class SanPhamController {
 	@Autowired
 	private CuaHangRepository cuaHangRepository;
 	
-	@GetMapping("/")
-	public String getDanhMucs() {
-		return "/admin/danh-muc-san-pham";
+	@GetMapping("/tat-ca-san-pham")
+	public String getAllSanPham(ModelMap modelMap,HttpServletRequest request) {
+		List<SanPham> products = (List<SanPham>) sanPhamRepository.findAll();
+		PagedListHolder pagedListHolder = new PagedListHolder(products);
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setPageSize(1);
+		modelMap.put("pagedListHolder", pagedListHolder);
+		return "tat-ca-san-pham";
+	}
+	
+	@GetMapping("/san-pham-cua-hang/{id}")
+	public String getAllSanPhamByCuaHang(@PathVariable int id,ModelMap modelMap,HttpServletRequest request,Model model) {
+		List<SanPham> products = (List<SanPham>) sanPhamRepository.getSanPhamByCuaHang(id);
+		model.addAttribute("cuaHang",cuaHangRepository.findById(id).get());
+		PagedListHolder pagedListHolder = new PagedListHolder(products);
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setPageSize(1);
+		modelMap.put("pagedListHolder", pagedListHolder);
+		return "san-pham-cua-hang";
 	}
 	
 	@GetMapping("/{id}")
@@ -50,39 +71,6 @@ public class SanPhamController {
 		model.addAttribute("danhMucId",id);
 		model.addAttribute("danhMucSP",sanPhamRepository.getSanPhamByDanhMucId(id));
 		return "/danh-muc-san-pham";
-	}
-	
-	@RequestMapping(value="/san-pham-admin/{id}")
-	public String getSanPhamBysDanhMucAdmin(@PathVariable int id,Model model) {
-		model.addAttribute("danhMucSPAdmin", sanPhamRepository.getSanPhamByDanhMucId(id));
-		model.addAttribute("danhMucId",id);
-		return "/admin/danh-sach-san-pham";
-	}
-	
-	@RequestMapping("/form-add-san-pham/{id}")
-	public String getFormAddSanPhamAdmin(@PathVariable int id,Model model) {
-		model.addAttribute("danhMucId",id);
-		model.addAttribute("getTenDanhMuc",danhMucRepository.findById(id).get());
-		return "/admin/form-add-san-pham";
-	}
-
-	@PostMapping(value = "/form-add-san-pham/{id}", consumes = "application/x-www-form-urlencoded")
-	public RedirectView postAddSanPham(@PathVariable int id,SanPhamDTO sanPhamDTO, Model model, HttpServletRequest request) {
-
-		SanPham sanPham = new SanPham();
-		sanPham.setTenSanPham(sanPhamDTO.getTenSanPham());
-		sanPham.setDonGia(sanPhamDTO.getDonGia());
-		sanPham.setHinhAnh("/images/"+sanPhamDTO.getHinhAnh());
-		sanPham.setMoTa(sanPhamDTO.getMoTa());
-		sanPham.setSoLuong(sanPhamDTO.getSoLuong());
-		CuaHang cuaHang = cuaHangRepository.findById(1).get();
-		sanPham.setCuaHang(cuaHang);
-		DanhMuc danhMuc = danhMucRepository.findById(id).get();
-		sanPham.setDanhMuc(danhMuc);
-		sanPhamRepository.save(sanPham);
-
-		return new RedirectView(request.getContextPath() + "/danhmuc/san-pham-admin/" + id);
-
 	}
 	
 	@RequestMapping("/timkiem")

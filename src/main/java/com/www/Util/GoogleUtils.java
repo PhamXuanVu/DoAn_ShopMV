@@ -86,9 +86,7 @@ public class GoogleUtils {
             VaiTro vaiTro = roleRepository.findByTenVaiTro("ROLE_MEMBER");
 
             TaiKhoan taiKhoan = new TaiKhoan();
-            Set<VaiTro> vaiTros = new HashSet<>();
-            vaiTros.add(vaiTro);
-            taiKhoan.setVaiTros(vaiTros);
+            taiKhoan.setVaiTro(vaiTro);
             taiKhoan.setEmail(googlePojo.getEmail());
             taiKhoan.setMatKhau(passwordEncoder.encode("123456"));
      

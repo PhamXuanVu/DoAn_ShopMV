@@ -25,16 +25,9 @@ public class MyDBAuthenticationService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		TaiKhoan taiKhoan = userRepository.findByEmail(username);
 
-		if (taiKhoan == null) {
-			throw new UsernameNotFoundException("TaiKhoan " //
-					+ username + " was not found in the database");
-		}
 
 		List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
-
-		for (VaiTro vaiTro: taiKhoan.getVaiTros()) {
-			grantList.add(new SimpleGrantedAuthority(vaiTro.getTenVaiTro()));
-		}
+		grantList.add(new SimpleGrantedAuthority(taiKhoan.getVaiTro().getTenVaiTro()));
 
 		boolean enabled = true;
 		boolean accountNonExpired = true;

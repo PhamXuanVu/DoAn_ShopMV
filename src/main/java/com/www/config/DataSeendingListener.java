@@ -22,6 +22,9 @@ public class DataSeendingListener implements ApplicationListener {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private DanhMucRepository danhMucRepository;
 
     @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
@@ -43,9 +46,7 @@ public class DataSeendingListener implements ApplicationListener {
             TaiKhoan taiKhoan = new TaiKhoan();
             taiKhoan.setEmail("admin@gmail.com");
             taiKhoan.setMatKhau(passwordEncoder.encode("123456"));
-            Set<VaiTro> vaiTros = new HashSet<>();
-            vaiTros.add(roleRepository.findByTenVaiTro("ROLE_ADMIN"));
-            taiKhoan.setVaiTros(vaiTros);
+            taiKhoan.setVaiTro(roleRepository.findByTenVaiTro("ROLE_ADMIN"));
 
             NguoiDung nguoiDung = new NguoiDung();
             nguoiDung.setHoTenDem("Pham Xuan");
@@ -60,9 +61,7 @@ public class DataSeendingListener implements ApplicationListener {
             TaiKhoan taiKhoan = new TaiKhoan();
             taiKhoan.setEmail("quynhmai@gmail.com");
             taiKhoan.setMatKhau(passwordEncoder.encode("123456"));
-            Set<VaiTro> vaiTros = new HashSet<>();
-            vaiTros.add(roleRepository.findByTenVaiTro("ROLE_MEMBER"));
-            taiKhoan.setVaiTros(vaiTros);
+            taiKhoan.setVaiTro(roleRepository.findByTenVaiTro("ROLE_MEMBER"));
 
             NguoiDung nguoiDung = new NguoiDung();
             nguoiDung.setHoTenDem("Nguyen Thi Quynh");
@@ -73,6 +72,32 @@ public class DataSeendingListener implements ApplicationListener {
 
             nguoiDungRepository.save(nguoiDung);
         }
-
+        
+        if(danhMucRepository.findByTenDanhMuc("Thời trang nam") == null) {
+        	DanhMuc danhMuc = new DanhMuc("Thời trang nam");
+        	danhMucRepository.save(danhMuc);
+        }
+        
+        if(danhMucRepository.findByTenDanhMuc("Thời trang nữ") == null) {
+        	DanhMuc danhMuc = new DanhMuc("Thời trang nữ");
+        	danhMucRepository.save(danhMuc);
+        }
+        
+        if(danhMucRepository.findByTenDanhMuc("Nước hoa") == null) {
+        	DanhMuc danhMuc = new DanhMuc("Nước hoa");
+        	danhMucRepository.save(danhMuc);
+        }
+        
+        if(danhMucRepository.findByTenDanhMuc("Giày dép nam") == null) {
+        	DanhMuc danhMuc = new DanhMuc("Giày dép nam");
+        	danhMucRepository.save(danhMuc);
+        }
+        
+        if(danhMucRepository.findByTenDanhMuc("Giày dép nam") == null) {
+        	DanhMuc danhMuc = new DanhMuc("Giày dép nam");
+        	danhMucRepository.save(danhMuc);
+        }
     }
+    
+    
 }
