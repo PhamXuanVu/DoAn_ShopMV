@@ -12,7 +12,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
-				<jsp:include page="../layout/header.jsp" />
+				<jsp:include page="../layout/header-admin.jsp" />
 			</div>
 		</div>
 		<div class="row">
@@ -22,8 +22,17 @@
 
 			<div class="col-10">
 				<c:choose>
-					<c:when test="${param.success}">
-						<p style="color: red;" class="error">Xóa người mua thành công!</p>
+					<c:when test="${param.addSuccess}">
+						<p style="color: red;" class="error">Thêm thành công 1 người
+							mua!</p>
+					</c:when>
+					<c:when test="${param.updateSuccess}">
+						<p style="color: red;" class="error">Cập nhật thành công 1
+							người mua!</p>
+					</c:when>
+					<c:when test="${param.deleteSuccess}">
+						<p style="color: red;" class="error">Xóa thành công 1 người
+							mua!</p>
 					</c:when>
 				</c:choose>
 				<button type="button" class="btn btn-success">

@@ -12,10 +12,10 @@
 	<c:url var="danhMucAd" value="/danhmuc/" />
 	<div class="d-flex" id="wrapper">
 		<!-- Sidebar-->
-		<div class="border-end bg-white" id="sidebar-wrapper">
-			<div class="sidebar-heading border-bottom bg-light">Admin</div>
+		<div  class="border-end bg-white" id="sidebar-wrapper">
+			<div class="sidebar-heading border-bottom">Admin</div>
 			<div class="list-group list-group-flush">
-				<a
+				<a 
 					class="list-group-item list-group-item-action list-group-item-light p-3"
 					href="${pageContext.request.contextPath }/user/nguoimua">Người mua</a> <a
 					class="list-group-item list-group-item-action list-group-item-light p-3"

@@ -25,12 +25,16 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.www.dto.NguoiDungDTO;
 import com.www.dto.SanPhamDTO;
+import com.www.entity.ChiTietSanPham;
 import com.www.entity.CuaHang;
 import com.www.entity.DanhMuc;
+import com.www.entity.KichCo;
+import com.www.entity.MauSac;
 import com.www.entity.NguoiDung;
 import com.www.entity.SanPham;
 import com.www.entity.TaiKhoan;
 import com.www.entity.VaiTro;
+import com.www.repository.ChiTietSanPhamRepository;
 import com.www.repository.CuaHangRepository;
 import com.www.repository.DanhMucRepository;
 import com.www.repository.NguoiDungRepository;
@@ -63,6 +67,9 @@ public class UserController {
 	
 	@Autowired
 	private DanhMucRepository danhMucRepository;
+	
+	@Autowired
+	private ChiTietSanPhamRepository chiTietSanPhamRepository;
 	
 	@GetMapping("/login")
 	public String login() {	
@@ -131,10 +138,7 @@ public class UserController {
         }
 	
 	@GetMapping("/sanphamcuahang/{id}")
-	public String getSanPhamsByCuaHang(@PathVariable int id,HttpServletRequest request,ModelMap modelMap) {
-//		model.addAttribute("cuaHangId",id);
-//		model.addAttribute("sanPhamCuaHang",sanPhamRepository.getSanPhamByCuaHangId(id));
-		
+	public String getSanPhamsByCuaHang(@PathVariable int id,HttpServletRequest request,ModelMap modelMap) {		
 		PagedListHolder pagedListHolder = new PagedListHolder(sanPhamRepository.getSanPhamByCuaHangId(id));
 		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 		pagedListHolder.setPage(page);
@@ -162,10 +166,27 @@ public class UserController {
 		sanPham.setCuaHang(nguoiDung.getCuaHang());
 		DanhMuc danhMuc = danhMucRepository.findByTenDanhMuc(sanPhamDTO.getDanhMuc());
 		sanPham.setDanhMuc(danhMuc);
-		sanPhamRepository.save(sanPham);
+				
+		Set<MauSac>mauSacs  = new HashSet<MauSac>();
+		sanPhamDTO.getMauSac().forEach(m -> {
+			MauSac mauSac = new MauSac();
+			mauSac.setTenMau(m);
+			mauSacs.add(mauSac);
+		});
+				
+		Set<KichCo> kichCos = new HashSet<KichCo>();
+		sanPhamDTO.getKichCo().forEach(k -> {
+			KichCo kichCo = new KichCo();
+			kichCo.setTenKichCo(k);
+			kichCos.add(kichCo);
+		});
+				
+		ChiTietSanPham chiTietSanPham = new ChiTietSanPham(mauSacs, kichCos);
+		sanPham.setChiTietSanPham(chiTietSanPham);
+ 		sanPhamRepository.save(sanPham);
 		int cuaHangId = nguoiDung.getCuaHang().getCuaHangId();
 
-		return new RedirectView(request.getContextPath() + "/user/sanphamcuahang/" + cuaHangId);
+		return new RedirectView(request.getContextPath() + "/user/sanphamcuahang/" + cuaHangId+"?addSuccess=true");
 
 	}
 	
@@ -178,17 +199,34 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/form-update-san-pham/{id}",method = RequestMethod.POST)    
-	public String saveUpdateSanPham(@PathVariable int id,@ModelAttribute("sanPham") SanPham sanPham){
+	public String saveUpdateSanPham(@PathVariable int id,@ModelAttribute("sanPham") SanPhamDTO sanPham){
 		SanPham sanPham1 = sanPhamRepository.findById(id).get();
 		sanPham1.setTenSanPham(sanPham.getTenSanPham());
 		sanPham1.setDonGia(sanPham.getDonGia());
 		sanPham1.setMoTa(sanPham.getMoTa());
 		sanPham1.setSoLuong(sanPham.getSoLuong());
 		sanPham1.setHinhAnh("/images/"+sanPham.getHinhAnh());
+		Set<MauSac>mauSacs  = new HashSet<MauSac>();
+		sanPham.getMauSac().forEach(m -> {
+			MauSac mauSac = new MauSac();
+			mauSac.setTenMau(m);
+			mauSacs.add(mauSac);
+		});
+				
+		Set<KichCo> kichCos = new HashSet<KichCo>();
+		sanPham.getKichCo().forEach(k -> {
+			KichCo kichCo = new KichCo();
+			kichCo.setTenKichCo(k);
+			kichCos.add(kichCo);
+		});
+		ChiTietSanPham chiTietSanPham = chiTietSanPhamRepository.findById(sanPham1.getChiTietSanPham().getChiTietSanPhamId()).get();
+		chiTietSanPham.setKichCos(kichCos);
+		chiTietSanPham.setMauSacs(mauSacs);
+		sanPham1.setChiTietSanPham(chiTietSanPham);
 		sanPhamRepository.save(sanPham1);
 		
 		
-		return "redirect:/user/sanphamcuahang/" + sanPham1.getCuaHang().getCuaHangId();
+		return "redirect:/user/sanphamcuahang/" + sanPham1.getCuaHang().getCuaHangId() +"?updateSuccess=true";
 	}
 	
 	@GetMapping("/form-update-user/{id}")
@@ -212,7 +250,7 @@ public class UserController {
 	public String deleteSanPham(@PathVariable int id) {
 		SanPham sanPham1 = sanPhamRepository.findById(id).get();
 		sanPhamRepository.delete(sanPham1);
-		return "redirect:/user/sanphamcuahang/" + sanPham1.getCuaHang().getCuaHangId();
+		return "redirect:/user/sanphamcuahang/" + sanPham1.getCuaHang().getCuaHangId() +"?deleteSuccess=true";
 	}
 	
 	@GetMapping("/nguoimua")
@@ -280,7 +318,7 @@ public class UserController {
                 nguoiDung.setDiaChi(nguoiDungDTO.getDiaChi());
                 nguoiDungRepository.save(nguoiDung);
 
-                return new RedirectView(request.getContextPath() + "/user/form-add-nguoi-mua?success");
+                return new RedirectView(request.getContextPath() + "/user/form-add-nguoi-mua?success=true");
             }
 
             return new RedirectView(request.getContextPath() + "/user/form-add-nguoi-mua?failure");

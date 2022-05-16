@@ -25,9 +25,11 @@ body {
 			<div class="col-4">
 				<jsp:include page="../layout/sidebar-user.jsp" />
 			</div>
-			<div class="col-8">
-				<img src="/ShopMV/images/banner-ch.png" alt="">
-			</div>
+			<c:if test="${nguoiDung.cuaHang.tenCuaHang != null}">
+				<div class="col-8">
+					<img src="/ShopMV/images/banner-ch.png" alt="hi">
+				</div>
+			</c:if>
 		</div>
 	</div>
 </body>

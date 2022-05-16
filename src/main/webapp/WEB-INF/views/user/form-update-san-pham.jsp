@@ -48,6 +48,53 @@
 								<label>Mô tả</label> <input name="moTa" type="text"
 									class="form-control" value="${sanPham.moTa}">
 							</div>
+							<div class=" col form-group">
+								<label>Màu sắc</label> <br />
+									<input type="checkbox" name="mauSac" value="Đỏ" /> Đỏ &nbsp<input
+										type="checkbox" name="mauSac" value="Xanh Lá" /> Xanh Lá &nbsp<input
+										type="checkbox" name="mauSac" value="Xanh Navy" /> Xanh Navy &nbsp
+										<input
+										type="checkbox" name="mauSac" value="Xanh Dương" /> Xanh Dương &nbsp
+										<input
+										type="checkbox" name="mauSac" value="Trắng" /> Trắng &nbsp
+										<input
+										type="checkbox" name="mauSac" value="Đen" /> Đen &nbsp
+										<input
+										type="checkbox" name="mauSac" value="Tím" /> Tím &nbsp
+										<input
+										type="checkbox" name="mauSac" value="Vàng" /> Vàng &nbsp
+										<input
+										type="checkbox" name="mauSac" value="Cam" /> Cam &nbsp
+										<br /> 
+								</div>
+								
+								<div class="col form-group">
+								<label>Kích cở (quần,áo,...)</label><br />
+									<input type="checkbox" name="kichCo" value="Java" /> S &nbsp<input
+										type="checkbox" name="kichCo" value="M" /> M &nbsp<input
+										type="checkbox" name="kichCo" value="L" /> L &nbsp
+										<input
+										type="checkbox" name="kichCo" value="XL" /> XL &nbsp<br /> 
+								</div>
+								
+								<div class="col form-group">
+								<label>Kích cở (giày,dép,...)</label><br />
+									<input type="checkbox" name="kichCo" value="35" /> 35 &nbsp<input
+										type="checkbox" name="kichCo" value="36" /> 36 &nbsp<input
+										type="checkbox" name="kichCo" value="37" /> 37 &nbsp
+										<input
+										type="checkbox" name="kichCo" value="38" /> 38 &nbsp
+										<input
+										type="checkbox" name="kichCo" value="39" /> 39 &nbsp
+										<input
+										type="checkbox" name="kichCo" value="40" /> 40 &nbsp
+										<input
+										type="checkbox" name="kichCo" value="41" /> 41 &nbsp
+										<input
+										type="checkbox" name="kichCo" value="42" /> 42 &nbsp
+										
+										<br /> 
+								</div>
 							<div class="col form-group">
 								<label>Hình ảnh </label> <input name="hinhAnh" type="file"
 									class="form-control">

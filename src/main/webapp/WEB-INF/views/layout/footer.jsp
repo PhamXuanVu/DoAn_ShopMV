@@ -13,7 +13,7 @@
 					<div class="footer__about">
 						<div class="footer__about__logo">
 							<a href="">
-								<img src="/ShopMV/images/logo.jpg" alt="">
+								<img src="/ShopMV/images/logo-1.jpg" alt="">
 							</a>
 						</div>
 						<ul>

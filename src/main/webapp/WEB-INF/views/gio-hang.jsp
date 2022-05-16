@@ -12,7 +12,6 @@
 	crossorigin="anonymous">
 
 <style type="text/css">
-
 table {
 	width: 100%;
 	border-collapse: collapse;
@@ -27,7 +26,7 @@ th {
 	text-align: left;
 	padding: 5px;
 	color: #FFF;
-	background: #ff523b;
+	background: #7fad39;
 	font-weight: normal;
 }
 
@@ -96,6 +95,7 @@ th:last-child {
 							<table>
 								<tr>
 									<th>Sản phẩm</th>
+									<th></th>
 									<th>Số lượng</th>
 									<th>Giá</th>
 								</tr>
@@ -112,6 +112,21 @@ th:last-child {
 													<a href="">Xóa</a>
 												</div>
 											</div>
+										</td>
+										<td>
+										<c:forEach
+												items="${chiTietHoaDon.sanPham.chiTietSanPham.mauSacs}"
+												var="m">
+											${m.tenMau}
+										</c:forEach> ,
+										<c:forEach
+												items="${chiTietHoaDon.sanPham.chiTietSanPham.kichCos}"
+												var="k">
+											${k.tenKichCo}
+										</c:forEach>
+										
+										
+										
 										</td>
 										<td><input type="number" value="${chiTietHoaDon.soLuong}"
 											disabled /></td>
@@ -144,7 +159,7 @@ th:last-child {
 			</c:choose>
 		</c:if>
 	</div>
-		<jsp:include page="layout/footer.jsp" />
+	<jsp:include page="layout/footer.jsp" />
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

@@ -16,19 +16,9 @@ body {
 <body>
 
 	<div class="container">
-		<div class="row">
-			<div class="col-12">
-				<jsp:include page="../layout/header.jsp" />
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-4">
-				<jsp:include page="../layout/sidebar-admin.jsp" />
-			</div>
-			<div class="col-8">
-				<img src="/ShopMV/images/banner-ad.png" alt="">
-			</div>
-		</div>
+		<jsp:include page="../layout/header-admin.jsp" />
+		<jsp:include page="../layout/sidebar-admin.jsp" />
+		<img src="/ShopMV/images/banner-ad.jpg" alt="">
 	</div>
 </body>
 </html>

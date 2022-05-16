@@ -55,6 +55,15 @@ public class SanPham {
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "chiTietSanPhamId", referencedColumnName = "chiTietSanPhamId")
 	private ChiTietSanPham chiTietSanPham;
+	
+	 
+	public ChiTietSanPham getChiTietSanPham() {
+		return chiTietSanPham;
+	}
+
+	public void setChiTietSanPham(ChiTietSanPham chiTietSanPham) {
+		this.chiTietSanPham = chiTietSanPham;
+	}
 
 	public SanPham() {
 		super();

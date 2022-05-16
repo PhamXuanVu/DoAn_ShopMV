@@ -24,8 +24,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.www.Util.GooglePojo;
 import com.www.Util.GoogleUtils;
-import com.www.dto.NguoiDungDTO;
-import com.www.entity.NguoiDung;
 import com.www.entity.SanPham;
 import com.www.repository.SanPhamRepository;
 
@@ -39,6 +37,7 @@ public class MainController {
 	
 	@Autowired
 	private GoogleUtils googleUtils;
+	
 	
 	@GetMapping("/")
 	public String main(HttpServletRequest request,Model model,ModelMap modelMap) {
@@ -54,9 +53,14 @@ public class MainController {
 	    return "index";
 	}
 	
+	@GetMapping("/lien-he")
+	public String lienHe() {	
+	    return "lien-he";
+	}
+	
 	@RequestMapping(value="/chiTietSP/{id}")   
 	public String showProductDetail(@PathVariable int id, Model model){    
-		SanPham sanPham = sanPhamRepository.findById(id).get();   
+		SanPham sanPham = sanPhamRepository.findById(id).get();
 		model.addAttribute("sanPham",sanPham);
 		return "chi-tiet-sp";
 	}

@@ -24,7 +24,7 @@ th {
 	text-align: left;
 	padding: 5px;
 	color: #FFF;
-	background: #ff523b;
+	background: #7fad39;
 	font-weight: normal;
 }
 
@@ -112,6 +112,7 @@ th:last-child {
 					<table class="">
 						<tr>
 							<th>Sản phẩm</th>
+							<th></th>
 							<th>Số lượng</th>
 							<th>Giá</th>
 							<th>Tổng</th>
@@ -126,6 +127,21 @@ th:last-child {
 										</div>
 									</div>
 								</td>
+								<td>
+										<c:forEach
+												items="${chiTietHoaDon.sanPham.chiTietSanPham.mauSacs}"
+												var="m">
+											${m.tenMau}
+										</c:forEach> ,
+										<c:forEach
+												items="${chiTietHoaDon.sanPham.chiTietSanPham.kichCos}"
+												var="k">
+											${k.tenKichCo}
+										</c:forEach>
+										
+										
+										
+										</td>
 								<td><input name= "soLuong" type="number" value="${chiTietHoaDon.soLuong}"
 									disabled /></td>
 								<td name="donGia">${chiTietHoaDon.tinhGiaBanFormat()}</td>

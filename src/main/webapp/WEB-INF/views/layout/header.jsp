@@ -37,9 +37,7 @@
 	href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 
 <style type="text/css">
-body {
-	
-}
+
 </style>
 <title>Insert title here</title>
 </head>
@@ -203,7 +201,7 @@ body {
 						<ul>
 							<li><a href="${ homePageUrl}">TRANG CHỦ</a></li>
 							<li class="active"><a href="">Shop</a></li>
-							<li><a href="">LIÊN HỆ</a></li>
+							<li><a href="${pageContext.request.contextPath }/lien-he">LIÊN HỆ</a></li>
 						</ul>
 					</nav>
 				</div>

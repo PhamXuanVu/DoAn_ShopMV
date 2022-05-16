@@ -1,5 +1,7 @@
 package com.www.dto;
 
+import java.util.List;
+
 public class SanPhamDTO {
 	private String tenSanPham;
 	private double donGia;
@@ -7,7 +9,22 @@ public class SanPhamDTO {
 	private String hinhAnh;
 	private String moTa;
 	private String danhMuc;
+	private List<String> mauSac;
+	private List<String> kichCo;
 	
+	
+	public List<String> getMauSac() {
+		return mauSac;
+	}
+	public void setMauSac(List<String> mauSac) {
+		this.mauSac = mauSac;
+	}
+	public List<String> getKichCo() {
+		return kichCo;
+	}
+	public void setKichCo(List<String> kichCo) {
+		this.kichCo = kichCo;
+	}
 	public String getTenSanPham() {
 		return tenSanPham;
 	}

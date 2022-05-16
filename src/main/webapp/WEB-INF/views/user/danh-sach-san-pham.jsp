@@ -20,6 +20,18 @@
 				<jsp:include page="../layout/sidebar-user.jsp" />
 			</div>
 			<div class="col-10">
+			<c:choose>
+					<c:when test="${param.addSuccess}">
+						<p style="color: red;" class="error">Thêm thành công 1 sản phẩm!</p>
+					</c:when>
+					<c:when test="${param.updateSuccess}">
+						<p style="color: red;" class="error">Cập nhật thành công 1
+							sản phẩm!</p>
+					</c:when>
+					<c:when test="${param.deleteSuccess}">
+						<p style="color: red;" class="error">Xóa thành công 1 sản phẩm!</p>
+					</c:when>
+				</c:choose>
 				<button type="button" class="btn btn-success">
 					<a style="text-decoration: none" class="link-light"
 						href="${pageContext.request.contextPath }/user/form-add-san-pham/${nguoiDung.getId()}">Đăng
