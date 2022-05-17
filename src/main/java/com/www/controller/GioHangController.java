@@ -1,5 +1,6 @@
 package com.www.controller;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +32,7 @@ import com.www.entity.KichCo;
 import com.www.entity.MauSac;
 import com.www.entity.NguoiDung;
 import com.www.entity.SanPham;
+import com.www.entity.TaiKhoan;
 import com.www.repository.ChiTietSanPhamRepository;
 import com.www.repository.HoaDonRepository;
 import com.www.repository.NguoiDungRepository;
@@ -51,7 +55,7 @@ public class GioHangController {
 
 	@Autowired
 	private NguoiDungRepository nguoiDungRepository;
-
+	
 	@Autowired
 	private PaypalService paypalService;
 	
@@ -62,6 +66,7 @@ public class GioHangController {
 	public String getCart() {
 		return "gio-hang";
 	}
+	
 
 	@RequestMapping(value = {"/add"})
 	public String postAddCart(@RequestParam(value = "id") int maSanPham, 
@@ -139,7 +144,7 @@ public class GioHangController {
 	private Logger log = LoggerFactory.getLogger(getClass());
 
 	@PostMapping("/pay")	
-	public String pay(HttpServletRequest request,@RequestParam("price") double price, HttpSession session ){
+	public String pay(@RequestParam("nguoiDungId") int nguoiDungId,HttpServletRequest request,@RequestParam("price") double price, HttpSession session ){
 		String cancelUrl = UtilClass.getBaseURL(request) + "/gioHang/" + URL_PAYPAL_CANCEL;
 		String successUrl = UtilClass.getBaseURL(request) + "/gioHang/" + URL_PAYPAL_SUCCESS;
 		try {
@@ -152,7 +157,14 @@ public class GioHangController {
 					cancelUrl,
 					successUrl);	
 			for(Links links : payment.getLinks()){
-				if(links.getRel().equals("approval_url")){
+				if(links.getRel().equals("approval_url")) {
+						HoaDon hoaDon = new HoaDon();
+						NguoiDung nguoiDung = nguoiDungRepository.findById(nguoiDungId);
+						hoaDon.setNgayMua(new Date());
+						hoaDon.setNguoiDung(nguoiDung);
+						hoaDonRepository.save(hoaDon);
+						
+						
 					return "redirect:" + links.getHref();
 				}
 			}

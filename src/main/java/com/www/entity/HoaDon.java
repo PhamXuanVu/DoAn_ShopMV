@@ -28,7 +28,7 @@ public class HoaDon {
 	@OneToMany(mappedBy = "hoaDon", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<ChiTietHoaDon> sanPhams = new HashSet<ChiTietHoaDon>();
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "nguoiDungId")
     private NguoiDung nguoiDung;
 	

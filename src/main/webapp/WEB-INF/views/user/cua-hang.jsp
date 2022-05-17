@@ -27,6 +27,10 @@ body {
 			</div>
 			<c:if test="${nguoiDung.cuaHang.tenCuaHang != null}">
 				<div class="col-8">
+					<c:if test="${param.success}">
+						<p style="color: red;" class="error">Cập nhật cửa hàng thành
+							công!</p>
+					</c:if>
 					<img src="/ShopMV/images/banner-ch.png" alt="hi">
 				</div>
 			</c:if>

@@ -21,7 +21,7 @@
 					class="list-group-item list-group-item-action list-group-item-light p-3"
 					href="${pageContext.request.contextPath }/user/nguoiban">Người bán</a><a
 					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="">Hóa đơn</a> <a
+					href="${pageContext.request.contextPath }/admin/hoadon">Hóa đơn</a> <a
 					class="list-group-item list-group-item-action list-group-item-light p-3"
 					href="#!">Thanh toán</a>
 					<a

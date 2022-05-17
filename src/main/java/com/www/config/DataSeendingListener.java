@@ -93,10 +93,42 @@ public class DataSeendingListener implements ApplicationListener {
         	danhMucRepository.save(danhMuc);
         }
         
-        if(danhMucRepository.findByTenDanhMuc("Giày dép nam") == null) {
-        	DanhMuc danhMuc = new DanhMuc("Giày dép nam");
+        if(danhMucRepository.findByTenDanhMuc("Giày dép nữ") == null) {
+        	DanhMuc danhMuc = new DanhMuc("Giày dép nữ");
         	danhMucRepository.save(danhMuc);
         }
+        
+        if(danhMucRepository.findByTenDanhMuc("Đồng hồ") == null) {
+        	DanhMuc danhMuc = new DanhMuc("Đồng hồ");
+        	danhMucRepository.save(danhMuc);
+        }
+        
+        if(danhMucRepository.findByTenDanhMuc("Thiết bị điện tử") == null) {
+        	DanhMuc danhMuc = new DanhMuc("Thiết bị điện tử");
+        	danhMucRepository.save(danhMuc);
+        }
+        
+        
+        if(danhMucRepository.findByTenDanhMuc("Phụ kiện điện thoại") == null) {
+        	DanhMuc danhMuc = new DanhMuc("Phụ kiện điện thoại");
+        	danhMucRepository.save(danhMuc);
+        }
+        
+        if(danhMucRepository.findByTenDanhMuc("Sắc đẹp") == null) {
+        	DanhMuc danhMuc = new DanhMuc("Sắc đẹp");
+        	danhMucRepository.save(danhMuc);
+        }
+        
+        if(danhMucRepository.findByTenDanhMuc("Đồ chơi") == null) {
+        	DanhMuc danhMuc = new DanhMuc("Đồ chơi");
+        	danhMucRepository.save(danhMuc);
+        }
+        
+        if(danhMucRepository.findByTenDanhMuc("Gaming gear") == null) {
+        	DanhMuc danhMuc = new DanhMuc("Gaming gear");
+        	danhMucRepository.save(danhMuc);
+        }
+        
     }
     
     

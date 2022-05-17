@@ -1,3 +1,6 @@
+<%@page import="org.springframework.beans.factory.annotation.Autowired"%>
+<%@page import="com.www.repository.HoaDonRepository"%>
+<%@page import="com.www.entity.HoaDon"%>
 <%@page import="java.util.Date"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -9,7 +12,6 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 <style type="text/css">
-
 table {
 	width: 100%;
 	border-collapse: collapse;
@@ -60,7 +62,7 @@ td:last-child {
 th:last-child {
 	text-align: right;
 }
-</style>	
+</style>
 <title>Thanh toán</title>
 </head>
 <body>
@@ -85,13 +87,15 @@ th:last-child {
 			</div>
 		</c:if>
 		<form class="m-auto"
-			action="${pageContext.request.contextPath}/gioHang/pay"
-			method="POST" enctype="application/x-www-form-urlencoded">
+			action="${pageContext.request.contextPath}/gioHang/pay" method="POST"
+			enctype="application/x-www-form-urlencoded">
+			<input name="nguoiDungId" type="hidden" value="${nguoiDung.id}" />
 			<div class="row">
 				<div class="col-xs-6 col-sm-6 col-md-6">
 					<address>
-						<strong name="">${nguoiDung.getHoTenDem()} ${nguoiDung.getTen()}</strong>
-						<br name="diaChi"> ${nguoiDung.getDiaChi()} <br>
+						<strong name="">${nguoiDung.getHoTenDem()}
+							${nguoiDung.getTen()}</strong> <br name="diaChi">
+						${nguoiDung.getDiaChi()} <br>
 						<p name="soDienThoai">${nguoiDung.getSoDienThoai()}</p>
 					</address>
 				</div>
@@ -118,7 +122,8 @@ th:last-child {
 							<th>Tổng</th>
 						</tr>
 						<c:forEach items="${cart.sanPhams}" var="chiTietHoaDon">
-						<input name= "price" type="hidden" value="${cart.tinhTongTienTrongGioHang()}" />
+							<input name="price" type="hidden"
+								value="${cart.tinhTongTienTrongGioHang()}" />
 							<tr>
 								<td>
 									<div class="cart-info">
@@ -127,23 +132,17 @@ th:last-child {
 										</div>
 									</div>
 								</td>
-								<td>
-										<c:forEach
-												items="${chiTietHoaDon.sanPham.chiTietSanPham.mauSacs}"
-												var="m">
+								<td><c:forEach
+										items="${chiTietHoaDon.sanPham.chiTietSanPham.mauSacs}"
+										var="m">
 											${m.tenMau}
-										</c:forEach> ,
-										<c:forEach
-												items="${chiTietHoaDon.sanPham.chiTietSanPham.kichCos}"
-												var="k">
+										</c:forEach> , <c:forEach
+										items="${chiTietHoaDon.sanPham.chiTietSanPham.kichCos}"
+										var="k">
 											${k.tenKichCo}
-										</c:forEach>
-										
-										
-										
-										</td>
-								<td><input name= "soLuong" type="number" value="${chiTietHoaDon.soLuong}"
-									disabled /></td>
+										</c:forEach></td>
+								<td><input name="soLuong" type="number"
+									value="${chiTietHoaDon.soLuong}" disabled /></td>
 								<td name="donGia">${chiTietHoaDon.tinhGiaBanFormat()}</td>
 								<td>${chiTietHoaDon.getTongTien()}</td>
 							</tr>
@@ -166,13 +165,14 @@ th:last-child {
 						</table>
 					</div>
 				</div>
-				<button type="submit" class="btn btn-warning btn-lg btn-block">
-					Thanh toán<span class="glyphicon glyphicon-chevron-right"></span>
-				</button>
+					<button type="submit"
+						class="btn btn-warning btn-lg btn-block">
+						Thanh toán<span class="glyphicon glyphicon-chevron-right"></span>
+					</button>
 			</div>
 		</form>
 	</div>
-			<jsp:include page="layout/footer.jsp" />
+	<jsp:include page="layout/footer.jsp" />
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

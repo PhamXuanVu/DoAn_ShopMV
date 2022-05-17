@@ -243,7 +243,7 @@ public class UserController {
                 nguoiDung.setSoDienThoai(nguoiDungDTO.getSoDienThoai());
                 nguoiDung.setDiaChi(nguoiDungDTO.getDiaChi());
                 nguoiDungRepository.save(nguoiDung);
-                return new RedirectView(request.getContextPath());
+                return new RedirectView(request.getContextPath()+"?success=true");
 	}
 	
 	@RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
@@ -285,7 +285,7 @@ public class UserController {
         	cuaHangRepository.save(tempCuaHang);
         	
         	
-            return new RedirectView(request.getContextPath() + "/user/cuahang/" + id);
+            return new RedirectView(request.getContextPath() + "/user/cuahang/" + id+"?success=true");
         }
 	
 	@GetMapping("/form-add-nguoi-mua")
@@ -318,10 +318,10 @@ public class UserController {
                 nguoiDung.setDiaChi(nguoiDungDTO.getDiaChi());
                 nguoiDungRepository.save(nguoiDung);
 
-                return new RedirectView(request.getContextPath() + "/user/form-add-nguoi-mua?success=true");
+                return new RedirectView(request.getContextPath() + "/user/nguoimua?addSuccess=true");
             }
 
-            return new RedirectView(request.getContextPath() + "/user/form-add-nguoi-mua?failure");
+            return new RedirectView(request.getContextPath() + "/user/form-add-nguoi-mua?failure=true");
         }
 
     }
@@ -341,13 +341,13 @@ public class UserController {
                 nguoiDung.setSoDienThoai(nguoiDungDTO.getSoDienThoai());
                 nguoiDung.setDiaChi(nguoiDungDTO.getDiaChi());
                 nguoiDungRepository.save(nguoiDung);
-                return new RedirectView(request.getContextPath() + "/user/form-update-nguoi-mua?success=true");
+                return new RedirectView(request.getContextPath() + "/user/nguoimua?updateSuccess=true");
 	}
 	
 	@RequestMapping(value = "deleteNguoiMua/{id}", method = RequestMethod.GET)
 	public String deleteNguoiMua(@PathVariable int id) {
 		nguoiDungRepository.delete(nguoiDungRepository.findById(id));
-		return "redirect:/user/nguoimua?success=true";
+		return "redirect:/user/nguoimua?deleteSuccess=true";
 	}
 	
 	@GetMapping("/form-add-nguoi-ban")
@@ -409,4 +409,6 @@ public class UserController {
 		nguoiDungRepository.delete(nguoiDungRepository.findById(id));
 		return "redirect:/user/nguoiban?deleteSuccess=true";
 	}
+	
+	
 }

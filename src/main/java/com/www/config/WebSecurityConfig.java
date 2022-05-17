@@ -54,12 +54,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");
         http.authorizeRequests().antMatchers("/user/nguoimua").access("hasRole('ROLE_ADMIN')");
         http.authorizeRequests().antMatchers("/user/nguoiban").access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/user/form-add-nguoi-mua").access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/user/form-add-nguoi-ban").access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/user/form-update-nguoi-mua/**").access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/user/form-update-nguoi-ban/**").access("hasRole('ROLE_ADMIN')");
         http.authorizeRequests().antMatchers("/danhmuc/**").access("!hasRole('ROLE_ADMIN')");
         http.authorizeRequests().antMatchers("/gioHang/**").access("hasRole('ROLE_MEMBER')");
         http.authorizeRequests().antMatchers("/user/login").permitAll();
         http.authorizeRequests().antMatchers("/user/register").permitAll();
-        http.authorizeRequests().antMatchers("/chiTietSP/**").access("!hasRole('ROLE_ADMIN')");
-        http.authorizeRequests().antMatchers("/user/**").access("hasRole('ROLE_MEMBER')");        
+        http.authorizeRequests().antMatchers("/chiTietSP/**").access("!hasRole('ROLE_ADMIN')");     
         http.authorizeRequests().antMatchers("/").permitAll();
         http.authorizeRequests().anyRequest().permitAll();
 

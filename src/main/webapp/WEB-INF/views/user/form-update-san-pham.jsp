@@ -65,6 +65,8 @@
 										type="checkbox" name="mauSac" value="Vàng" /> Vàng &nbsp
 										<input
 										type="checkbox" name="mauSac" value="Cam" /> Cam &nbsp
+										<input
+										type="checkbox" name="mauSac" value="" /> NULL &nbsp
 										<br /> 
 								</div>
 								
@@ -74,7 +76,10 @@
 										type="checkbox" name="kichCo" value="M" /> M &nbsp<input
 										type="checkbox" name="kichCo" value="L" /> L &nbsp
 										<input
-										type="checkbox" name="kichCo" value="XL" /> XL &nbsp<br /> 
+										type="checkbox" name="kichCo" value="XL" /> XL &nbsp
+										<input
+										type="checkbox" name="kichCo" value="" /> NULL &nbsp
+										<br /> 
 								</div>
 								
 								<div class="col form-group">
@@ -92,7 +97,8 @@
 										type="checkbox" name="kichCo" value="41" /> 41 &nbsp
 										<input
 										type="checkbox" name="kichCo" value="42" /> 42 &nbsp
-										
+										<input
+										type="checkbox" name="kichCo" value="" /> NULL &nbsp
 										<br /> 
 								</div>
 							<div class="col form-group">

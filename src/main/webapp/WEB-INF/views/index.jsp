@@ -21,13 +21,19 @@
 <body>
 	<c:url var="admin" value="/admin/" />
 	<sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
-	<h3 style="text-align: center;">
-		Đến <a style="text-decoration: none;" href="${pageContext.request.contextPath }/admin/">trang admin </a>ngay</h3>
+		<h3 style="text-align: center;">
+			Đến <a style="text-decoration: none;"
+				href="${pageContext.request.contextPath }/admin/">trang admin </a>ngay
+		</h3>
 	</sec:authorize>
 	<sec:authorize access="!hasRole('ROLE_ADMIN')">
 		<jsp:include page="layout/header.jsp" />
 		<section class="hero hero-normal">
 			<div class="container">
+				<c:if test="${param.success}">
+					<p style="color: red;" class="error">Cập nhật tài khoản thành
+						công!</p>
+				</c:if>
 				<div class="row">
 					<div class="col-lg-3"></div>
 					<div class="col-lg-9">
