@@ -19,7 +19,7 @@
 			<div class="col-md-6">
 				<div class="card">
 					<header class="card-header">
-						<h4 class="card-title mt-2">Update cửa hàng</h4>
+						<h4 class="card-title mt-2">Cập nhật cửa hàng</h4>
 					</header>
 					<article class="card-body">
 						<form class="m-auto"
@@ -43,7 +43,7 @@
 							</div>
 							<div class="form-group">
 								<button type="submit" class="btn btn-success btn-block">
-									Update cửa hàng</button>
+									Cập nhật</button>
 							</div>
 						</form>
 					</article>

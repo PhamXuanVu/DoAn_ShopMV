@@ -25,6 +25,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import com.www.Util.GooglePojo;
 import com.www.Util.GoogleUtils;
 import com.www.entity.SanPham;
+import com.www.repository.DanhMucRepository;
 import com.www.repository.SanPhamRepository;
 
 @Controller
@@ -61,6 +62,7 @@ public class MainController {
 	@RequestMapping(value="/chiTietSP/{id}")   
 	public String showProductDetail(@PathVariable int id, Model model){    
 		SanPham sanPham = sanPhamRepository.findById(id).get();
+		model.addAttribute("danhMucSP",sanPhamRepository.getSanPhamByDanhMucId(sanPham.getDanhMuc().getDanhMucId()));
 		model.addAttribute("sanPham",sanPham);
 		return "chi-tiet-sp";
 	}

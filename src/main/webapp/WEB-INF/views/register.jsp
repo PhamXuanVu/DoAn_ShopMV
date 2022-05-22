@@ -28,35 +28,40 @@
 					</header>
 					<article class="card-body">
 						<form class="m-auto"
-							action="${pageContext.request.contextPath}/user/register"
-							method="POST">
+							action="${pageContext.request.contextPath}/user/register"							
+							method="POST"  >
 
 							<div class="form-row">
 								<div class="col form-group">
-									<label>Họ Tên đệm </label> <input name="hoTenDem" type="text"
-										class="form-control" placeholder="">
+									<label>Họ Tên đệm </label> <input path="hoTenDem" name="hoTenDem" type="text"
+										class="form-control" placeholder="" />
+										
 								</div>
 								<div class="col form-group">
-									<label>Tên</label> <input name="ten" type="text"
-										class="form-control" placeholder=" ">
+									<label>Tên</label> <input path="ten" name="ten" type="text"
+										class="form-control" placeholder=" " />
+										
 								</div>
 							</div>
 							<div class="form-group">
-								<label>Email address</label> <input name="email" type="email"
-									class="form-control" placeholder="">
+								<label>Email address</label> <input   name="email"
+									class="form-control" placeholder="" />
+									
 							</div>
 							<div class="form-group">
-								<label>Số điện thoại</label> <input name="soDienThoai"
-									type="text" class="form-control" placeholder="">
-								<form:errors path="soDienThoai" cssClass="error" />
+								<label>Số điện thoại</label> <input  name="soDienThoai"
+									type="text" class="form-control" placeholder="" />
+								
 							</div>
 							<div class="form-group">
-								<label>Địa chỉ </label> <input name="diaChi" type="text"
-									class="form-control" placeholder="">
+								<label>Địa chỉ </label> <input  name="diaChi" type="text"
+									class="form-control" placeholder="" />
+									
 							</div>
 							<div class="form-group">
-								<label>Mật khẩu</label> <input name="matKhau"
-									class="form-control" type="password">
+								<label>Mật khẩu</label> <input  name="matKhau"
+									class="form-control" type="password" />
+									
 							</div>
 							<div class="form-group">
 								<button type="submit" class="btn btn-success btn-block">

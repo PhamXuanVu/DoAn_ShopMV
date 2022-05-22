@@ -31,7 +31,7 @@
 				</c:choose>
 				<div class="card">
 					<header class="card-header">
-						<h4 class="card-title mt-2">Thêm người mua</h4>
+						<h4 class="card-title mt-2">Thêm người bán</h4>
 					</header>
 					<article class="card-body">
 						<form class="m-auto"

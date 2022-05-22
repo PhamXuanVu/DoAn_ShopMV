@@ -9,31 +9,31 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class NguoiDungDTO {
 	
-	@NotEmpty(message = "Họ tên đệm không được để trống")
+	@NotNull(message = "Họ tên đệm không được để trống")
 	private String hoTenDem;
 	
 	@NotNull(message = "Tên không được để trống")
     private String ten;
 	
-	@NotEmpty(message = "Số điện thoại không được để trống")
+	@NotNull(message = "Số điện thoại không được để trống")
 	@Pattern(regexp="(^$|[0-9]{10})")
     private String soDienThoai;
 	
-	@NotEmpty(message = "Email không được để trống")
+	@NotNull(message = "Email không được để trống")
 	@Email(message = "Email không đúng định dạng")
     private String email;
 	
 	@NotNull(message = "Địa chỉ không được để trống")
     private String diaChi;
 	
-	@NotEmpty(message = "Mật khẩu không được để trống")
+	@NotNull(message = "Mật khẩu không được để trống")
 	@Min(value = 6, message = "Mật khẩu phải từ 6 kí tự trở lên")
     private String matKhau;
 	
-	@NotEmpty(message = "Tên cửa hàng không được để trống")
+	@NotNull(message = "Tên cửa hàng không được để trống")
 	private String tenCuaHang;
 	
-	@NotEmpty(message = "Địa chỉ lấy hàng không được để trống")
+	@NotNull(message = "Địa chỉ lấy hàng không được để trống")
 	private String diaChiLayHang;
 
 	public String getHoTenDem() {

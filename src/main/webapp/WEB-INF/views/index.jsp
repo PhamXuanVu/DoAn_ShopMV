@@ -21,10 +21,9 @@
 <body>
 	<c:url var="admin" value="/admin/" />
 	<sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
-		<h3 style="text-align: center;">
-			Đến <a style="text-decoration: none;"
-				href="${pageContext.request.contextPath }/admin/">trang admin </a>ngay
-		</h3>
+		<a href="${pageContext.request.contextPath }/admin/"><img
+			style="display: block; margin-left: auto; margin-right: auto; width: 50%;"
+			src="/ShopMV/images/banner-124.jpg" alt="hi"> </a>
 	</sec:authorize>
 	<sec:authorize access="!hasRole('ROLE_ADMIN')">
 		<jsp:include page="layout/header.jsp" />

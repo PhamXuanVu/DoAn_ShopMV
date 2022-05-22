@@ -74,7 +74,7 @@
 			</div>
 			<jsp:useBean id="pagedListHolder" scope="request"
 				type="org.springframework.beans.support.PagedListHolder" />
-			<c:url value="/danhmuc/tat-ca-san-pham/" var="pagedLink">
+			<c:url value="/danhmuc/danhmuc/${sp.cuaHang.cuaHangId}" var="pagedLink">
 				<c:param name="p" value="~" />
 			</c:url>
 			<tg:paging pagedListHolder="${pagedListHolder}"

@@ -25,4 +25,30 @@ public class DonViVanChuyen {
 	
 	@OneToMany(mappedBy = "donViVanChuyen", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<CuaHang> cuaHangs;
+
+	public int getDonViVanChuyenId() {
+		return donViVanChuyenId;
+	}
+
+	public void setDonViVanChuyenId(int donViVanChuyenId) {
+		this.donViVanChuyenId = donViVanChuyenId;
+	}
+
+	public String getTenDonViVanChuyen() {
+		return tenDonViVanChuyen;
+	}
+
+	public void setTenDonViVanChuyen(String tenDonViVanChuyen) {
+		this.tenDonViVanChuyen = tenDonViVanChuyen;
+	}
+
+	public Set<CuaHang> getCuaHangs() {
+		return cuaHangs;
+	}
+
+	public void setCuaHangs(Set<CuaHang> cuaHangs) {
+		this.cuaHangs = cuaHangs;
+	}
+	
+	
 }

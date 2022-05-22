@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.www.entity.DonViVanChuyen;
+import com.www.repository.DonViVanChuyenRepository;
 import com.www.repository.HoaDonRepository;
 
 
@@ -25,6 +27,9 @@ public class AdminController {
 	
 	@Autowired
 	private HoaDonRepository hoaDonRepository;
+	
+	@Autowired
+	private DonViVanChuyenRepository donViVanChuyenRepository;
 	
 	
 	@GetMapping(value = {"", "/"})
@@ -41,4 +46,14 @@ public class AdminController {
 			modelMap.put("pagedListHolder", pagedListHolder);
 			return "/admin/hoa-don";
 	}
+	@GetMapping("/don-vi-van-chuyen")
+	public String getDonViVanChuyen(HttpServletRequest request,ModelMap modelMap) {
+		PagedListHolder pagedListHolder = new PagedListHolder((List) donViVanChuyenRepository.findAll());
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setPageSize(8);
+		modelMap.put("pagedListHolder", pagedListHolder);
+		return "/admin/don-vi-van-chuyen";
+}
+	
 }

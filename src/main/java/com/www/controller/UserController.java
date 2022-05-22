@@ -4,8 +4,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -13,8 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -72,21 +77,21 @@ public class UserController {
 	private ChiTietSanPhamRepository chiTietSanPhamRepository;
 	
 	@GetMapping("/login")
-	public String login() {	
+	public String login() {
 	    return "login";
 	}
 	
 	@GetMapping("/register")
-	public String register() {	
+	public String register(Model model) {
+		model.addAttribute("nguoiDung",new NguoiDungDTO());
 	    return "register";
 	}
 	
 	@PostMapping(value = "/register", consumes = "application/x-www-form-urlencoded")
     public RedirectView postRegister(NguoiDungDTO nguoiDungDTO, BindingResult bindingResult, Model model, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-            System.out.println("Co loi xay ra " + bindingResult);
-
-            return new RedirectView(request.getContextPath() + "/user/login");
+        	System.out.println(bindingResult.hasErrors());
+            return new RedirectView(request.getContextPath() + "/user/register");
         } else {
             if (userRepository.findByEmail(nguoiDungDTO.getEmail()) == null) {
                 VaiTro vaiTro = roleRepository.findByTenVaiTro("ROLE_MEMBER");

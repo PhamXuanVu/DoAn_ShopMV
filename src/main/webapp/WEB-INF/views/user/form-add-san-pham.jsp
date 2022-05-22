@@ -82,7 +82,7 @@
 								
 								<div class="form-group">
 								<label>Kích cở (quần,áo,...)</label><br />
-									<input type="checkbox" name="kichCo" value="Java" /> S &nbsp<input
+									<input type="checkbox" name="kichCo" value="S" /> S &nbsp<input
 										type="checkbox" name="kichCo" value="M" /> M &nbsp<input
 										type="checkbox" name="kichCo" value="L" /> L &nbsp
 										<input

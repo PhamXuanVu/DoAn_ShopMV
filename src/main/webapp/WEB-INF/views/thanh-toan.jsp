@@ -165,10 +165,22 @@ th:last-child {
 						</table>
 					</div>
 				</div>
-					<button type="submit"
-						class="btn btn-warning btn-lg btn-block">
-						Thanh toán<span class="glyphicon glyphicon-chevron-right"></span>
-					</button>
+				<c:choose>
+					<c:when test="${ param.success}">
+					</c:when>
+					<c:when test="${ param.failure}">
+						<button type="submit" class="btn btn-warning btn-lg btn-block">
+							Thanh toán<span class="glyphicon glyphicon-chevron-right"></span>
+						</button>
+					</c:when>
+					<c:otherwise>
+						<button type="submit" class="btn btn-warning btn-lg btn-block">
+							Thanh toán<span class="glyphicon glyphicon-chevron-right"></span>
+						</button>
+					</c:otherwise>
+				</c:choose>
+
+
 			</div>
 		</form>
 	</div>

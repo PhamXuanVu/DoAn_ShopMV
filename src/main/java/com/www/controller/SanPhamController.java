@@ -49,7 +49,7 @@ public class SanPhamController {
 		PagedListHolder pagedListHolder = new PagedListHolder(products);
 		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 		pagedListHolder.setPage(page);
-		pagedListHolder.setPageSize(1);
+		pagedListHolder.setPageSize(10);
 		modelMap.put("pagedListHolder", pagedListHolder);
 		return "tat-ca-san-pham";
 	}
@@ -61,7 +61,7 @@ public class SanPhamController {
 		PagedListHolder pagedListHolder = new PagedListHolder(products);
 		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 		pagedListHolder.setPage(page);
-		pagedListHolder.setPageSize(1);
+		pagedListHolder.setPageSize(9);
 		modelMap.put("pagedListHolder", pagedListHolder);
 		return "san-pham-cua-hang";
 	}

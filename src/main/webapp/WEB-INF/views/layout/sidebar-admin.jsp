@@ -23,10 +23,10 @@
 					class="list-group-item list-group-item-action list-group-item-light p-3"
 					href="${pageContext.request.contextPath }/admin/hoadon">Hóa đơn</a> <a
 					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="#!">Thanh toán</a>
+					href="">Thanh toán</a>
 					<a
 					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="#!">Vận chuyển</a>
+					href="${pageContext.request.contextPath }/admin/don-vi-van-chuyen">Vận chuyển</a>
 
 			</div>
 

@@ -26,7 +26,7 @@ body {
 				<jsp:include page="../layout/sidebar-admin.jsp" />
 			</div>
 			<div class="col-8">
-				<img src="/ShopMV/images/banner-ad.jpg" alt="hi">
+				<img style="width: 80%" src="/ShopMV/images/banner-124.jpg" alt="hi">
 			</div>
 		</div>
 	</div>

@@ -31,7 +31,7 @@ body {
 						<p style="color: red;" class="error">Cập nhật cửa hàng thành
 							công!</p>
 					</c:if>
-					<img src="/ShopMV/images/banner-ch.png" alt="hi">
+					<img src="/ShopMV/images/banner-ch.jpg" alt="hi">
 				</div>
 			</c:if>
 		</div>
