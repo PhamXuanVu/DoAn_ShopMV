@@ -11,6 +11,13 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
+	<style type="text/css">
+		.error {
+			color: red;
+			font-style: italic;
+		}
+	
+	</style>
 </head>
 <body>
 	<jsp:include page="../layout/header.jsp" />
@@ -22,16 +29,19 @@
 						<h4 class="card-title mt-2">Tạo cửa hàng</h4>
 					</header>
 					<article class="card-body">
-						<form class="m-auto"
+						<form:form class="m-auto"
 							action="${pageContext.request.contextPath}/user/form-tao-cua-hang/${nguoiDung.getId()}"
+							modelAttribute="cuaHang"
 							method="POST">
 							<div class="form-group">
-								<label>Tên cửa hàng</label> <input name="tenCuaHang"
-									class="form-control" type="text" >
+								<label>Tên cửa hàng</label> <form:input path="tenCuaHang" name="tenCuaHang"
+									class="form-control" type="text" />
+									<form:errors path="tenCuaHang" cssClass="error" />
 							</div>
 							<div class="form-group">
-								<label>Địa chỉ lấy hàng</label> <input name="diaChiLayHang"
-									class="form-control" type="text" >
+								<label>Địa chỉ lấy hàng</label> <form:input path="diaChiLayHang" name="diaChiLayHang"
+									class="form-control" type="text" />
+									<form:errors path="diaChiLayHang" cssClass="error" />
 							</div>
 							<div class="form-group">
 								<label>Email</label> <input name="email"
@@ -45,7 +55,7 @@
 								<button type="submit" class="btn btn-success btn-block">
 									Tạo cửa hàng</button>
 							</div>
-						</form>
+						</form:form>
 					</article>
 
 				</div>

@@ -10,6 +10,12 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
+<style type="text/css">
+.error {
+	color: red;
+	font-style: italic;
+}
+</style>
 </head>
 <body>
 
@@ -29,42 +35,63 @@
 						<h4 class="card-title mt-2">Thêm người mua</h4>
 					</header>
 					<article class="card-body">
-						<form class="m-auto"
+						<form:form class="m-auto"
 							action="${pageContext.request.contextPath}/user/form-add-nguoi-mua/"
-							method="POST" enctype="application/x-www-form-urlencoded">
-								<div class="form-row">
+							modelAttribute="nguoiMua" method="POST">
+							<c:choose>
+								<c:when test="${param.failure}">
+									<p style="color: red;" class="error">Email đã tồn tại!. Hãy
+										thử với email khác.</p>
+								</c:when>
+							</c:choose>
+							<div class="form-row">
 								<div class="col form-group">
-									<label>Họ Tên đệm </label> <input name="hoTenDem" type="text"
-										class="form-control" placeholder="">
+									<label>Họ Tên đệm </label>
+									<form:input path="hoTenDem" name="hoTenDem" type="text"
+										class="form-control" placeholder="" />
+									<form:errors path="hoTenDem" cssClass="error" />
 								</div>
 								<div class="col form-group">
-									<label>Tên</label> <input name="ten" type="text"
-										class="form-control" placeholder=" ">
+									<label>Tên</label>
+									<form:input path="ten" name="ten" type="text"
+										class="form-control" placeholder=" " />
+									<form:errors path="hoTenDem" cssClass="error" />
+
 								</div>
 							</div>
 							<div class="form-group">
-								<label>Email address</label> <input name="email" type="email"
-									class="form-control" placeholder="">
+								<label>Email address</label>
+								<form:input path="email" name="email" class="form-control"
+									placeholder="" />
+								<form:errors path="email" cssClass="error" />
+
 							</div>
 							<div class="form-group">
-								<label>Số điện thoại</label> <input name="soDienThoai"
-									type="text" class="form-control" placeholder="">
+								<label>Số điện thoại</label>
+								<form:input path="soDienThoai" name="soDienThoai" type="text"
+									class="form-control" placeholder="" />
 								<form:errors path="soDienThoai" cssClass="error" />
+
 							</div>
 							<div class="form-group">
-									<label>Địa chỉ </label> <input name="diaChi" type="text"
-										class="form-control" placeholder="">
-								</div>
-							<div class="form-group">
-								<label>Mật khẩu</label> <input name="matKhau"
-									class="form-control" type="password">
+								<label>Địa chỉ </label>
+								<form:input path="diaChi" name="diaChi" type="text"
+									class="form-control" placeholder="" />
+								<form:errors path="diaChi" cssClass="error" />
+
 							</div>
-								<div class="form-group">
-									<button type="submit" class="btn btn-success btn-block">
-										Thêm</button>
-								</div>
-								
-						</form>
+							<div class="form-group">
+								<label>Mật khẩu</label>
+								<form:input path="matKhau" name="matKhau" class="form-control"
+									type="password" />
+								<form:errors path="matKhau" cssClass="error" />
+
+							</div>
+							<div class="form-group">
+								<form:button type="submit" class="btn btn-success btn-block">
+									Thêm</form:button>
+							</div>
+						</form:form>
 
 					</article>
 
@@ -73,7 +100,7 @@
 
 		</div>
 	</div>
-		<script
+	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 		crossorigin="anonymous"></script>

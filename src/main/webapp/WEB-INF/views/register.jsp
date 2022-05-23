@@ -11,6 +11,13 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
+	<style type="text/css">
+		.error {
+			color: red;
+			font-style: italic;
+		}
+	
+	</style>
 </head>
 <body>
 	<jsp:include page="layout/header.jsp" />
@@ -27,47 +34,53 @@
 						<h4 class="card-title mt-2">Đăng ký</h4>
 					</header>
 					<article class="card-body">
-						<form class="m-auto"
-							action="${pageContext.request.contextPath}/user/register"							
-							method="POST"  >
+						<form:form class="m-auto"
+							action="${pageContext.request.contextPath}/user/register"
+							modelAttribute="nguoiDungDTO"
+							method="POST">
 
 							<div class="form-row">
 								<div class="col form-group">
-									<label>Họ Tên đệm </label> <input path="hoTenDem" name="hoTenDem" type="text"
+									<label>Họ Tên đệm </label> <form:input path="hoTenDem" name="hoTenDem" type="text"
 										class="form-control" placeholder="" />
-										
+										<form:errors path="hoTenDem" cssClass="error" />									
 								</div>
 								<div class="col form-group">
-									<label>Tên</label> <input path="ten" name="ten" type="text"
+									<label>Tên</label> <form:input path="ten" name="ten" type="text"
 										class="form-control" placeholder=" " />
+										<form:errors path="hoTenDem" cssClass="error" />	
 										
 								</div>
 							</div>
 							<div class="form-group">
-								<label>Email address</label> <input   name="email"
+								<label>Email address</label> <form:input path="email" name="email"
 									class="form-control" placeholder="" />
+									<form:errors path="email" cssClass="error" />	
 									
 							</div>
 							<div class="form-group">
-								<label>Số điện thoại</label> <input  name="soDienThoai"
+								<label>Số điện thoại</label> <form:input path="soDienThoai"  name="soDienThoai"
 									type="text" class="form-control" placeholder="" />
+									<form:errors path="soDienThoai" cssClass="error" />	
 								
 							</div>
 							<div class="form-group">
-								<label>Địa chỉ </label> <input  name="diaChi" type="text"
+								<label>Địa chỉ </label> <form:input path="diaChi"  name="diaChi" type="text"
 									class="form-control" placeholder="" />
+									<form:errors path="diaChi" cssClass="error" />	
 									
 							</div>
 							<div class="form-group">
-								<label>Mật khẩu</label> <input  name="matKhau"
+								<label>Mật khẩu</label> <form:input path="matKhau"  name="matKhau"
 									class="form-control" type="password" />
+									<form:errors path="matKhau" cssClass="error" />	
 									
 							</div>
 							<div class="form-group">
-								<button type="submit" class="btn btn-success btn-block">
-									Đăng ký</button>
+								<form:button type="submit" class="btn btn-success btn-block">
+									Đăng ký</form:button>
 							</div>
-						</form>
+						</form:form>
 					</article>
 
 				</div>
