@@ -2,6 +2,7 @@ package com.www.controller;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +29,7 @@ import com.www.config.PaypalPaymentIntent;
 import com.www.config.PaypalPaymentMethod;
 import com.www.entity.ChiTietHoaDon;
 import com.www.entity.ChiTietSanPham;
+import com.www.entity.ChiTietSanPhamHoaDon;
 import com.www.entity.HoaDon;
 import com.www.entity.KichCo;
 import com.www.entity.MauSac;
@@ -55,39 +58,40 @@ public class GioHangController {
 
 	@Autowired
 	private NguoiDungRepository nguoiDungRepository;
-	
+
 	@Autowired
 	private PaypalService paypalService;
-	
+
 	@Autowired
 	private ChiTietSanPhamRepository chiTietSanPhamRepository;
-	
+
 	@RequestMapping(value = {"", "/"})
 	public String getCart() {
 		return "gio-hang";
 	}
-	
+
 
 	@RequestMapping(value = {"/add"})
 	public String postAddCart(@RequestParam(value = "id") int maSanPham, 
-			@RequestParam(value = "soLuong") int soLuong, 
-			@RequestParam(value = "kichCo") String kichCo,
-			@RequestParam(value = "mauSac") String mauSac,HttpSession session) {
-
+			HttpServletRequest request,HttpSession session) {
+		
+		int soLuong = Integer.parseInt(request.getParameter("soLuong"));
+		String mauSac = request.getParameter("mauSac");
+		String kichCo = request.getParameter("kichCo");
 		SanPham sanPham = sanPhamRepository.findById(maSanPham).get();
 		Set<KichCo> kichCos = new HashSet<KichCo>();
 		KichCo kichCo1 = new KichCo(kichCo);
 		kichCos.add(kichCo1);
-		
+
 		Set<MauSac> mauSacs = new HashSet<MauSac>();
 		MauSac mauSac1 = new MauSac(mauSac);
 		mauSacs.add(mauSac1);
-		
+
 		ChiTietSanPham chiTietSanPham = chiTietSanPhamRepository.findById(sanPham.getChiTietSanPham().getChiTietSanPhamId()).get();
 		chiTietSanPham.setKichCos(kichCos);
 		chiTietSanPham.setMauSacs(mauSacs);
 		sanPham.setChiTietSanPham(chiTietSanPham);
-		
+
 		if (session.getAttribute("cart") == null) {
 			session.setAttribute("cart", new HoaDon());
 
@@ -124,7 +128,7 @@ public class GioHangController {
 				hoaDon.getSanPhams().add(chiTietHoaDon);
 				session.setAttribute("cart", hoaDon);
 			}
-			
+
 		}
 		return "redirect:/gioHang";
 	}
@@ -139,14 +143,48 @@ public class GioHangController {
 	}
 
 
-	public static final String URL_PAYPAL_SUCCESS = "thanhToan?success=true";
-	public static final String URL_PAYPAL_CANCEL = "thanhToan?failure=true";
+	//	public static final String URL_PAYPAL_SUCCESS = "thanhToan?success=true";
+	//	public static final String URL_PAYPAL_CANCEL = "thanhToan?failure=true";
 	private Logger log = LoggerFactory.getLogger(getClass());
 
+	//	@PostMapping("/pay")	
+	//	public String pay(@RequestParam("nguoiDungId") int nguoiDungId,HttpServletRequest request,@RequestParam("price") double price, HttpSession session ){
+	//		String cancelUrl = UtilClass.getBaseURL(request) + "/gioHang/" + URL_PAYPAL_CANCEL;
+	//		String successUrl = UtilClass.getBaseURL(request) + "/gioHang/" + URL_PAYPAL_SUCCESS;
+	//		try {
+	//			Payment payment = paypalService.createPayment(
+	//					price/23000,
+	//					"USD",
+	//					PaypalPaymentMethod.paypal,
+	//					PaypalPaymentIntent.sale,
+	//					"payment description",
+	//					cancelUrl,
+	//					successUrl);	
+	//			for(Links links : payment.getLinks()){
+	//				if(links.getRel().equals("approval_url")) {
+	//						HoaDon hoaDon = new HoaDon();
+	//						NguoiDung nguoiDung = nguoiDungRepository.findById(nguoiDungId);
+	//						hoaDon.setNgayMua(new Date());
+	//						hoaDon.setNguoiDung(nguoiDung);
+	//						hoaDonRepository.save(hoaDon);
+	//						
+	//						
+	//					return "redirect:" + links.getHref();
+	//				}
+	//			}
+	//		} catch (PayPalRESTException e) {
+	//			log.error(e.getMessage());
+	//		}
+	//		return "redirect:/";
+	//	}
+	public static final String URL_PAYPAL_SUCCESS = "/gioHang/thanhToan/success";
+	public static final String URL_PAYPAL_CANCEL = "/gioHang/thanhToan/cancel";
+
 	@PostMapping("/pay")	
-	public String pay(@RequestParam("nguoiDungId") int nguoiDungId,HttpServletRequest request,@RequestParam("price") double price, HttpSession session ){
-		String cancelUrl = UtilClass.getBaseURL(request) + "/gioHang/" + URL_PAYPAL_CANCEL;
-		String successUrl = UtilClass.getBaseURL(request) + "/gioHang/" + URL_PAYPAL_SUCCESS;
+	public String pay(@RequestParam("nguoiDungId") int nguoiDungId,HttpServletRequest request,@RequestParam("price") double price, HttpSession session,Model model ){
+		String cancelUrl = UtilClass.getBaseURL(request) + URL_PAYPAL_CANCEL;
+		String successUrl = UtilClass.getBaseURL(request) + URL_PAYPAL_SUCCESS;
+		model.addAttribute("nguoiDungId",nguoiDungRepository.findById(nguoiDungId));
 		try {
 			Payment payment = paypalService.createPayment(
 					price/23000,
@@ -158,13 +196,6 @@ public class GioHangController {
 					successUrl);	
 			for(Links links : payment.getLinks()){
 				if(links.getRel().equals("approval_url")) {
-						HoaDon hoaDon = new HoaDon();
-						NguoiDung nguoiDung = nguoiDungRepository.findById(nguoiDungId);
-						hoaDon.setNgayMua(new Date());
-						hoaDon.setNguoiDung(nguoiDung);
-						hoaDonRepository.save(hoaDon);
-						
-						
 					return "redirect:" + links.getHref();
 				}
 			}
@@ -172,5 +203,45 @@ public class GioHangController {
 			log.error(e.getMessage());
 		}
 		return "redirect:/";
+	}
+
+	@GetMapping("/thanhToan/cancel")
+	public String cancelPay(){
+		return "thanh-toan-cancel";
+	}
+
+	@GetMapping("/thanhToan/success")	
+	public String successPay(HttpServletRequest request,HttpSession session){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		TaiKhoan taiKhoan = userRepository.findByEmail(authentication.getName());
+		NguoiDung nguoiDung = nguoiDungRepository.findByTaiKhoan(taiKhoan);
+
+		HoaDon sessonHoaDon = (HoaDon) session.getAttribute("cart");
+
+		System.out.printf("aaa", sessonHoaDon);
+		Set<ChiTietSanPhamHoaDon> chiTietSanPhamHoaDons = new HashSet<ChiTietSanPhamHoaDon>();
+		sessonHoaDon.getSanPhams().forEach(s -> {
+			ChiTietSanPhamHoaDon chiTietSanPhamHoaDon = new ChiTietSanPhamHoaDon();
+			chiTietSanPhamHoaDon.setTenSanPham(s.getSanPham().getTenSanPham());
+			chiTietSanPhamHoaDon.setDonGia(s.getSanPham().getDonGia());
+			chiTietSanPhamHoaDon.setHinhAnh(s.getSanPham().getHinhAnh());
+			chiTietSanPhamHoaDon.setSoLuong(s.getSoLuong());
+			chiTietSanPhamHoaDon.setDonGiaDaCong(s.tinhTienChiTietHoaDon());
+			Set<MauSac> mauSacs = new HashSet<MauSac>();
+			s.getSanPham().getChiTietSanPham().getMauSacs().forEach(m -> {
+				chiTietSanPhamHoaDon.setMauSac(m.getTenMau());
+			});
+			s.getSanPham().getChiTietSanPham().getKichCos().forEach(k -> {
+				chiTietSanPhamHoaDon.setKichCo(k.getTenKichCo());
+			});
+			chiTietSanPhamHoaDons.add(chiTietSanPhamHoaDon);
+		});	
+		HoaDon hoaDon = new HoaDon();
+		hoaDon.setNgayMua(new Date());
+		hoaDon.setNguoiDung(nguoiDung);
+		hoaDon.setChiTietSanPhamHoaDons(chiTietSanPhamHoaDons);
+		hoaDon.setTongGiaHoaDon(sessonHoaDon.tinhTongTienTrongGioHang());
+		hoaDonRepository.save(hoaDon);
+		return "thanh-toan-success";
 	}
 }

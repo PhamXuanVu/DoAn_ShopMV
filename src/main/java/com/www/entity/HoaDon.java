@@ -5,6 +5,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -34,15 +37,32 @@ public class HoaDon {
 	
 	private Date ngayMua;
 	
+	private double tongGiaHoaDon;
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "chi_tiet_san_pham_hoa_don", joinColumns = @JoinColumn(name = "hoa_don_san_pham_id"))
+    private Set<ChiTietSanPhamHoaDon> chiTietSanPhamHoaDons;
+
+
+	public Set<ChiTietSanPhamHoaDon> getChiTietSanPhamHoaDons() {
+		return chiTietSanPhamHoaDons;
+	}
+
+	public void setChiTietSanPhamHoaDons(Set<ChiTietSanPhamHoaDon> chiTietSanPhamHoaDons) {
+		this.chiTietSanPhamHoaDons = chiTietSanPhamHoaDons;
+	}
+
 	
 
+	public double getTongGiaHoaDon() {
+		return tongGiaHoaDon;
+	}
 
-	public HoaDon(int hoaDonId, Set<ChiTietHoaDon> sanPhams, NguoiDung nguoiDung, Date ngayMua) {
-		super();
-		this.hoaDonId = hoaDonId;
-		this.sanPhams = sanPhams;
-		this.nguoiDung = nguoiDung;
-		this.ngayMua = ngayMua;
+	public void setTongGiaHoaDon(double tongGiaHoaDon) {
+		this.tongGiaHoaDon = tongGiaHoaDon;
+	}
+	public String getTongGiaHoaDonFormat() {
+		return new UtilClass().formatVND(this.getTongGiaHoaDon());
 	}
 
 	public Date getNgayMua() {
@@ -85,13 +105,6 @@ public class HoaDon {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
-	@Override
-	public String toString() {
-		return "HoaDon [hoaDonId=" + hoaDonId + ", sanPhams=" + sanPhams + ", nguoiDung=" + nguoiDung + ", ngayMua="
-				+ ngayMua + "]";
-	}
 
 	public double tinhTongTienTrongGioHang() {
         double sum = 0;

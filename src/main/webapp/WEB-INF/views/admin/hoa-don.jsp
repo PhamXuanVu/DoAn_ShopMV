@@ -41,7 +41,7 @@
 									<div class="col">
 										<button type="button" class="btn btn-outline-warning">
 											<a style="text-decoration: none" class="link-warning"
-												href="">Xem chi tiết</a>
+												href="${pageContext.request.contextPath}/admin/hoadon/chi-tiet-hoa-don/${hoaDon.hoaDonId}">Xem chi tiết</a>
 										</button>
 									</div>
 								</td>

@@ -2,11 +2,15 @@ package com.www.entity;
 
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
@@ -42,9 +46,6 @@ public class ChiTietHoaDon {
 	private double tongGiaBan;
 	
 	private int soLuong;
-	
-	
-	
 	
 	public ChiTietHoaDonPK getId() {
 		return id;
