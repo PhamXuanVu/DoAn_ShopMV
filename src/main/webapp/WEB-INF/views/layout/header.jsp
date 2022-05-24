@@ -62,7 +62,7 @@
 
 							<li><a href="${homePageUrl}">TRANG CHỦ</a></li>
 							<li><a href="">Shop</a></li>
-							<li><a href="">LIÊN HỆ</a></li>
+							<li><a href="${pageContext.request.contextPath }/lien-he">LIÊN HỆ</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -138,52 +138,6 @@
 				</div>
 			</div>
 		</section>
-		<!-- Hero Section End -->
-
-		<!-- Breadcrumb Section Begin -->
-		<%-- <section>
-			<div class="row" >
-				<div class="col-lg-12">
-					<div id="carouselExampleIndicators" class="carousel slide"
-						data-ride="carousel">
-						<ol class="carousel-indicators">
-							<li data-target="#carouselExampleIndicators" data-slide-to="0"
-								class="active"></li>
-							<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-							<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-							<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-						</ol>
-						<div class="carousel-inner">
-							<div class="carousel-item active">
-								<img style="width: 100%; height: 230px;" class="d-block w-100" src="/ShopMV/images/banner.jpg"
-									alt="First slide">
-							</div>
-							<div  class="carousel-item">
-								<img style="width: 100%; height: 230px;" class="d-block w-100" src="/ShopMV/images/banner-1.jpg"
-									alt="Second slide">
-							</div>
-							<div  class="carousel-item">
-								<img style="width: 100%; height: 230px;" class="d-block w-100" src="/ShopMV/images/banner-2.png"
-									alt="Third slide">
-							</div>
-							<div class="carousel-item">
-								<img style="width: 100%; height: 230px;" class="d-block w-100" src="/ShopMV/images/banner-3.jpg"
-									alt="Third slide">
-							</div>
-						</div>
-						<a class="carousel-control-prev" href="#carouselExampleIndicators"
-							role="button" data-slide="prev"> <span
-							class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-							class="sr-only">Previous</span>
-						</a> <a class="carousel-control-next"
-							href="#carouselExampleIndicators" role="button" data-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="sr-only">Next</span>
-						</a>
-					</div>
-				</div>
-			</div>
-		</section> --%>
 	</c:if>
 
 
@@ -231,6 +185,8 @@
 													href="${pageContext.request.contextPath}/user/form-update-user/${nguoiDung.getId()}">Tài
 														khoản</a></li>
 											</sec:authorize>
+											<li><a
+												href="${pageContext.request.contextPath}/user/hoa-don-nguoi-dung/${nguoiDung.getId()}">Đơn mua</a></li>
 											<li><a
 												href="${pageContext.request.contextPath}/perform_logout">Đăng
 													xuất</a></li>

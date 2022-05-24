@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Admin</title>
+<title>Chi tiết hóa đơn</title>
 <style type="text/css">
 table {
 	width: 100%;
@@ -64,17 +64,15 @@ th:last-child {
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
-				<jsp:include page="../layout/header-admin.jsp" />
+				<jsp:include page="../layout/header.jsp" />
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-2">
-				<jsp:include page="../layout/sidebar-admin.jsp" />
-			</div>
-			<div class="col-10">
+			<div class="col-12">
 				<div class="cart-page">
 					<table class="">
 						<tr>
+							<th>Hình ảnh</th>
 							<th>Sản phẩm</th>
 							<th></th>
 							<th>Số lượng</th>
@@ -83,7 +81,11 @@ th:last-child {
 						</tr>
 						<c:forEach items="${chiTietHoaDon}" var="chiTietHoaDon">
 							<tr>
+							<td><c:url var="image" value="${chiTietHoaDon.hinhAnh}" />
+												<img style="height: 80px; width: 80px; margin-right: 10px;"
+													src="${image}"></td>
 								<td>
+								
 									<div class="cart-info">
 										<div>
 											<p name="tenSanPham">${chiTietHoaDon.tenSanPham}</p>
@@ -116,6 +118,8 @@ th:last-child {
 					</div>
 				</div>
 			</div>
+		</div>
+		<jsp:include page="../layout/footer.jsp" />
 		</div>
 </body>
 </html>

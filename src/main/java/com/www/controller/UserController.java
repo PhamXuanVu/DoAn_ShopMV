@@ -1,6 +1,8 @@
 package com.www.controller;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -33,8 +35,10 @@ import com.www.dto.FormAddNguoiDung;
 import com.www.dto.NguoiDungDTO;
 import com.www.dto.SanPhamDTO;
 import com.www.entity.ChiTietSanPham;
+import com.www.entity.ChiTietSanPhamHoaDon;
 import com.www.entity.CuaHang;
 import com.www.entity.DanhMuc;
+import com.www.entity.HoaDon;
 import com.www.entity.KichCo;
 import com.www.entity.MauSac;
 import com.www.entity.NguoiDung;
@@ -44,6 +48,7 @@ import com.www.entity.VaiTro;
 import com.www.repository.ChiTietSanPhamRepository;
 import com.www.repository.CuaHangRepository;
 import com.www.repository.DanhMucRepository;
+import com.www.repository.HoaDonRepository;
 import com.www.repository.NguoiDungRepository;
 import com.www.repository.RoleRepository;
 import com.www.repository.SanPhamRepository;
@@ -77,6 +82,9 @@ public class UserController {
 
 	@Autowired
 	private ChiTietSanPhamRepository chiTietSanPhamRepository;
+
+	@Autowired
+	private HoaDonRepository hoaDonRepository;
 
 	@GetMapping("/login")
 	public String login() {
@@ -155,10 +163,10 @@ public class UserController {
 		modelMap.put("pagedListHolder", pagedListHolder);
 		return "/user/danh-sach-san-pham";
 	}
-	
+
 	@GetMapping("/form-add-san-pham/{id}")
 	public String createCuaHang1(@PathVariable int id,Model model) {	
-//		model.addAttribute("cuaHang", new CuaHang());
+		//		model.addAttribute("cuaHang", new CuaHang());
 		model.addAttribute("sanPhamCuaHang", new SanPhamDTO());
 		return "/user/form-add-san-pham";
 	}
@@ -194,7 +202,7 @@ public class UserController {
 				kichCo.setTenKichCo(k);
 				kichCos.add(kichCo);
 			}
-			
+
 		});
 
 		ChiTietSanPham chiTietSanPham = new ChiTietSanPham(mauSacs, kichCos);
@@ -204,7 +212,7 @@ public class UserController {
 
 		return "redirect:/user/sanphamcuahang/" + cuaHangId+"?addSuccess=true";
 	}
-	
+
 	@GetMapping("/form-update-san-pham/{id}")
 	public String updateSanPham(@PathVariable int id,Model model) {
 		SanPham sanPham = sanPhamRepository.findById(id).get();
@@ -243,7 +251,7 @@ public class UserController {
 				kichCo.setTenKichCo(k);
 				kichCos.add(kichCo);
 			}
-			
+
 		});
 		ChiTietSanPham chiTietSanPham = chiTietSanPhamRepository.findById(sanPham1.getChiTietSanPham().getChiTietSanPhamId()).get();
 		chiTietSanPham.setKichCos(kichCos);
@@ -439,5 +447,67 @@ public class UserController {
 		return "redirect:/user/nguoiban?deleteSuccess=true";
 	}
 
+	@GetMapping(value = "/hoa-don-nguoi-dung/{id}")
+	public String hoaDonNguoiDung(@PathVariable int id, ModelMap modelMap, HttpServletRequest request) {
+		PagedListHolder pagedListHolder = new PagedListHolder((List) hoaDonRepository.findHoaDonsByNguoiDungId(id));
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setPageSize(8);
+		modelMap.put("pagedListHolder", pagedListHolder);
+		return "user/hoa-don-nguoi-dung";
+	}
 
+	@GetMapping(value = "/hoa-don-nguoi-dung/chi-tiet-hoa-don/{id}")
+	public String chiTietHoaDonNguoiDung(@PathVariable int id, Model model) {
+		HoaDon hoaDon = hoaDonRepository.findById(id).get();
+		Set<ChiTietSanPhamHoaDon> chiTietSanPhamHoaDons = new HashSet<ChiTietSanPhamHoaDon>();
+		chiTietSanPhamHoaDons.addAll(hoaDon.getChiTietSanPhamHoaDons());
+		model.addAttribute("chiTietHoaDon", chiTietSanPhamHoaDons);
+		model.addAttribute("tongHoaDon", hoaDon.getTongGiaHoaDonFormat());
+		return "user/chi-tiet-hoa-don-nguoi-dung";
+	}
+
+	@GetMapping(value = "/hoa-don-cua-hang/{id}")
+	public String hoaDonCuaHang(@PathVariable int id, ModelMap modelMap, HttpServletRequest request,Model model) {
+		List<HoaDon> hoaDons =  (List<HoaDon>) hoaDonRepository.findAll();	
+		List<ChiTietSanPhamHoaDon> chiTietSanPhamHoaDons = new ArrayList<ChiTietSanPhamHoaDon>();
+		List<ChiTietSanPhamHoaDon> chiTietSanPhamHoaDonsCuaHang = new ArrayList<ChiTietSanPhamHoaDon>();
+		List<HoaDon> hoaDonsCuaHang = new ArrayList<HoaDon>();
+		Iterator<HoaDon> iterator = hoaDons.iterator();
+		while (iterator.hasNext()) {
+			HoaDon hoaDon = iterator.next();
+			hoaDon.getChiTietSanPhamHoaDons().forEach(c -> {
+				if(c.getCuaHangId() == id) {
+					hoaDonsCuaHang.add(hoaDon);
+				}
+			});
+		}
+		PagedListHolder pagedListHolder = new PagedListHolder((List) hoaDonsCuaHang);
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setPageSize(8);
+		model.addAttribute("cuaHangId", id);
+		modelMap.put("pagedListHolder", pagedListHolder);
+		return "user/hoa-don-cua-hang";
+	}
+
+	@GetMapping(value = "/hoa-don-cua-hang/{cuaHangId}/chi-tiet-hoa-don-cua-hang/{hoaDonId}")
+	public String chiTietHoaDonCuaHang(@PathVariable("cuaHangId") int cuaHangId, @PathVariable("hoaDonId") int hoaDonId,ModelMap modelMap, HttpServletRequest request,Model model) {
+		HoaDon hoaDon =  hoaDonRepository.findById(hoaDonId).get();	
+		List<ChiTietSanPhamHoaDon> chiTietSanPhamHoaDons = new ArrayList<ChiTietSanPhamHoaDon>();
+		hoaDon.getChiTietSanPhamHoaDons().forEach(c -> {
+			if(c.getCuaHangId() == cuaHangId) {
+				chiTietSanPhamHoaDons.add(c);
+			}
+		});
+		
+		PagedListHolder pagedListHolder = new PagedListHolder((List) (chiTietSanPhamHoaDons));
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setPageSize(8);
+
+		modelMap.put("pagedListHolder", pagedListHolder);
+		model.addAttribute("hoaDonId", hoaDonId);
+		return "user/chi-tiet-hoa-don-cua-hang";
+	}
 }

@@ -27,7 +27,7 @@
 						href="${pageContext.request.contextPath }/user/sanphamcuahang/${nguoiDung.cuaHang.cuaHangId}">Sản
 						phẩm</a> <a
 						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="#!">Hóa đơn</a> <a
+						href="${pageContext.request.contextPath }/user/hoa-don-cua-hang/${nguoiDung.cuaHang.cuaHangId}">Hóa đơn</a> <a
 						class="list-group-item list-group-item-action list-group-item-light p-3"
 						href="#!">Thống kê</a> <a
 						class="list-group-item list-group-item-action list-group-item-light p-3"

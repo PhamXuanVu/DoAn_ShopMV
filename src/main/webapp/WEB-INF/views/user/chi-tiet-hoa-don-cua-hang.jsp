@@ -60,29 +60,32 @@ th:last-child {
 </style>
 </head>
 <body>
-	<c:url var="addSP" value="/danhmuc/form-add-san-pham" />
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
-				<jsp:include page="../layout/header-admin.jsp" />
+				<jsp:include page="../layout/header.jsp" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-2">
-				<jsp:include page="../layout/sidebar-admin.jsp" />
+				<jsp:include page="../layout/sidebar-user.jsp" />
 			</div>
 			<div class="col-10">
 				<div class="cart-page">
 					<table class="">
 						<tr>
+							<th>Hình ảnh</th>
 							<th>Sản phẩm</th>
 							<th></th>
 							<th>Số lượng</th>
 							<th>Giá</th>
 							<th>Tổng</th>
 						</tr>
-						<c:forEach items="${chiTietHoaDon}" var="chiTietHoaDon">
+						<c:forEach items="${pagedListHolder.pageList}" var="chiTietHoaDon">
 							<tr>
+							<td><c:url var="image" value="${chiTietHoaDon.hinhAnh}" />
+												<img style="height: 80px; width: 80px; margin-right: 10px;"
+													src="${image}"></td>
 								<td>
 									<div class="cart-info">
 										<div>
@@ -90,32 +93,25 @@ th:last-child {
 										</div>
 									</div>
 								</td>
-								<td>${chiTietHoaDon.mauSac}, ${chiTietHoaDon.kichCo}</td>
+								<td>${chiTietHoaDon.mauSac},${chiTietHoaDon.kichCo}</td>
 								<td><input name="soLuong" type="number"
 									value="${chiTietHoaDon.soLuong}" disabled /></td>
-								<td name="donGia">${chiTietHoaDon.getDonGiaFormat()}</td>
+								<td>${chiTietHoaDon.getDonGiaFormat()}</td>
 								<td>${chiTietHoaDon.getDonGiaDaCongFormat()}</td>
 							</tr>
 						</c:forEach>
 					</table>
-					<div class="total-price">
-						<table>
-							<tr>
-								<td>Tổng tiền hàng</td>
-								<td>${tongHoaDon}</td>
-							</tr>
-							<tr>
-								<td>Phí vận chuyển</td>
-								<td>0 VND</td>
-							</tr>
-							<tr>
-								<td>Tổng tiền thanh toán</td>
-								<td>${tongHoaDon}</td>
-							</tr>
-						</table>
-					</div>
 				</div>
+				<jsp:useBean id="pagedListHolder" scope="request"
+					type="org.springframework.beans.support.PagedListHolder" />
+				<c:url value="/admin/hoadon" var="pagedLink">
+					<c:param name="p" value="~" />
+				</c:url>
+				<tg:paging pagedListHolder="${pagedListHolder}"
+					pagedLink="${pagedLink}" />
 			</div>
 		</div>
+		<jsp:include page="../layout/footer.jsp" />
+	</div>
 </body>
 </html>

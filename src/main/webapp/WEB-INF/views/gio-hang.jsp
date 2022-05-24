@@ -35,7 +35,7 @@ td {
 }
 
 td input {
-	width: 40px;
+	width: 50px;
 	height: 30px;
 	padding: 5px;
 }

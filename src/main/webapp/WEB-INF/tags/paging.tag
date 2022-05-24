@@ -91,7 +91,7 @@
 			</c:forEach>
 			<c:if
 				test="${pagedListHolder.lastLinkedPage < pagedListHolder.pageCount - 2}">
-				<li><span class="pagingDots">...</span></li>
+				<li class="page-item"><span class="pagingDots">...</span></li>
 			</c:if>
 			<c:if
 				test="${pagedListHolder.lastLinkedPage < pagedListHolder.pageCount - 1}">

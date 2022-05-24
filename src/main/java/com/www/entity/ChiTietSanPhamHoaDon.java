@@ -13,6 +13,8 @@ public class ChiTietSanPhamHoaDon {
 	@Nationalized
 	private String tenSanPham;
 	
+	private int cuaHangId;
+	
 	private double donGia;
 	
 	@Nationalized
@@ -35,6 +37,14 @@ public class ChiTietSanPhamHoaDon {
 
 	public void setTenSanPham(String tenSanPham) {
 		this.tenSanPham = tenSanPham;
+	}
+
+	public int getCuaHangId() {
+		return cuaHangId;
+	}
+
+	public void setCuaHangId(int cuaHangId) {
+		this.cuaHangId = cuaHangId;
 	}
 
 	public double getDonGia() {
@@ -114,6 +124,22 @@ public class ChiTietSanPhamHoaDon {
 				&& Objects.equals(hinhAnh, other.hinhAnh) && Objects.equals(kichCo, other.kichCo)
 				&& Objects.equals(mauSac, other.mauSac) && soLuong == other.soLuong
 				&& Objects.equals(tenSanPham, other.tenSanPham);
+	}
+
+	public ChiTietSanPhamHoaDon(String tenSanPham, int cuaHangId, double donGia, int soLuong, String hinhAnh,
+			String mauSac, String kichCo, double donGiaDaCong) {
+		super();
+		this.tenSanPham = tenSanPham;
+		this.cuaHangId = cuaHangId;
+		this.donGia = donGia;
+		this.soLuong = soLuong;
+		this.hinhAnh = hinhAnh;
+		this.mauSac = mauSac;
+		this.kichCo = kichCo;
+		this.donGiaDaCong = donGiaDaCong;
+	}
+
+	public ChiTietSanPhamHoaDon(ChiTietSanPhamHoaDon c) {
 	}
 
 	

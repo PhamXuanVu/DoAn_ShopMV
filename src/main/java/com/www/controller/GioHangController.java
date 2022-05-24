@@ -115,6 +115,10 @@ public class GioHangController {
 					ChiTietHoaDon chiTietHoaDon1 = new ChiTietHoaDon();
 					chiTietHoaDon1.setSanPham(chiTietHoaDon.getSanPham());
 					chiTietHoaDon1.setSoLuong(soLuongHienTai + soLuong);
+					SanPham sanPhamKho = sanPhamRepository.findById(chiTietHoaDon.getSanPham().getSanPhamId()).get();
+					if(chiTietHoaDon1.getSoLuong() > sanPhamKho.getSoLuong() ) {
+						chiTietHoaDon1.setSoLuong(sanPhamKho.getSoLuong());
+					}
 					hoaDon.getSanPhams().add(chiTietHoaDon1);
 					session.setAttribute("cart", hoaDon);
 					break;
@@ -141,45 +145,11 @@ public class GioHangController {
 		NguoiDung nguoiDung = (NguoiDung) model.getAttribute("nguoiDung");
 		return "thanh-toan";
 	}
-
-
-	//	public static final String URL_PAYPAL_SUCCESS = "thanhToan?success=true";
-	//	public static final String URL_PAYPAL_CANCEL = "thanhToan?failure=true";
-	private Logger log = LoggerFactory.getLogger(getClass());
-
-	//	@PostMapping("/pay")	
-	//	public String pay(@RequestParam("nguoiDungId") int nguoiDungId,HttpServletRequest request,@RequestParam("price") double price, HttpSession session ){
-	//		String cancelUrl = UtilClass.getBaseURL(request) + "/gioHang/" + URL_PAYPAL_CANCEL;
-	//		String successUrl = UtilClass.getBaseURL(request) + "/gioHang/" + URL_PAYPAL_SUCCESS;
-	//		try {
-	//			Payment payment = paypalService.createPayment(
-	//					price/23000,
-	//					"USD",
-	//					PaypalPaymentMethod.paypal,
-	//					PaypalPaymentIntent.sale,
-	//					"payment description",
-	//					cancelUrl,
-	//					successUrl);	
-	//			for(Links links : payment.getLinks()){
-	//				if(links.getRel().equals("approval_url")) {
-	//						HoaDon hoaDon = new HoaDon();
-	//						NguoiDung nguoiDung = nguoiDungRepository.findById(nguoiDungId);
-	//						hoaDon.setNgayMua(new Date());
-	//						hoaDon.setNguoiDung(nguoiDung);
-	//						hoaDonRepository.save(hoaDon);
-	//						
-	//						
-	//					return "redirect:" + links.getHref();
-	//				}
-	//			}
-	//		} catch (PayPalRESTException e) {
-	//			log.error(e.getMessage());
-	//		}
-	//		return "redirect:/";
-	//	}
+	
 	public static final String URL_PAYPAL_SUCCESS = "/gioHang/thanhToan/success";
 	public static final String URL_PAYPAL_CANCEL = "/gioHang/thanhToan/cancel";
-
+	private Logger log = LoggerFactory.getLogger(getClass());
+	
 	@PostMapping("/pay")	
 	public String pay(@RequestParam("nguoiDungId") int nguoiDungId,HttpServletRequest request,@RequestParam("price") double price, HttpSession session,Model model ){
 		String cancelUrl = UtilClass.getBaseURL(request) + URL_PAYPAL_CANCEL;
@@ -223,6 +193,7 @@ public class GioHangController {
 		sessonHoaDon.getSanPhams().forEach(s -> {
 			ChiTietSanPhamHoaDon chiTietSanPhamHoaDon = new ChiTietSanPhamHoaDon();
 			chiTietSanPhamHoaDon.setTenSanPham(s.getSanPham().getTenSanPham());
+			chiTietSanPhamHoaDon.setCuaHangId(s.getSanPham().getCuaHang().getCuaHangId());
 			chiTietSanPhamHoaDon.setDonGia(s.getSanPham().getDonGia());
 			chiTietSanPhamHoaDon.setHinhAnh(s.getSanPham().getHinhAnh());
 			chiTietSanPhamHoaDon.setSoLuong(s.getSoLuong());
@@ -234,6 +205,9 @@ public class GioHangController {
 			s.getSanPham().getChiTietSanPham().getKichCos().forEach(k -> {
 				chiTietSanPhamHoaDon.setKichCo(k.getTenKichCo());
 			});
+			SanPham sanPham = sanPhamRepository.findById(s.getSanPham().getSanPhamId()).get();
+			sanPham.setSoLuong(sanPham.getSoLuong()-chiTietSanPhamHoaDon.getSoLuong());
+			sanPhamRepository.save(sanPham);
 			chiTietSanPhamHoaDons.add(chiTietSanPhamHoaDon);
 		});	
 		HoaDon hoaDon = new HoaDon();

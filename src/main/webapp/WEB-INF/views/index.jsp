@@ -27,17 +27,17 @@
 	</sec:authorize>
 	<sec:authorize access="!hasRole('ROLE_ADMIN')">
 		<jsp:include page="layout/header.jsp" />
-		<section class="hero hero-normal">
-			<div class="container">
-				<c:if test="${param.success}">
-					<p style="color: red;" class="error">Cập nhật tài khoản thành
-						công!</p>
-				</c:if>
-				<div class="row">
+		<%-- <section class="hero hero-normal">
+			<div class="container"> --%>
+		<c:if test="${param.success}">
+			<p style="color: red;" class="error">Cập nhật tài khoản thành
+				công!</p>
+		</c:if>
+		<%-- <div class="row">
 					<div class="col-lg-3"></div>
 					<div class="col-lg-9">
 						<div
-							style="background-image: url('/ShopMV/images/banner111.jpg');"
+							style="background-image: url('/ShopMV/images/banner113.jpg');"
 							class="hero__item set-bg">
 							<div class="hero__text">
 								<span>EASY SHOPPING</span>
@@ -51,7 +51,72 @@
 					</div>
 				</div>
 			</div>
+		</section> --%>
+		<section class="hero hero-normal">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3"></div>
+					<div class="col-lg-9">
+						<div id="carouselExampleIndicators" class="carousel slide"
+							data-ride="carousel">
+							<ol class="carousel-indicators">
+								<li data-target="#carouselExampleIndicators" data-slide-to="0"
+									class="active"></li>
+								<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+								<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+							</ol>
+							<div class="carousel-inner">
+								<div class="hero__item set-bg carousel-item active"
+									style="background-image: url('/ShopMV/images/banner111.jpg')">
+									<div style="height: 60px;"></div>
+									<div class="hero__text">
+										<span>EASY SHOPPING</span>
+										<h2>
+											vs <br /> OSPING
+										</h2>
+										<p>Go Online and Shopping With Us</p>
+									</div>
+								</div>
+								<div class="hero__item set-bg carousel-item"
+									style="background-image: url('/ShopMV/images/banner112.jpg');">
+									<div style="height: 60px;"></div>
+									<div class="hero__text">
+										<span>EASY SHOPPING</span>
+										<h2>
+											vs <br /> OSPING
+										</h2>
+										<p>Go Online and Shopping With Us</p>
+									</div>
+								</div>
+								<div class="hero__item set-bg carousel-item"
+									style="background-image: url('/ShopMV/images/banner113.jpg');">
+									<div style="height: 60px;"></div>
+									<div class="hero__text">
+										<span>EASY SHOPPING</span>
+										<h2>
+											vs <br /> OSPING
+										</h2>
+										<p>Go Online and Shopping With Us</p>
+									</div>
+								</div>
+							</div>
+							<a class="carousel-control-prev"
+								href="#carouselExampleIndicators" role="button"
+								data-slide="prev"> <span class="carousel-control-prev-icon"
+								aria-hidden="true"></span>
+							</a> <a class="carousel-control-next"
+								href="#carouselExampleIndicators" role="button"
+								data-slide="next"> <span class="carousel-control-next-icon"
+								aria-hidden="true"></span>
+
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
 		</section>
+
 		<!-- Sản phẩm nổi bật -->
 		<section class="featured spad">
 			<div class="container">
