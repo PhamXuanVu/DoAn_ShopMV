@@ -221,6 +221,7 @@ public class GioHangController {
 			hoaDon.setNguoiDung(nguoiDung);
 			hoaDon.setChiTietSanPhamHoaDons(chiTietSanPhamHoaDons);
 			hoaDon.setTongGiaHoaDon(sessonHoaDon.tinhTongTienTrongGioHang());
+			hoaDon.setGiamGia(0);
 			hoaDonRepository.save(hoaDon);
 			session.removeAttribute("cart");
 			session.removeAttribute("soLuongGioHang");
@@ -230,28 +231,103 @@ public class GioHangController {
 
 		return "thanh-toan-success";
 	}
+	
+	@RequestMapping("/thanhToan/voucher")
+	private String voucher(@RequestParam("voucher") String voucher, HttpSession session, Model model, HttpServletRequest request) {
+		if (session.getAttribute("cart") == null){
+			return "redirect:/gioHang";
+		}
+		NguoiDung nguoiDung = (NguoiDung) model.getAttribute("nguoiDung");
+		if(voucher.equals("OSPING")) {
+			HoaDon hoaDon = (HoaDon) session.getAttribute("cart");
+			hoaDon.setTongGiaHoaDon(hoaDon.tinhTongTienTrongGioHang() - hoaDon.tinhTongTienTrongGioHang()*0.02);
+			
+			model.addAttribute("giamGia",new UtilClass().formatVND(hoaDon.tinhTongTienTrongGioHang()*0.02));
+			return "voucher";
+		}
+		return "redirect:/gioHang/thanhToan?voucher=false";
+	}
+	
+	public static final String URL_PAYPAL_VOUCHER_SUCCESS = "/gioHang/thanhToan/voucher/success";
+	public static final String URL_PAYPAL_VOUCHER_CANCEL = "/gioHang/thanhToan/voucher/cancel";
 
-	@RequestMapping("deleteGioHang/{id}")
-	public String deleteGioHang(@PathVariable int id, Model model,HttpServletRequest session) {
+	@PostMapping("/voucher/pay")	
+	public String voucherPay(@RequestParam("nguoiDungId") int nguoiDungId,HttpServletRequest request,@RequestParam("price") double price, HttpSession session,Model model ){
+		String cancelUrl = UtilClass.getBaseURL(request) + URL_PAYPAL_VOUCHER_CANCEL;
+		String successUrl = UtilClass.getBaseURL(request) + URL_PAYPAL_VOUCHER_SUCCESS;
+		model.addAttribute("nguoiDungId",nguoiDungRepository.findById(nguoiDungId));
+		try {
+			Payment payment = paypalService.createPayment(
+					price/23000,
+					"USD",
+					PaypalPaymentMethod.paypal,
+					PaypalPaymentIntent.sale,
+					"payment description",
+					cancelUrl,
+					successUrl);	
+			for(Links links : payment.getLinks()){
+				if(links.getRel().equals("approval_url")) {
+					return "redirect:" + links.getHref();
+				}
+			}
+		} catch (PayPalRESTException e) {
+			log.error(e.getMessage());
+		}
+		return "redirect:/";
+	}
+	
+	
+	@GetMapping("/thanhToan/voucher/success")	
+	public String successVoucherPay(HttpServletRequest request,HttpSession session,Model model){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		TaiKhoan taiKhoan = userRepository.findByEmail(authentication.getName());
+		NguoiDung nguoiDung = nguoiDungRepository.findByTaiKhoan(taiKhoan);
+		Set<ChiTietSanPhamHoaDon> chiTietSanPhamHoaDons = new HashSet<ChiTietSanPhamHoaDon>();
+		if(session.getAttribute("cart") != null){
+			HoaDon sessonHoaDon = (HoaDon) session.getAttribute("cart");	
+			sessonHoaDon.getSanPhams().forEach(s -> {
+				ChiTietSanPhamHoaDon chiTietSanPhamHoaDon = new ChiTietSanPhamHoaDon();
+				chiTietSanPhamHoaDon.setTenSanPham(s.getSanPham().getTenSanPham());
+				chiTietSanPhamHoaDon.setCuaHangId(s.getSanPham().getCuaHang().getCuaHangId());
+				chiTietSanPhamHoaDon.setDonGia(s.getSanPham().getDonGia());
+				chiTietSanPhamHoaDon.setHinhAnh(s.getSanPham().getHinhAnh());
+				chiTietSanPhamHoaDon.setSoLuong(s.getSoLuong());
+				chiTietSanPhamHoaDon.setDonGiaDaCong(s.tinhTienChiTietHoaDon());
+				Set<MauSac> mauSacs = new HashSet<MauSac>();
+				s.getSanPham().getChiTietSanPham().getMauSacs().forEach(m -> {
+					chiTietSanPhamHoaDon.setMauSac(m.getTenMau());
+				});
+				s.getSanPham().getChiTietSanPham().getKichCos().forEach(k -> {
+					chiTietSanPhamHoaDon.setKichCo(k.getTenKichCo());
+				});
+				SanPham sanPham = sanPhamRepository.findById(s.getSanPham().getSanPhamId()).get();
+				sanPham.setSoLuong(sanPham.getSoLuong()-chiTietSanPhamHoaDon.getSoLuong());
+				sanPhamRepository.save(sanPham);
+				chiTietSanPhamHoaDons.add(chiTietSanPhamHoaDon);
+			});	
+			HoaDon hoaDon = new HoaDon();
+			hoaDon.setNgayMua(new Date());
+			hoaDon.setNguoiDung(nguoiDung);
+			hoaDon.setChiTietSanPhamHoaDons(chiTietSanPhamHoaDons);
+			hoaDon.setTongGiaHoaDon(sessonHoaDon.getTongGiaHoaDon());
+			hoaDon.setGiamGia(sessonHoaDon.tinhTongTienTrongGioHang()*0.02);
+			hoaDonRepository.save(hoaDon);
+			session.removeAttribute("cart");
+			session.removeAttribute("soLuongGioHang");
+			session.setAttribute("chiTietHoaDon", chiTietSanPhamHoaDons);
+			session.setAttribute("tongTienHoaDon", new UtilClass().formatVND(hoaDon.getGiamGia() + hoaDon.getTongGiaHoaDon()));
+			session.setAttribute("tongTienHoaDonDaGiam", hoaDon.getTongGiaHoaDonFormat());
+			
+			session.setAttribute("giamGia", hoaDon.getGiamGiaFormat());
+		}	
+
+		return "thanh-toan-voucher-success";
+	}
+	
+	@GetMapping("/thanhToan/voucher/cancel")
+	public String cancelVoucherPay(Model model, HttpSession session){
 		HoaDon hoaDon = (HoaDon) session.getAttribute("cart");
-//		for (ChiTietHoaDon chiTietHoaDon : hoaDon.getSanPhams()) {
-//			if ((chiTietHoaDon.getSanPham().getSanPhamId() == id)) {
-//				int soLuongHienTai = chiTietHoaDon.getSoLuong();
-//				hoaDon.getSanPhams().remove(chiTietHoaDon);
-//				ChiTietHoaDon chiTietHoaDon1 = new ChiTietHoaDon();
-//				chiTietHoaDon1.setSanPham(chiTietHoaDon.getSanPham());
-//				chiTietHoaDon1.setSoLuong(soLuongHienTai -1);
-//				SanPham sanPhamKho = sanPhamRepository.findById(chiTietHoaDon.getSanPham().getSanPhamId()).get();
-//				if(chiTietHoaDon1.getSoLuong() > sanPhamKho.getSoLuong() ) {
-//					chiTietHoaDon1.setSoLuong(sanPhamKho.getSoLuong());
-//				}
-//				hoaDon.getSanPhams().add(chiTietHoaDon1);
-//				session.setAttribute("cart", hoaDon);
-//				int soLuongGioHang = (int) session.getAttribute("soLuongGioHang");
-//				session.setAttribute("soLuongGioHang",soLuongGioHang-1);
-//				break;
-//			}
-//		}
-		return "redirect:/gioHang";
+		model.addAttribute("giamGia",new UtilClass().formatVND(hoaDon.tinhTongTienTrongGioHang()*0.02));
+		return "thanh-toan-voucher-cancel";
 	}
 }

@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.www.Util.UtilClass;
 import com.www.dto.FormAddNguoiDung;
 import com.www.dto.NguoiDungDTO;
 import com.www.dto.SanPhamDTO;
@@ -463,7 +464,9 @@ public class UserController {
 		Set<ChiTietSanPhamHoaDon> chiTietSanPhamHoaDons = new HashSet<ChiTietSanPhamHoaDon>();
 		chiTietSanPhamHoaDons.addAll(hoaDon.getChiTietSanPhamHoaDons());
 		model.addAttribute("chiTietHoaDon", chiTietSanPhamHoaDons);
-		model.addAttribute("tongHoaDon", hoaDon.getTongGiaHoaDonFormat());
+		model.addAttribute("tongHoaDonDaGiam", hoaDon.getTongGiaHoaDonFormat());
+		model.addAttribute("tongHoaDon", new UtilClass().formatVND(hoaDon.getGiamGia() + hoaDon.getTongGiaHoaDon()));
+		model.addAttribute("giamGia", hoaDon.getGiamGiaFormat());
 		return "user/chi-tiet-hoa-don-nguoi-dung";
 	}
 

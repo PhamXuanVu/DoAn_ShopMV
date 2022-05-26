@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.www.Util.UtilClass;
 import com.www.entity.ChiTietSanPhamHoaDon;
 import com.www.entity.DonViVanChuyen;
 import com.www.entity.HoaDon;
@@ -67,7 +68,9 @@ public class AdminController {
 		Set<ChiTietSanPhamHoaDon> chiTietSanPhamHoaDons = new HashSet<ChiTietSanPhamHoaDon>();
 		chiTietSanPhamHoaDons.addAll(hoaDon.getChiTietSanPhamHoaDons());
 		model.addAttribute("chiTietHoaDon", chiTietSanPhamHoaDons);
-		model.addAttribute("tongHoaDon", hoaDon.getTongGiaHoaDonFormat());
+		model.addAttribute("tongHoaDonDaGiam", hoaDon.getTongGiaHoaDonFormat());
+		model.addAttribute("tongHoaDon", new UtilClass().formatVND(hoaDon.getGiamGia() + hoaDon.getTongGiaHoaDon()));
+		model.addAttribute("giamGia", hoaDon.getGiamGiaFormat());
 		return "/admin/chi-tiet-hoa-don";
 }
 	

@@ -24,6 +24,7 @@
 							<th scope="col">Tên</th>
 							<th scope="col">Ngày mua</th>
 							<th scope="col">Địa chỉ nhận hàng</th>
+							<th scope="col">Giảm giá</th>
 							<th scope="col">Tổng tiền</th>
 							<th scope="col"></th>
 						</tr>
@@ -36,6 +37,7 @@
 								<td>${hoaDon.nguoiDung.ten}</td>								
 								<td>${hoaDon.ngayMua}</td>
 								<td>${hoaDon.nguoiDung.diaChi}</td>
+								<td>${hoaDon.getGiamGiaFormat()}</td>
 								<td>${hoaDon.getTongGiaHoaDonFormat()}</td>
 								<td>
 									<div class="col">

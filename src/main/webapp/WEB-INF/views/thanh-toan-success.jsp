@@ -143,6 +143,10 @@ th:last-child {
 								<td>0 VND</td>
 							</tr>
 							<tr>
+								<td>Giảm giá</td>
+								<td>0 VND</td>
+							</tr>
+							<tr>
 								<td>Tổng tiền thanh toán</td>
 								<td>${tongTienHoaDon}</td>
 							</tr>

@@ -66,17 +66,16 @@ th:last-child {
 <title>Thanh toán</title>
 </head>
 <body>
-	<c:url var="homePageUrl" value="/" />
 	<div class="container">
 		<jsp:include page="layout/header.jsp" />
-			<div class="row">
+				<div class="row">
 				<div class="col-12">
 					<div class="alert alert-danger" role="alert">Đặt hàng không
 						thành công, có lỗi xảy ra.</div>
 				</div>
 			</div>
 		<form class="m-auto"
-			action="${pageContext.request.contextPath}/gioHang/pay" method="POST"
+			action="${pageContext.request.contextPath}/gioHang/voucher/pay" method="POST"
 			enctype="application/x-www-form-urlencoded">
 			<input name="nguoiDungId" type="hidden" value="${nguoiDung.id}" />
 			<div class="row">
@@ -112,7 +111,7 @@ th:last-child {
 						</tr>
 						<c:forEach items="${cart.sanPhams}" var="chiTietHoaDon">
 							<input name="price" type="hidden"
-								value="${cart.tinhTongTienTrongGioHang()}" />
+								value="${cart.getTongGiaHoaDon()}" />
 							<tr>
 								<td>
 									<div class="cart-info">
@@ -149,11 +148,11 @@ th:last-child {
 							</tr>
 							<tr>
 								<td>Giảm giá</td>
-								<td>0 VND</td>
+								<td>${giamGia }</td>
 							</tr>
 							<tr>
 								<td>Tổng tiền thanh toán</td>
-								<td>${cart.getTongTienChiTietHoaDonFormat()}</td>
+								<td>${cart.getTongGiaHoaDonFormat()}</td>
 							</tr>
 						</table>
 					</div>
@@ -161,6 +160,7 @@ th:last-child {
 						<button type="submit" class="btn btn-warning btn-lg btn-block">
 							Thanh toán<span class="glyphicon glyphicon-chevron-right"></span>
 						</button>
+>
 
 
 			</div>

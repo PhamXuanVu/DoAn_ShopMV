@@ -69,23 +69,36 @@ th:last-child {
 	<c:url var="homePageUrl" value="/" />
 	<div class="container">
 		<jsp:include page="layout/header.jsp" />
-		<c:if test="${param.success}">
-			<div class="row">
-				<div class="col-12">
-					<div class="alert alert-success" role="alert">Đặt hàng thành
-						công. Tiếp tục mua hàng nào.</div>
+		<c:choose>
+			<c:when test="${param.voucher == false}">
+				<div class="row">
+					<div class="col-12">
+						<div class="alert alert-danger" role="alert">Mã voucher
+							không tồn tại</div>
+					</div>
 				</div>
-			</div>
-		</c:if>
-
-		<c:if test="${param.failure}">
-			<div class="row">
-				<div class="col-12">
-					<div class="alert alert-danger" role="alert">Đặt hàng không
-						thành công, có lỗi xảy ra.</div>
-				</div>
-			</div>
-		</c:if>
+				<form class="m-auto d-flex"
+					action="${pageContext.request.contextPath}/gioHang/thanhToan/voucher"
+					method="POST" enctype="application/x-www-form-urlencoded">
+					<input type="search" class="form-control rounded" name="voucher"
+						placeholder="Nhập mã OSPING giảm được giảm 2% tổng hóa đơn"
+						aria-label="" aria-describedby="search-addon" />
+					<button type="submit" class="btn btn-outline-success">Áp
+						dụng</button>
+				</form>
+			</c:when>
+			<c:otherwise>
+				<form class="m-auto d-flex"
+					action="${pageContext.request.contextPath}/gioHang/thanhToan/voucher"
+					method="POST" enctype="application/x-www-form-urlencoded">
+					<input type="search" class="form-control rounded" name="voucher"
+						placeholder="Nhập mã OSPING giảm được giảm 2% tổng hóa đơn"
+						aria-label="" aria-describedby="search-addon" />
+					<button type="submit" class="btn btn-outline-success">Áp
+						dụng</button>
+				</form>
+			</c:otherwise>
+		</c:choose>
 		<form class="m-auto"
 			action="${pageContext.request.contextPath}/gioHang/pay" method="POST"
 			enctype="application/x-www-form-urlencoded">
@@ -159,26 +172,20 @@ th:last-child {
 								<td>0 VND</td>
 							</tr>
 							<tr>
+								<td>Giảm giá</td>
+								<td>0 VND</td>
+							</tr>
+							<tr>
 								<td>Tổng tiền thanh toán</td>
 								<td>${cart.getTongTienChiTietHoaDonFormat()}</td>
 							</tr>
 						</table>
 					</div>
 				</div>
-				<c:choose>
-					<c:when test="${ param.success}">
-					</c:when>
-					<c:when test="${ param.failure}">
-						<button type="submit" class="btn btn-warning btn-lg btn-block">
-							Thanh toán<span class="glyphicon glyphicon-chevron-right"></span>
-						</button>
-					</c:when>
-					<c:otherwise>
-						<button type="submit" class="btn btn-warning btn-lg btn-block">
-							Thanh toán<span class="glyphicon glyphicon-chevron-right"></span>
-						</button>
-					</c:otherwise>
-				</c:choose>
+
+				<button type="submit" class="btn btn-warning btn-lg btn-block">
+					Thanh toán<span class="glyphicon glyphicon-chevron-right"></span>
+				</button>
 
 
 			</div>

@@ -37,12 +37,27 @@ public class HoaDon {
 	
 	private Date ngayMua;
 	
+	private double giamGia;
+	
 	private double tongGiaHoaDon;
+	
 	
 	@ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "chi_tiet_san_pham_hoa_don", joinColumns = @JoinColumn(name = "hoa_don_san_pham_id"))
     private Set<ChiTietSanPhamHoaDon> chiTietSanPhamHoaDons;
 
+
+	public double getGiamGia() {
+		return giamGia;
+	}
+
+	public void setGiamGia(double giamGia) {
+		this.giamGia = giamGia;
+	}
+	
+	public String getGiamGiaFormat() {
+		return new UtilClass().formatVND(this.getGiamGia());
+	}
 
 	public Set<ChiTietSanPhamHoaDon> getChiTietSanPhamHoaDons() {
 		return chiTietSanPhamHoaDons;
