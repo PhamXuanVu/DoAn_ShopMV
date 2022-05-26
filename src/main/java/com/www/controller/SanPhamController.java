@@ -49,19 +49,19 @@ public class SanPhamController {
 		PagedListHolder pagedListHolder = new PagedListHolder(products);
 		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 		pagedListHolder.setPage(page);
-		pagedListHolder.setPageSize(10);
+		pagedListHolder.setPageSize(12);
 		modelMap.put("pagedListHolder", pagedListHolder);
 		return "tat-ca-san-pham";
 	}
 	
 	@GetMapping("/san-pham-cua-hang/{id}")
 	public String getAllSanPhamByCuaHang(@PathVariable int id,ModelMap modelMap,HttpServletRequest request,Model model) {
-		List<SanPham> products = (List<SanPham>) sanPhamRepository.getSanPhamByCuaHang(id);
+		List<SanPham> products = (List<SanPham>) sanPhamRepository.getSanPhamByCuaHangId(id);
 		model.addAttribute("cuaHang",cuaHangRepository.findById(id).get());
 		PagedListHolder pagedListHolder = new PagedListHolder(products);
 		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 		pagedListHolder.setPage(page);
-		pagedListHolder.setPageSize(9);
+		pagedListHolder.setPageSize(12);
 		modelMap.put("pagedListHolder", pagedListHolder);
 		return "san-pham-cua-hang";
 	}
@@ -78,4 +78,5 @@ public class SanPhamController {
 		model.addAttribute("sanPhamTimKiem",sanPhamRepository.getSanPhamByTenSanPham("%"+tenSanPham+"%"));
 		return "/tim-kiem";
 	}
+	
 }

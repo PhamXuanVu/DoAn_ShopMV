@@ -22,9 +22,10 @@ public interface SanPhamRepository extends CrudRepository<SanPham, Integer> {
 	@Query(value = "select * from [dbo].[san_pham] where soLuong <=5",nativeQuery = true)
 	List<SanPham> getSanPhamNoiBat();
 	
-	@Query(value = "select top 6 * from [dbo].[san_pham] order by sanPhamId desc",nativeQuery = true)
+	@Query(value = "select top 8 * from [dbo].[san_pham] order by sanPhamId desc",nativeQuery = true)
 	List<SanPham> getSanPhamMoi();
 	
-	@Query(value = "select * from [dbo].[san_pham] where cuaHangId = ?1",nativeQuery = true)
-	List<SanPham> getSanPhamByCuaHang(int cuaHangId);
+	@Query(value = "select * from [dbo].[san_pham] where [danhMucId] = ?1 and soLuong <=5 ",nativeQuery = true)
+	List<SanPham> getSanPhamNoiBatByDanhMuc(int cuaHangId);
+	
 }

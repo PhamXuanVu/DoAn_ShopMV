@@ -3,10 +3,11 @@
 <%@page import="com.www.entity.HoaDon"%>
 <%@page import="java.util.Date"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <!DOCTYPE html>
 <html>
 <head>
-<link <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<link 
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
@@ -110,30 +111,24 @@ th:last-child {
 							<th>Giá</th>
 							<th>Tổng</th>
 						</tr>
-						<c:forEach items="${cart.sanPhams}" var="chiTietHoaDon">
-							<input name="price" type="hidden"
-								value="${cart.tinhTongTienTrongGioHang()}" />
+						<c:forEach items="${chiTietHoaDon}" var="chiTietHoaDon">
 							<tr>
 								<td>
 									<div class="cart-info">
 										<div>
-											<p name="tenSanPham">${chiTietHoaDon.sanPham.tenSanPham}</p>
+											<p name="tenSanPham">${chiTietHoaDon.tenSanPham}</p>
 										</div>
 									</div>
 								</td>
-								<td><c:forEach
-										items="${chiTietHoaDon.sanPham.chiTietSanPham.mauSacs}"
-										var="m">
-											${m.tenMau}
-										</c:forEach> , <c:forEach
-										items="${chiTietHoaDon.sanPham.chiTietSanPham.kichCos}"
-										var="k">
-											${k.tenKichCo}
-										</c:forEach></td>
+								<td>										
+											${chiTietHoaDon.mauSac}
+												,
+											${chiTietHoaDon.kichCo}
+									</td>
 								<td><input name="soLuong" type="number"
 									value="${chiTietHoaDon.soLuong}" disabled /></td>
-								<td name="donGia">${chiTietHoaDon.tinhGiaBanFormat()}</td>
-								<td>${chiTietHoaDon.getTongTien()}</td>
+								<td name="donGia">${chiTietHoaDon.getDonGiaFormat()}</td>
+								<td>${chiTietHoaDon.getDonGiaDaCongFormat()}</td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -141,7 +136,7 @@ th:last-child {
 						<table>
 							<tr>
 								<td>Tổng tiền hàng</td>
-								<td>${cart.getTongTienChiTietHoaDonFormat()}</td>
+								<td>${tongTienHoaDon}</td>
 							</tr>
 							<tr>
 								<td>Phí vận chuyển</td>
@@ -149,7 +144,7 @@ th:last-child {
 							</tr>
 							<tr>
 								<td>Tổng tiền thanh toán</td>
-								<td>${cart.getTongTienChiTietHoaDonFormat()}</td>
+								<td>${tongTienHoaDon}</td>
 							</tr>
 						</table>
 					</div>

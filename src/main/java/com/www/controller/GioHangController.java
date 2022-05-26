@@ -1,5 +1,7 @@
 package com.www.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,7 +77,7 @@ public class GioHangController {
 	@RequestMapping(value = {"/add"})
 	public String postAddCart(@RequestParam(value = "id") int maSanPham, 
 			HttpServletRequest request,HttpSession session) {
-		
+
 		int soLuong = Integer.parseInt(request.getParameter("soLuong"));
 		String mauSac = request.getParameter("mauSac");
 		String kichCo = request.getParameter("kichCo");
@@ -105,6 +108,7 @@ public class GioHangController {
 
 			hoaDon.setSanPhams(chiTietHoaDons);
 			session.setAttribute("cart", hoaDon);
+			session.setAttribute("soLuongGioHang",soLuong);
 		} else {
 			HoaDon hoaDon = (HoaDon) session.getAttribute("cart");
 			int flag = 0;
@@ -121,6 +125,8 @@ public class GioHangController {
 					}
 					hoaDon.getSanPhams().add(chiTietHoaDon1);
 					session.setAttribute("cart", hoaDon);
+					int soLuongGioHang = (int) session.getAttribute("soLuongGioHang");
+					session.setAttribute("soLuongGioHang",soLuongGioHang+soLuong);
 					break;
 				}
 				flag++;				
@@ -131,6 +137,8 @@ public class GioHangController {
 				chiTietHoaDon.setSanPham(sanPham);
 				hoaDon.getSanPhams().add(chiTietHoaDon);
 				session.setAttribute("cart", hoaDon);
+				int soLuongGioHang = (int) session.getAttribute("soLuongGioHang");
+				session.setAttribute("soLuongGioHang",soLuongGioHang+soLuong);
 			}
 
 		}
@@ -145,11 +153,11 @@ public class GioHangController {
 		NguoiDung nguoiDung = (NguoiDung) model.getAttribute("nguoiDung");
 		return "thanh-toan";
 	}
-	
+
 	public static final String URL_PAYPAL_SUCCESS = "/gioHang/thanhToan/success";
 	public static final String URL_PAYPAL_CANCEL = "/gioHang/thanhToan/cancel";
 	private Logger log = LoggerFactory.getLogger(getClass());
-	
+
 	@PostMapping("/pay")	
 	public String pay(@RequestParam("nguoiDungId") int nguoiDungId,HttpServletRequest request,@RequestParam("price") double price, HttpSession session,Model model ){
 		String cancelUrl = UtilClass.getBaseURL(request) + URL_PAYPAL_CANCEL;
@@ -181,41 +189,69 @@ public class GioHangController {
 	}
 
 	@GetMapping("/thanhToan/success")	
-	public String successPay(HttpServletRequest request,HttpSession session){
+	public String successPay(HttpServletRequest request,HttpSession session,Model model){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		TaiKhoan taiKhoan = userRepository.findByEmail(authentication.getName());
 		NguoiDung nguoiDung = nguoiDungRepository.findByTaiKhoan(taiKhoan);
-
-		HoaDon sessonHoaDon = (HoaDon) session.getAttribute("cart");
-
-		System.out.printf("aaa", sessonHoaDon);
 		Set<ChiTietSanPhamHoaDon> chiTietSanPhamHoaDons = new HashSet<ChiTietSanPhamHoaDon>();
-		sessonHoaDon.getSanPhams().forEach(s -> {
-			ChiTietSanPhamHoaDon chiTietSanPhamHoaDon = new ChiTietSanPhamHoaDon();
-			chiTietSanPhamHoaDon.setTenSanPham(s.getSanPham().getTenSanPham());
-			chiTietSanPhamHoaDon.setCuaHangId(s.getSanPham().getCuaHang().getCuaHangId());
-			chiTietSanPhamHoaDon.setDonGia(s.getSanPham().getDonGia());
-			chiTietSanPhamHoaDon.setHinhAnh(s.getSanPham().getHinhAnh());
-			chiTietSanPhamHoaDon.setSoLuong(s.getSoLuong());
-			chiTietSanPhamHoaDon.setDonGiaDaCong(s.tinhTienChiTietHoaDon());
-			Set<MauSac> mauSacs = new HashSet<MauSac>();
-			s.getSanPham().getChiTietSanPham().getMauSacs().forEach(m -> {
-				chiTietSanPhamHoaDon.setMauSac(m.getTenMau());
-			});
-			s.getSanPham().getChiTietSanPham().getKichCos().forEach(k -> {
-				chiTietSanPhamHoaDon.setKichCo(k.getTenKichCo());
-			});
-			SanPham sanPham = sanPhamRepository.findById(s.getSanPham().getSanPhamId()).get();
-			sanPham.setSoLuong(sanPham.getSoLuong()-chiTietSanPhamHoaDon.getSoLuong());
-			sanPhamRepository.save(sanPham);
-			chiTietSanPhamHoaDons.add(chiTietSanPhamHoaDon);
-		});	
-		HoaDon hoaDon = new HoaDon();
-		hoaDon.setNgayMua(new Date());
-		hoaDon.setNguoiDung(nguoiDung);
-		hoaDon.setChiTietSanPhamHoaDons(chiTietSanPhamHoaDons);
-		hoaDon.setTongGiaHoaDon(sessonHoaDon.tinhTongTienTrongGioHang());
-		hoaDonRepository.save(hoaDon);
+		if(session.getAttribute("cart") != null){
+			HoaDon sessonHoaDon = (HoaDon) session.getAttribute("cart");	
+			sessonHoaDon.getSanPhams().forEach(s -> {
+				ChiTietSanPhamHoaDon chiTietSanPhamHoaDon = new ChiTietSanPhamHoaDon();
+				chiTietSanPhamHoaDon.setTenSanPham(s.getSanPham().getTenSanPham());
+				chiTietSanPhamHoaDon.setCuaHangId(s.getSanPham().getCuaHang().getCuaHangId());
+				chiTietSanPhamHoaDon.setDonGia(s.getSanPham().getDonGia());
+				chiTietSanPhamHoaDon.setHinhAnh(s.getSanPham().getHinhAnh());
+				chiTietSanPhamHoaDon.setSoLuong(s.getSoLuong());
+				chiTietSanPhamHoaDon.setDonGiaDaCong(s.tinhTienChiTietHoaDon());
+				Set<MauSac> mauSacs = new HashSet<MauSac>();
+				s.getSanPham().getChiTietSanPham().getMauSacs().forEach(m -> {
+					chiTietSanPhamHoaDon.setMauSac(m.getTenMau());
+				});
+				s.getSanPham().getChiTietSanPham().getKichCos().forEach(k -> {
+					chiTietSanPhamHoaDon.setKichCo(k.getTenKichCo());
+				});
+				SanPham sanPham = sanPhamRepository.findById(s.getSanPham().getSanPhamId()).get();
+				sanPham.setSoLuong(sanPham.getSoLuong()-chiTietSanPhamHoaDon.getSoLuong());
+				sanPhamRepository.save(sanPham);
+				chiTietSanPhamHoaDons.add(chiTietSanPhamHoaDon);
+			});	
+			HoaDon hoaDon = new HoaDon();
+			hoaDon.setNgayMua(new Date());
+			hoaDon.setNguoiDung(nguoiDung);
+			hoaDon.setChiTietSanPhamHoaDons(chiTietSanPhamHoaDons);
+			hoaDon.setTongGiaHoaDon(sessonHoaDon.tinhTongTienTrongGioHang());
+			hoaDonRepository.save(hoaDon);
+			session.removeAttribute("cart");
+			session.removeAttribute("soLuongGioHang");
+			session.setAttribute("chiTietHoaDon", chiTietSanPhamHoaDons);
+			session.setAttribute("tongTienHoaDon", hoaDon.getTongGiaHoaDonFormat());
+		}	
+
 		return "thanh-toan-success";
+	}
+
+	@RequestMapping("deleteGioHang/{id}")
+	public String deleteGioHang(@PathVariable int id, Model model,HttpServletRequest session) {
+		HoaDon hoaDon = (HoaDon) session.getAttribute("cart");
+//		for (ChiTietHoaDon chiTietHoaDon : hoaDon.getSanPhams()) {
+//			if ((chiTietHoaDon.getSanPham().getSanPhamId() == id)) {
+//				int soLuongHienTai = chiTietHoaDon.getSoLuong();
+//				hoaDon.getSanPhams().remove(chiTietHoaDon);
+//				ChiTietHoaDon chiTietHoaDon1 = new ChiTietHoaDon();
+//				chiTietHoaDon1.setSanPham(chiTietHoaDon.getSanPham());
+//				chiTietHoaDon1.setSoLuong(soLuongHienTai -1);
+//				SanPham sanPhamKho = sanPhamRepository.findById(chiTietHoaDon.getSanPham().getSanPhamId()).get();
+//				if(chiTietHoaDon1.getSoLuong() > sanPhamKho.getSoLuong() ) {
+//					chiTietHoaDon1.setSoLuong(sanPhamKho.getSoLuong());
+//				}
+//				hoaDon.getSanPhams().add(chiTietHoaDon1);
+//				session.setAttribute("cart", hoaDon);
+//				int soLuongGioHang = (int) session.getAttribute("soLuongGioHang");
+//				session.setAttribute("soLuongGioHang",soLuongGioHang-1);
+//				break;
+//			}
+//		}
+		return "redirect:/gioHang";
 	}
 }

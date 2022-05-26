@@ -107,7 +107,7 @@ public class ChiTietSanPhamHoaDon {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(donGia, donGiaDaCong, hinhAnh, kichCo, mauSac, soLuong, tenSanPham);
+		return Objects.hash(cuaHangId, donGia, donGiaDaCong, hinhAnh, kichCo, mauSac, soLuong, tenSanPham);
 	}
 
 	@Override
@@ -119,27 +119,11 @@ public class ChiTietSanPhamHoaDon {
 		if (getClass() != obj.getClass())
 			return false;
 		ChiTietSanPhamHoaDon other = (ChiTietSanPhamHoaDon) obj;
-		return Double.doubleToLongBits(donGia) == Double.doubleToLongBits(other.donGia)
+		return cuaHangId == other.cuaHangId && Double.doubleToLongBits(donGia) == Double.doubleToLongBits(other.donGia)
 				&& Double.doubleToLongBits(donGiaDaCong) == Double.doubleToLongBits(other.donGiaDaCong)
 				&& Objects.equals(hinhAnh, other.hinhAnh) && Objects.equals(kichCo, other.kichCo)
 				&& Objects.equals(mauSac, other.mauSac) && soLuong == other.soLuong
 				&& Objects.equals(tenSanPham, other.tenSanPham);
-	}
-
-	public ChiTietSanPhamHoaDon(String tenSanPham, int cuaHangId, double donGia, int soLuong, String hinhAnh,
-			String mauSac, String kichCo, double donGiaDaCong) {
-		super();
-		this.tenSanPham = tenSanPham;
-		this.cuaHangId = cuaHangId;
-		this.donGia = donGia;
-		this.soLuong = soLuong;
-		this.hinhAnh = hinhAnh;
-		this.mauSac = mauSac;
-		this.kichCo = kichCo;
-		this.donGiaDaCong = donGiaDaCong;
-	}
-
-	public ChiTietSanPhamHoaDon(ChiTietSanPhamHoaDon c) {
 	}
 
 	

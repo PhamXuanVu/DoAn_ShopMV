@@ -55,7 +55,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label>Số lương</label>
+								<label>Số lượng</label>
 								<form:input path="soLuong" name="soLuong" type="text"
 									class="form-control" placeholder="" />
 								<form:errors path="soLuong" cssClass="error" />

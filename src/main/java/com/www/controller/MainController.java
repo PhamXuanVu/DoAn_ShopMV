@@ -49,7 +49,7 @@ public class MainController {
 		PagedListHolder pagedListHolder = new PagedListHolder(products);
 		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 		pagedListHolder.setPage(page);
-		pagedListHolder.setPageSize(10);
+		pagedListHolder.setPageSize(12);
 		modelMap.put("pagedListHolder", pagedListHolder);
 	    return "index";
 	}
@@ -84,4 +84,18 @@ public class MainController {
 	    SecurityContextHolder.getContext().setAuthentication(authentication);
 	    return "redirect:/";
 	  }
+	
+	@RequestMapping("/san-pham-noi-bat/{id}")
+	public String spNoiBatByDanhMuc(@PathVariable("id") int danhMucId,Model model,HttpServletRequest request,ModelMap modelMap) {
+		model.addAttribute("sanPham", sanPhamRepository.findAll());
+		model.addAttribute("sanPhamNoiBat", sanPhamRepository.getSanPhamNoiBatByDanhMuc(danhMucId));
+		model.addAttribute("sanPhamMoi", sanPhamRepository.getSanPhamMoi());
+		List<SanPham> products = (List<SanPham>) sanPhamRepository.findAll();
+		PagedListHolder pagedListHolder = new PagedListHolder(products);
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setPageSize(8);
+		modelMap.put("pagedListHolder", pagedListHolder);
+		return "/san-pham-noi-bat";
+	}
 }

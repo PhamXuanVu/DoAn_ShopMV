@@ -52,8 +52,6 @@ public class HoaDon {
 		this.chiTietSanPhamHoaDons = chiTietSanPhamHoaDons;
 	}
 
-	
-
 	public double getTongGiaHoaDon() {
 		return tongGiaHoaDon;
 	}

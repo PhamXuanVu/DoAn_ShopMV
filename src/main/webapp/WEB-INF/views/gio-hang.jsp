@@ -109,7 +109,7 @@ th:last-child {
 												<div>
 													<p>${chiTietHoaDon.sanPham.tenSanPham}</p>
 													<small>${chiTietHoaDon.tinhGiaBanFormat()}</small> <br />
-													<a href="">Xóa</a>
+													<a href="${pageContext.request.contextPath}/gioHang/deleteGioHang/${chiTietHoaDon.sanPham.sanPhamId}">Xóa</a>
 												</div>
 											</div>
 										</td>

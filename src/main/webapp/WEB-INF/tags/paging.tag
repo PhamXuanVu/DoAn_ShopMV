@@ -73,9 +73,9 @@
 				<li class="page-item"><a class="page-link"
 					href="<%=StringUtils.replace(pagedLink, "~", "0")%>">1</a></li>
 			</c:if>
-<%-- 			<c:if test="${pagedListHolder.firstLinkedPage > 1}">
-				<li class="page-item"><span class="pagingDots">...</span></li>
-			</c:if> --%>
+			<c:if test="${pagedListHolder.firstLinkedPage > 3}">
+				<li class="page-item"><span class="page-link">...</span></li>
+			</c:if>
 			<c:forEach begin="${pagedListHolder.firstLinkedPage}"
 				end="${pagedListHolder.lastLinkedPage}" var="i">
 				<c:choose>
@@ -90,8 +90,8 @@
 				</c:choose>
 			</c:forEach>
 			<c:if
-				test="${pagedListHolder.lastLinkedPage < pagedListHolder.pageCount - 2}">
-				<li class="page-item"><span class="pagingDots">...</span></li>
+				test="${pagedListHolder.lastLinkedPage < pagedListHolder.pageCount - 3}">
+				<li class="page-item"><span class="page-link">...</span></li>
 			</c:if>
 			<c:if
 				test="${pagedListHolder.lastLinkedPage < pagedListHolder.pageCount - 1}">
