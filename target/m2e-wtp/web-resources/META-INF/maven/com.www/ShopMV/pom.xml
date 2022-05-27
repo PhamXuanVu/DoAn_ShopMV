@@ -73,6 +73,11 @@
             <artifactId>spring-core</artifactId>
             <version>5.3.5</version>
         </dependency>
+        <dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.29</version>
+</dependency>
 
         <!-- http://mvnrepository.com/artifact/org.springframework/spring-web -->
         <dependency>

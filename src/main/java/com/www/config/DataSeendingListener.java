@@ -109,8 +109,8 @@ public class DataSeendingListener implements ApplicationListener {
         }
         
         
-        if(danhMucRepository.findByTenDanhMuc("Phụ kiện điện thoại") == null) {
-        	DanhMuc danhMuc = new DanhMuc("Phụ kiện điện thoại");
+        if(danhMucRepository.findByTenDanhMuc("Phụ kiện") == null) {
+        	DanhMuc danhMuc = new DanhMuc("Phụ kiện");
         	danhMucRepository.save(danhMuc);
         }
         

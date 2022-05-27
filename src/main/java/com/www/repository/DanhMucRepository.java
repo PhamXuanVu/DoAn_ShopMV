@@ -8,6 +8,6 @@ import com.www.entity.DanhMuc;
 
 @Repository
 public interface DanhMucRepository extends CrudRepository<DanhMuc, Integer>{
-	@Query(value = "select * from [dbo].[danh_muc] where [tenDanhMuc] = ?1",nativeQuery = true)
+	@Query(value = "select * from danh_muc where tenDanhMuc = ?1",nativeQuery = true)
 	DanhMuc findByTenDanhMuc(String name);
 }
