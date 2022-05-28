@@ -60,7 +60,7 @@
 						<ul>
 
 							<li><a href="${homePageUrl}">TRANG CHỦ</a></li>
-							<li><a href="">Shop</a></li>
+							<li><a href="${pageContext.request.contextPath}/ho-tro">HỖ TRỢ</a></li>
 							<li><a href="${pageContext.request.contextPath }/lien-he">LIÊN
 									HỆ</a></li>
 						</ul>
@@ -154,7 +154,7 @@
 					<nav class="header__menu">
 						<ul>
 							<li><a href="${ homePageUrl}">TRANG CHỦ</a></li>
-							<li class="active"><a href="">Shop</a></li>
+							<li><a href="${pageContext.request.contextPath}/ho-tro">HỖ TRỢ</a></li>
 							<li><a href="${pageContext.request.contextPath }/lien-he">LIÊN
 									HỆ</a></li>
 						</ul>

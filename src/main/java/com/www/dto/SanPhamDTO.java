@@ -13,7 +13,7 @@ public class SanPhamDTO {
 	@NotEmpty(message = "Tên sản phẩm không được để trống")
 	private String tenSanPham;
 	
-	@Min(message = "Đơn giá không được để trống, thấp nhất là 20000", value = 20000)
+	@Min(message = "Đơn giá không được để trống, thấp nhất là 20000", value = 1000)
 	private double donGia;
 	
 	@Min(message = "Số lượng không được để trống, thấp nhất là 1", value = 1)

@@ -59,6 +59,11 @@ public class MainController {
 	    return "lien-he";
 	}
 	
+	@GetMapping("/ho-tro")
+	public String hoTro() {	
+	    return "ho-tro";
+	}
+	
 	@RequestMapping(value="/chiTietSP/{id}")   
 	public String showProductDetail(@PathVariable int id, Model model){    
 		SanPham sanPham = sanPhamRepository.findById(id).get();

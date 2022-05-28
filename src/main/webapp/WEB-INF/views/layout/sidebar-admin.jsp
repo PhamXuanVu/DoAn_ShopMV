@@ -12,21 +12,22 @@
 	<c:url var="danhMucAd" value="/danhmuc/" />
 	<div class="d-flex" id="wrapper">
 		<!-- Sidebar-->
-		<div  class="border-end bg-white" id="sidebar-wrapper">
+		<div class="border-end bg-white" id="sidebar-wrapper">
 			<div class="sidebar-heading border-bottom">Admin</div>
 			<div class="list-group list-group-flush">
-				<a 
+				<a
 					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="${pageContext.request.contextPath }/user/nguoimua">Người mua</a> <a
+					href="${pageContext.request.contextPath }/user/nguoimua">Người
+					mua</a> <a
 					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="${pageContext.request.contextPath }/user/nguoiban">Người bán</a><a
+					href="${pageContext.request.contextPath }/user/nguoiban">Người
+					bán</a><a
 					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="${pageContext.request.contextPath }/admin/hoadon">Hóa đơn</a> <a
+					href="${pageContext.request.contextPath }/admin/hoadon">Hóa đơn</a>
+				<a
 					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="">Thanh toán</a>
-					<a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="${pageContext.request.contextPath }/admin/don-vi-van-chuyen">Vận chuyển</a>
+					href="${pageContext.request.contextPath }/admin/don-vi-van-chuyen">Vận
+					chuyển</a>
 
 			</div>
 
